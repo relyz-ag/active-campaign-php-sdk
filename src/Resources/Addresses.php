@@ -31,4 +31,14 @@ final class Addresses extends Resource
     {
         return Address::class;
     }
+
+    public function deleteByGroup(int $groupId): void
+    {
+        $this->client->delete('addresses/group/' . $groupId);
+    }
+
+    public function deleteByList(int $listId): void
+    {
+        $this->client->delete('addresses/list/' . $listId);
+    }
 }
