@@ -1,0 +1,11 @@
+{
+    "contact": {
+        "id": "1",
+        "email": "jane@example.com",
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "phone": "+1234567890",
+        "cdate": "2024-01-15T10:30:00-05:00",
+        "udate": "2024-06-20T14:00:00-05:00"
+    }
+}
