@@ -31,4 +31,25 @@ final class Users extends Resource
     {
         return User::class;
     }
+
+    public function getByEmail(string $email): User
+    {
+        $response = $this->client->get('users/email/' . urlencode($email));
+
+        return User::fromArray($response['user']);
+    }
+
+    public function getByUsername(string $username): User
+    {
+        $response = $this->client->get('users/username/' . urlencode($username));
+
+        return User::fromArray($response['user']);
+    }
+
+    public function me(): User
+    {
+        $response = $this->client->get('users/me');
+
+        return User::fromArray($response['user']);
+    }
 }
