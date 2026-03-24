@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Sdk\Resources\Concerns;
 
+use ActiveCampaign\Sdk\Http\Paginator;
 use ActiveCampaign\Sdk\Models\ListResponse;
 use ActiveCampaign\Sdk\Models\Meta;
 
@@ -77,5 +78,21 @@ trait HasCrud
     public function delete(int $id): void
     {
         $this->client->delete($this->endpoint() . '/' . $id);
+    }
+
+    /**
+     * @param array<string, mixed> $params
+     * @return Paginator<T>
+     */
+    public function paginate(int $limit = 20, array $params = []): Paginator
+    {
+        return new Paginator(
+            client: $this->client,
+            endpoint: $this->endpoint(),
+            pluralKey: $this->pluralKey(),
+            modelClass: $this->modelClass(),
+            limit: $limit,
+            params: $params,
+        );
     }
 }
