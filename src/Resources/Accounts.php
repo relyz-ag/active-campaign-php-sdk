@@ -31,4 +31,30 @@ final class Accounts extends Resource
     {
         return Account::class;
     }
+
+    /**
+     * @param array<string, mixed> $data
+     * @return array<string, mixed>
+     */
+    public function createNote(int $accountId, array $data): array
+    {
+        return $this->client->post('accounts/' . $accountId . '/notes', ['note' => $data]);
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @return array<string, mixed>
+     */
+    public function updateNote(int $accountId, int $noteId, array $data): array
+    {
+        return $this->client->put('accounts/' . $accountId . '/notes/' . $noteId, ['note' => $data]);
+    }
+
+    /**
+     * @param list<int> $ids
+     */
+    public function bulkDelete(array $ids): void
+    {
+        $this->client->delete('accounts/bulk_delete', ['ids' => $ids]);
+    }
 }

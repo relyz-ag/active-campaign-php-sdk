@@ -58,11 +58,12 @@ final class Client
     }
 
     /**
+     * @param array<string, mixed> $query
      * @return array<string, mixed>
      */
-    public function delete(string $path): array
+    public function delete(string $path, array $query = []): array
     {
-        return $this->request('DELETE', $path);
+        return $this->request('DELETE', $path, $query ? ['query' => $query] : []);
     }
 
     /**
