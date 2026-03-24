@@ -31,4 +31,19 @@ final class Campaigns extends Resource
     {
         return Campaign::class;
     }
+
+    public function duplicate(int $id): Campaign
+    {
+        $response = $this->client->post('campaigns/' . $id . '/duplicate');
+
+        return Campaign::fromArray($response['campaign']);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getLinks(int $id): array
+    {
+        return $this->client->get('campaigns/' . $id . '/links');
+    }
 }
