@@ -77,6 +77,112 @@ final class ContactsTest extends TestCase
         $this->assertStringContainsString('contactTags/10', $this->history[0]['request']->getUri()->getPath());
     }
 
+    public function testListAutomations(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'contactAutomations' => [['id' => '1']],
+            ])),
+        ]);
+
+        $result = $contacts->listAutomations(1);
+
+        $this->assertSame('GET', $this->history[0]['request']->getMethod());
+        $this->assertStringContainsString('/api/3/contacts/1/contactAutomations', $this->history[0]['request']->getUri()->getPath());
+        $this->assertIsArray($result);
+    }
+
+    public function testListDeals(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'deals' => [['id' => '1']],
+            ])),
+        ]);
+
+        $result = $contacts->listDeals(1);
+
+        $this->assertStringContainsString('/api/3/contacts/1/contactDeals', $this->history[0]['request']->getUri()->getPath());
+    }
+
+    public function testListLists(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'contactLists' => [],
+            ])),
+        ]);
+
+        $result = $contacts->listLists(1);
+
+        $this->assertStringContainsString('/api/3/contacts/1/contactLists', $this->history[0]['request']->getUri()->getPath());
+    }
+
+    public function testListScoreValues(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'scoreValues' => [],
+            ])),
+        ]);
+
+        $result = $contacts->listScoreValues(1);
+
+        $this->assertStringContainsString('/api/3/contacts/1/scoreValues', $this->history[0]['request']->getUri()->getPath());
+    }
+
+    public function testListGeoIps(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'geoIps' => [],
+            ])),
+        ]);
+
+        $result = $contacts->listGeoIps(1);
+
+        $this->assertStringContainsString('/api/3/contacts/1/geoIps', $this->history[0]['request']->getUri()->getPath());
+    }
+
+    public function testListBounceLogs(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'bounceLogs' => [],
+            ])),
+        ]);
+
+        $result = $contacts->listBounceLogs(1);
+
+        $this->assertStringContainsString('/api/3/contacts/1/bounceLogs', $this->history[0]['request']->getUri()->getPath());
+    }
+
+    public function testListTrackingLogs(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'trackingLogs' => [],
+            ])),
+        ]);
+
+        $result = $contacts->listTrackingLogs(1);
+
+        $this->assertStringContainsString('/api/3/contacts/1/trackingLogs', $this->history[0]['request']->getUri()->getPath());
+    }
+
+    public function testListEmailActivities(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'emailActivities' => [],
+            ])),
+        ]);
+
+        $result = $contacts->listEmailActivities(1);
+
+        $this->assertStringContainsString('/api/3/contacts/1/emailActivities', $this->history[0]['request']->getUri()->getPath());
+    }
+
     public function testSyncContact(): void
     {
         $contacts = $this->makeContacts([

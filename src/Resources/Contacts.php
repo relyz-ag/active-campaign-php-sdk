@@ -54,6 +54,70 @@ final class Contacts extends Resource
     }
 
     /**
+     * @return array<string, mixed>
+     */
+    public function listAutomations(int $contactId): array
+    {
+        return $this->client->get('contacts/' . $contactId . '/contactAutomations');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function listDeals(int $contactId): array
+    {
+        return $this->client->get('contacts/' . $contactId . '/contactDeals');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function listLists(int $contactId): array
+    {
+        return $this->client->get('contacts/' . $contactId . '/contactLists');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function listScoreValues(int $contactId): array
+    {
+        return $this->client->get('contacts/' . $contactId . '/scoreValues');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function listGeoIps(int $contactId): array
+    {
+        return $this->client->get('contacts/' . $contactId . '/geoIps');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function listBounceLogs(int $contactId): array
+    {
+        return $this->client->get('contacts/' . $contactId . '/bounceLogs');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function listTrackingLogs(int $contactId): array
+    {
+        return $this->client->get('contacts/' . $contactId . '/trackingLogs');
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function listEmailActivities(int $contactId): array
+    {
+        return $this->client->get('contacts/' . $contactId . '/emailActivities');
+    }
+
+    /**
      * @param array<string, mixed> $data
      */
     public function sync(array $data): Contact
