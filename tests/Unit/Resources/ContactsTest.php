@@ -183,6 +183,33 @@ final class ContactsTest extends TestCase
         $this->assertStringContainsString('/api/3/contacts/1/emailActivities', $this->history[0]['request']->getUri()->getPath());
     }
 
+    public function testAddToAutomation(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(201, [], (string) json_encode([
+                'contactAutomation' => ['id' => '1', 'contact' => '1', 'automation' => '2'],
+            ])),
+        ]);
+
+        $result = $contacts->addToAutomation(contactId: 1, automationId: 2);
+
+        $body = json_decode((string) $this->history[0]['request']->getBody(), true);
+        $this->assertSame(['contactAutomation' => ['contact' => 1, 'automation' => 2]], $body);
+        $this->assertStringContainsString('/api/3/contactAutomations', $this->history[0]['request']->getUri()->getPath());
+    }
+
+    public function testRemoveFromAutomation(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], '{}'),
+        ]);
+
+        $contacts->removeFromAutomation(contactAutomationId: 5);
+
+        $this->assertSame('DELETE', $this->history[0]['request']->getMethod());
+        $this->assertStringContainsString('/api/3/contactAutomations/5', $this->history[0]['request']->getUri()->getPath());
+    }
+
     public function testSyncContact(): void
     {
         $contacts = $this->makeContacts([

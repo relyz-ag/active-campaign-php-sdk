@@ -56,6 +56,24 @@ final class Contacts extends Resource
     /**
      * @return array<string, mixed>
      */
+    public function addToAutomation(int $contactId, int $automationId): array
+    {
+        return $this->client->post('contactAutomations', [
+            'contactAutomation' => [
+                'contact' => $contactId,
+                'automation' => $automationId,
+            ],
+        ]);
+    }
+
+    public function removeFromAutomation(int $contactAutomationId): void
+    {
+        $this->client->delete('contactAutomations/' . $contactAutomationId);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
     public function listAutomations(int $contactId): array
     {
         return $this->client->get('contacts/' . $contactId . '/contactAutomations');
