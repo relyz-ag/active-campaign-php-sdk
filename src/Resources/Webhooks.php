@@ -31,4 +31,12 @@ final class Webhooks extends Resource
     {
         return Webhook::class;
     }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function listEvents(): array
+    {
+        return $this->client->get('webhooks/events');
+    }
 }
