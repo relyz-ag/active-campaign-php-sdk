@@ -15,8 +15,20 @@ final class Accounts extends Resource
     /** @use HasCrud<Account> */
     use HasCrud;
 
-    protected function endpoint(): string { return 'accounts'; }
-    protected function singularKey(): string { return 'account'; }
-    protected function pluralKey(): string { return 'accounts'; }
-    protected function modelClass(): string { return Account::class; }
+    protected function endpoint(): string
+    {
+        return 'accounts';
+    }
+    protected function singularKey(): string
+    {
+        return 'account';
+    }
+    protected function pluralKey(): string
+    {
+        return 'accounts';
+    }
+    protected function modelClass(): string
+    {
+        return Account::class;
+    }
 }

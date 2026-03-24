@@ -15,8 +15,20 @@ final class Lists extends Resource
     /** @use HasCrud<MailingList> */
     use HasCrud;
 
-    protected function endpoint(): string { return 'lists'; }
-    protected function singularKey(): string { return 'list'; }
-    protected function pluralKey(): string { return 'lists'; }
-    protected function modelClass(): string { return MailingList::class; }
+    protected function endpoint(): string
+    {
+        return 'lists';
+    }
+    protected function singularKey(): string
+    {
+        return 'list';
+    }
+    protected function pluralKey(): string
+    {
+        return 'lists';
+    }
+    protected function modelClass(): string
+    {
+        return MailingList::class;
+    }
 }

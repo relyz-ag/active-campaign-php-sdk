@@ -15,8 +15,20 @@ final class Tags extends Resource
     /** @use HasCrud<Tag> */
     use HasCrud;
 
-    protected function endpoint(): string { return 'tags'; }
-    protected function singularKey(): string { return 'tag'; }
-    protected function pluralKey(): string { return 'tags'; }
-    protected function modelClass(): string { return Tag::class; }
+    protected function endpoint(): string
+    {
+        return 'tags';
+    }
+    protected function singularKey(): string
+    {
+        return 'tag';
+    }
+    protected function pluralKey(): string
+    {
+        return 'tags';
+    }
+    protected function modelClass(): string
+    {
+        return Tag::class;
+    }
 }

@@ -15,8 +15,20 @@ final class Webhooks extends Resource
     /** @use HasCrud<Webhook> */
     use HasCrud;
 
-    protected function endpoint(): string { return 'webhooks'; }
-    protected function singularKey(): string { return 'webhook'; }
-    protected function pluralKey(): string { return 'webhooks'; }
-    protected function modelClass(): string { return Webhook::class; }
+    protected function endpoint(): string
+    {
+        return 'webhooks';
+    }
+    protected function singularKey(): string
+    {
+        return 'webhook';
+    }
+    protected function pluralKey(): string
+    {
+        return 'webhooks';
+    }
+    protected function modelClass(): string
+    {
+        return Webhook::class;
+    }
 }

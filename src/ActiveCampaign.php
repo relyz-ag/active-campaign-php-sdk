@@ -38,12 +38,36 @@ final class ActiveCampaign
         );
     }
 
-    public function contacts(): Contacts { return $this->contacts ??= new Contacts($this->client); }
-    public function deals(): Deals { return $this->deals ??= new Deals($this->client); }
-    public function tags(): Tags { return $this->tags ??= new Tags($this->client); }
-    public function lists(): Lists { return $this->lists ??= new Lists($this->client); }
-    public function accounts(): Accounts { return $this->accounts ??= new Accounts($this->client); }
-    public function automations(): Automations { return $this->automations ??= new Automations($this->client); }
-    public function campaigns(): Campaigns { return $this->campaigns ??= new Campaigns($this->client); }
-    public function webhooks(): Webhooks { return $this->webhooks ??= new Webhooks($this->client); }
+    public function contacts(): Contacts
+    {
+        return $this->contacts ??= new Contacts($this->client);
+    }
+    public function deals(): Deals
+    {
+        return $this->deals ??= new Deals($this->client);
+    }
+    public function tags(): Tags
+    {
+        return $this->tags ??= new Tags($this->client);
+    }
+    public function lists(): Lists
+    {
+        return $this->lists ??= new Lists($this->client);
+    }
+    public function accounts(): Accounts
+    {
+        return $this->accounts ??= new Accounts($this->client);
+    }
+    public function automations(): Automations
+    {
+        return $this->automations ??= new Automations($this->client);
+    }
+    public function campaigns(): Campaigns
+    {
+        return $this->campaigns ??= new Campaigns($this->client);
+    }
+    public function webhooks(): Webhooks
+    {
+        return $this->webhooks ??= new Webhooks($this->client);
+    }
 }

@@ -15,8 +15,20 @@ final class Deals extends Resource
     /** @use HasCrud<Deal> */
     use HasCrud;
 
-    protected function endpoint(): string { return 'deals'; }
-    protected function singularKey(): string { return 'deal'; }
-    protected function pluralKey(): string { return 'deals'; }
-    protected function modelClass(): string { return Deal::class; }
+    protected function endpoint(): string
+    {
+        return 'deals';
+    }
+    protected function singularKey(): string
+    {
+        return 'deal';
+    }
+    protected function pluralKey(): string
+    {
+        return 'deals';
+    }
+    protected function modelClass(): string
+    {
+        return Deal::class;
+    }
 }

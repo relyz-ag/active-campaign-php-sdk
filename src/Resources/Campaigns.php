@@ -15,8 +15,20 @@ final class Campaigns extends Resource
     /** @use HasCrud<Campaign> */
     use HasCrud;
 
-    protected function endpoint(): string { return 'campaigns'; }
-    protected function singularKey(): string { return 'campaign'; }
-    protected function pluralKey(): string { return 'campaigns'; }
-    protected function modelClass(): string { return Campaign::class; }
+    protected function endpoint(): string
+    {
+        return 'campaigns';
+    }
+    protected function singularKey(): string
+    {
+        return 'campaign';
+    }
+    protected function pluralKey(): string
+    {
+        return 'campaigns';
+    }
+    protected function modelClass(): string
+    {
+        return Campaign::class;
+    }
 }

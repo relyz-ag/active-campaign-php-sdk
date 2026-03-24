@@ -15,8 +15,20 @@ final class Automations extends Resource
     /** @use HasCrud<Automation> */
     use HasCrud;
 
-    protected function endpoint(): string { return 'automations'; }
-    protected function singularKey(): string { return 'automation'; }
-    protected function pluralKey(): string { return 'automations'; }
-    protected function modelClass(): string { return Automation::class; }
+    protected function endpoint(): string
+    {
+        return 'automations';
+    }
+    protected function singularKey(): string
+    {
+        return 'automation';
+    }
+    protected function pluralKey(): string
+    {
+        return 'automations';
+    }
+    protected function modelClass(): string
+    {
+        return Automation::class;
+    }
 }
