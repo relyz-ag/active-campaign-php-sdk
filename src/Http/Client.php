@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Sdk\Http;
 
+use ActiveCampaign\Sdk\Exceptions\ActiveCampaignException;
 use ActiveCampaign\Sdk\Exceptions\AuthenticationException;
 use ActiveCampaign\Sdk\Exceptions\NotFoundException;
 use ActiveCampaign\Sdk\Exceptions\RateLimitException;
 use ActiveCampaign\Sdk\Exceptions\ValidationException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 
 final class Client
 {
@@ -80,6 +82,9 @@ final class Client
 
                 /** @var array<string, mixed> */
                 return json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+            } catch (ServerException $e) {
+                $status = $e->getResponse()->getStatusCode();
+                throw new ActiveCampaignException($e->getMessage(), $status, $e);
             } catch (ClientException $e) {
                 $status = $e->getResponse()->getStatusCode();
 
@@ -97,7 +102,7 @@ final class Client
                     404 => throw new NotFoundException($e->getMessage(), $status, $e),
                     422 => throw new ValidationException($e->getMessage(), $status, $e),
                     429 => throw new RateLimitException($e->getMessage(), $status, $e),
-                    default => throw $e,
+                    default => throw new ActiveCampaignException($e->getMessage(), $status, $e),
                 };
             }
         }

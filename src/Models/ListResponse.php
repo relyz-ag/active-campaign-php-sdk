@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Sdk\Models;
 
+/**
+ * @template T
+ */
 final class ListResponse
 {
     /**
-     * @param list<mixed> $data
+     * @param list<T> $data
      */
     public function __construct(
         public readonly array $data,

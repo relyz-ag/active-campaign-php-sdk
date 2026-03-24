@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Sdk\Tests\Unit\Http;
 
+use ActiveCampaign\Sdk\Exceptions\ActiveCampaignException;
 use ActiveCampaign\Sdk\Exceptions\AuthenticationException;
 use ActiveCampaign\Sdk\Exceptions\NotFoundException;
 use ActiveCampaign\Sdk\Exceptions\RateLimitException;
@@ -152,6 +153,26 @@ final class ClientTest extends TestCase
         ], maxRetries: 3);
 
         $this->expectException(RateLimitException::class);
+        $client->get('contacts');
+    }
+
+    public function testThrowsActiveCampaignExceptionOn500(): void
+    {
+        $client = $this->makeClient([
+            new Response(500, [], '{"message":"Internal Server Error"}'),
+        ]);
+
+        $this->expectException(ActiveCampaignException::class);
+        $client->get('contacts');
+    }
+
+    public function testThrowsActiveCampaignExceptionOn503(): void
+    {
+        $client = $this->makeClient([
+            new Response(503, [], '{"message":"Service Unavailable"}'),
+        ]);
+
+        $this->expectException(ActiveCampaignException::class);
         $client->get('contacts');
     }
 

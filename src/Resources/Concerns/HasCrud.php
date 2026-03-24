@@ -24,14 +24,16 @@ trait HasCrud
 
     /**
      * @param array<string, mixed> $params
+     * @return ListResponse<T>
      */
     public function list(array $params = []): ListResponse
     {
         $response = $this->client->get($this->endpoint(), $params);
         $modelClass = $this->modelClass();
 
+        /** @var list<T> $data */
         $data = array_map(
-            fn (array $item): mixed => $modelClass::fromArray($item),
+            fn (array $item) => $modelClass::fromArray($item),
             $response[$this->pluralKey()] ?? [],
         );
 
