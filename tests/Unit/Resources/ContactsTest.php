@@ -5,7 +5,16 @@ declare(strict_types=1);
 namespace ActiveCampaign\Sdk\Tests\Unit\Resources;
 
 use ActiveCampaign\Sdk\Http\Client;
+use ActiveCampaign\Sdk\Models\BounceLog;
+use ActiveCampaign\Sdk\Models\BulkImportResult;
+use ActiveCampaign\Sdk\Models\BulkImportStatus;
 use ActiveCampaign\Sdk\Models\Contact;
+use ActiveCampaign\Sdk\Models\ContactAutomation;
+use ActiveCampaign\Sdk\Models\ContactDeal;
+use ActiveCampaign\Sdk\Models\ContactList;
+use ActiveCampaign\Sdk\Models\ContactTag;
+use ActiveCampaign\Sdk\Models\GeoIp;
+use ActiveCampaign\Sdk\Models\ScoreValue;
 use ActiveCampaign\Sdk\Resources\Contacts;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
@@ -54,7 +63,7 @@ final class ContactsTest extends TestCase
     {
         $contacts = $this->makeContacts([
             new Response(201, [], (string) json_encode([
-                'contactTag' => ['id' => '10', 'contact' => '1', 'tag' => '5'],
+                'contactTag' => ['id' => '10', 'contact' => '1', 'tag' => '5', 'cdate' => '2024-01-01T00:00:00-05:00'],
             ])),
         ]);
 
@@ -62,7 +71,9 @@ final class ContactsTest extends TestCase
 
         $body = json_decode((string) $this->history[0]['request']->getBody(), true);
         $this->assertSame(['contactTag' => ['contact' => 1, 'tag' => 5]], $body);
-        $this->assertIsArray($result);
+        $this->assertInstanceOf(ContactTag::class, $result);
+        $this->assertSame(1, $result->contact);
+        $this->assertSame(5, $result->tag);
     }
 
     public function testUntagContact(): void
@@ -81,80 +92,90 @@ final class ContactsTest extends TestCase
     {
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
-                'contactAutomations' => [['id' => '1']],
+                'contactAutomations' => [['id' => '1', 'contact' => '10', 'automation' => '2', 'status' => '1', 'completed' => 0, 'completeValue' => 0, 'adddate' => '2024-01-01', 'remdate' => null]],
             ])),
         ]);
 
         $result = $contacts->listAutomations(1);
 
-        $this->assertSame('GET', $this->history[0]['request']->getMethod());
-        $this->assertStringContainsString('/api/3/contacts/1/contactAutomations', $this->history[0]['request']->getUri()->getPath());
-        $this->assertIsArray($result);
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(ContactAutomation::class, $result[0]);
+        $this->assertSame(2, $result[0]->automation);
     }
 
     public function testListDeals(): void
     {
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
-                'deals' => [['id' => '1']],
+                'contactDeals' => [['id' => '1', 'deal' => '5', 'contact' => '1', 'role' => '0', 'cdate' => '2024-01-01']],
             ])),
         ]);
 
         $result = $contacts->listDeals(1);
 
-        $this->assertStringContainsString('/api/3/contacts/1/contactDeals', $this->history[0]['request']->getUri()->getPath());
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(ContactDeal::class, $result[0]);
+        $this->assertSame(5, $result[0]->deal);
     }
 
     public function testListLists(): void
     {
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
-                'contactLists' => [],
+                'contactLists' => [['id' => '1', 'contact' => '1', 'list' => '3', 'status' => '1', 'sdate' => '2024-01-01', 'udate' => '2024-01-01']],
             ])),
         ]);
 
         $result = $contacts->listLists(1);
 
-        $this->assertStringContainsString('/api/3/contacts/1/contactLists', $this->history[0]['request']->getUri()->getPath());
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(ContactList::class, $result[0]);
+        $this->assertSame(3, $result[0]->list);
     }
 
     public function testListScoreValues(): void
     {
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
-                'scoreValues' => [],
+                'scoreValues' => [['id' => '1', 'score' => '2', 'contact' => '1', 'deal' => null, 'scoreValue' => '85', 'cdate' => '2024-01-01', 'mdate' => '2024-01-01']],
             ])),
         ]);
 
         $result = $contacts->listScoreValues(1);
 
-        $this->assertStringContainsString('/api/3/contacts/1/scoreValues', $this->history[0]['request']->getUri()->getPath());
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(ScoreValue::class, $result[0]);
+        $this->assertSame(85, $result[0]->scoreValue);
     }
 
     public function testListGeoIps(): void
     {
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
-                'geoIps' => [],
+                'geoIps' => [['id' => '1', 'contact' => '1', 'campaignid' => '5', 'messageid' => '3', 'ip4' => '127.0.0.1', 'tstamp' => '2024-01-01']],
             ])),
         ]);
 
         $result = $contacts->listGeoIps(1);
 
-        $this->assertStringContainsString('/api/3/contacts/1/geoIps', $this->history[0]['request']->getUri()->getPath());
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(GeoIp::class, $result[0]);
+        $this->assertSame('127.0.0.1', $result[0]->ip4);
     }
 
     public function testListBounceLogs(): void
     {
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
-                'bounceLogs' => [],
+                'bounceLogs' => [['id' => '1', 'contact' => '1', 'email' => 'a@b.com', 'error' => 'mailbox full', 'source' => 'smtp', 'tstamp' => '2024-01-01']],
             ])),
         ]);
 
         $result = $contacts->listBounceLogs(1);
 
-        $this->assertStringContainsString('/api/3/contacts/1/bounceLogs', $this->history[0]['request']->getUri()->getPath());
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(BounceLog::class, $result[0]);
+        $this->assertSame('mailbox full', $result[0]->error);
     }
 
     public function testListTrackingLogs(): void
@@ -187,7 +208,7 @@ final class ContactsTest extends TestCase
     {
         $contacts = $this->makeContacts([
             new Response(201, [], (string) json_encode([
-                'contactAutomation' => ['id' => '1', 'contact' => '1', 'automation' => '2'],
+                'contactAutomation' => ['id' => '1', 'contact' => '1', 'automation' => '2', 'status' => 1, 'completed' => 0, 'completeValue' => 50, 'adddate' => '2024-01-01', 'remdate' => null],
             ])),
         ]);
 
@@ -195,7 +216,8 @@ final class ContactsTest extends TestCase
 
         $body = json_decode((string) $this->history[0]['request']->getBody(), true);
         $this->assertSame(['contactAutomation' => ['contact' => 1, 'automation' => 2]], $body);
-        $this->assertStringContainsString('/api/3/contactAutomations', $this->history[0]['request']->getUri()->getPath());
+        $this->assertInstanceOf(ContactAutomation::class, $result);
+        $this->assertSame(2, $result->automation);
     }
 
     public function testRemoveFromAutomation(): void
@@ -229,8 +251,10 @@ final class ContactsTest extends TestCase
     {
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
-                'message' => 'Import queued',
+                'Success' => 1,
+                'queued_contacts' => 1,
                 'batchId' => 'abc-123',
+                'message' => 'Import queued',
             ])),
         ]);
 
@@ -238,9 +262,10 @@ final class ContactsTest extends TestCase
             'contacts' => [['email' => 'a@b.com']],
         ]);
 
-        $this->assertSame('POST', $this->history[0]['request']->getMethod());
-        $this->assertStringContainsString('/api/3/import/bulk_import', $this->history[0]['request']->getUri()->getPath());
-        $this->assertIsArray($result);
+        $this->assertInstanceOf(BulkImportResult::class, $result);
+        $this->assertTrue($result->success);
+        $this->assertSame('abc-123', $result->batchId);
+        $this->assertSame(1, $result->queuedContacts);
     }
 
     public function testBulkImportStatus(): void
@@ -248,13 +273,17 @@ final class ContactsTest extends TestCase
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
                 'status' => 'completed',
+                'success' => ['123', '124'],
+                'failure' => ['bad@invalid'],
             ])),
         ]);
 
         $result = $contacts->bulkImportStatus();
 
-        $this->assertSame('GET', $this->history[0]['request']->getMethod());
-        $this->assertStringContainsString('/api/3/import/info', $this->history[0]['request']->getUri()->getPath());
+        $this->assertInstanceOf(BulkImportStatus::class, $result);
+        $this->assertSame('completed', $result->status);
+        $this->assertCount(2, $result->successIds);
+        $this->assertCount(1, $result->failedEmails);
     }
 
     public function testUpdateListStatus(): void
@@ -262,6 +291,7 @@ final class ContactsTest extends TestCase
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
                 'contacts' => [],
+                'contactList' => ['id' => '1', 'contact' => '1', 'list' => '2', 'status' => '1', 'sdate' => '2024-01-01', 'udate' => '2024-01-01'],
             ])),
         ]);
 
@@ -271,6 +301,7 @@ final class ContactsTest extends TestCase
             'status' => 1,
         ]);
 
+        $this->assertInstanceOf(ContactList::class, $result);
         $this->assertSame('POST', $this->history[0]['request']->getMethod());
         $this->assertStringContainsString('/api/3/contactLists', $this->history[0]['request']->getUri()->getPath());
     }

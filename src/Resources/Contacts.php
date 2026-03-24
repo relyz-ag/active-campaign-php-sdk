@@ -4,7 +4,16 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Sdk\Resources;
 
+use ActiveCampaign\Sdk\Models\BounceLog;
+use ActiveCampaign\Sdk\Models\BulkImportResult;
+use ActiveCampaign\Sdk\Models\BulkImportStatus;
 use ActiveCampaign\Sdk\Models\Contact;
+use ActiveCampaign\Sdk\Models\ContactAutomation;
+use ActiveCampaign\Sdk\Models\ContactDeal;
+use ActiveCampaign\Sdk\Models\ContactList;
+use ActiveCampaign\Sdk\Models\ContactTag;
+use ActiveCampaign\Sdk\Models\GeoIp;
+use ActiveCampaign\Sdk\Models\ScoreValue;
 use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
 
 /**
@@ -35,17 +44,16 @@ final class Contacts extends Resource
         return Contact::class;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function tag(int $contactId, int $tagId): array
+    public function tag(int $contactId, int $tagId): ContactTag
     {
-        return $this->client->post('contactTags', [
+        $response = $this->client->post('contactTags', [
             'contactTag' => [
                 'contact' => $contactId,
                 'tag' => $tagId,
             ],
         ]);
+
+        return ContactTag::fromArray($response['contactTag']);
     }
 
     public function untag(int $contactTagId): void
@@ -53,17 +61,16 @@ final class Contacts extends Resource
         $this->client->delete('contactTags/' . $contactTagId);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function addToAutomation(int $contactId, int $automationId): array
+    public function addToAutomation(int $contactId, int $automationId): ContactAutomation
     {
-        return $this->client->post('contactAutomations', [
+        $response = $this->client->post('contactAutomations', [
             'contactAutomation' => [
                 'contact' => $contactId,
                 'automation' => $automationId,
             ],
         ]);
+
+        return ContactAutomation::fromArray($response['contactAutomation']);
     }
 
     public function removeFromAutomation(int $contactAutomationId): void
@@ -72,51 +79,81 @@ final class Contacts extends Resource
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<ContactAutomation>
      */
     public function listAutomations(int $contactId): array
     {
-        return $this->client->get('contacts/' . $contactId . '/contactAutomations');
+        $response = $this->client->get('contacts/' . $contactId . '/contactAutomations');
+
+        return array_map(
+            fn (array $item) => ContactAutomation::fromArray($item),
+            $response['contactAutomations'] ?? [],
+        );
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<ContactDeal>
      */
     public function listDeals(int $contactId): array
     {
-        return $this->client->get('contacts/' . $contactId . '/contactDeals');
+        $response = $this->client->get('contacts/' . $contactId . '/contactDeals');
+
+        return array_map(
+            fn (array $item) => ContactDeal::fromArray($item),
+            $response['contactDeals'] ?? [],
+        );
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<ContactList>
      */
     public function listLists(int $contactId): array
     {
-        return $this->client->get('contacts/' . $contactId . '/contactLists');
+        $response = $this->client->get('contacts/' . $contactId . '/contactLists');
+
+        return array_map(
+            fn (array $item) => ContactList::fromArray($item),
+            $response['contactLists'] ?? [],
+        );
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<ScoreValue>
      */
     public function listScoreValues(int $contactId): array
     {
-        return $this->client->get('contacts/' . $contactId . '/scoreValues');
+        $response = $this->client->get('contacts/' . $contactId . '/scoreValues');
+
+        return array_map(
+            fn (array $item) => ScoreValue::fromArray($item),
+            $response['scoreValues'] ?? [],
+        );
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<GeoIp>
      */
     public function listGeoIps(int $contactId): array
     {
-        return $this->client->get('contacts/' . $contactId . '/geoIps');
+        $response = $this->client->get('contacts/' . $contactId . '/geoIps');
+
+        return array_map(
+            fn (array $item) => GeoIp::fromArray($item),
+            $response['geoIps'] ?? [],
+        );
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<BounceLog>
      */
     public function listBounceLogs(int $contactId): array
     {
-        return $this->client->get('contacts/' . $contactId . '/bounceLogs');
+        $response = $this->client->get('contacts/' . $contactId . '/bounceLogs');
+
+        return array_map(
+            fn (array $item) => BounceLog::fromArray($item),
+            $response['bounceLogs'] ?? [],
+        );
     }
 
     /**
@@ -149,29 +186,30 @@ final class Contacts extends Resource
 
     /**
      * @param array<string, mixed> $data
-     * @return array<string, mixed>
      */
-    public function bulkImport(array $data): array
+    public function bulkImport(array $data): BulkImportResult
     {
-        return $this->client->post('import/bulk_import', $data);
+        $response = $this->client->post('import/bulk_import', $data);
+
+        return BulkImportResult::fromArray($response);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function bulkImportStatus(): array
+    public function bulkImportStatus(): BulkImportStatus
     {
-        return $this->client->get('import/info');
+        $response = $this->client->get('import/info');
+
+        return BulkImportStatus::fromArray($response);
     }
 
     /**
      * @param array<string, mixed> $data
-     * @return array<string, mixed>
      */
-    public function updateListStatus(array $data): array
+    public function updateListStatus(array $data): ContactList
     {
-        return $this->client->post('contactLists', [
+        $response = $this->client->post('contactLists', [
             'contactList' => $data,
         ]);
+
+        return ContactList::fromArray($response['contactList']);
     }
 }

@@ -6,6 +6,7 @@ namespace ActiveCampaign\Sdk\Tests\Unit\Resources;
 
 use ActiveCampaign\Sdk\Http\Client;
 use ActiveCampaign\Sdk\Models\Campaign;
+use ActiveCampaign\Sdk\Models\CampaignLink;
 use ActiveCampaign\Sdk\Resources\Campaigns;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
@@ -38,15 +39,17 @@ final class CampaignsTest extends TestCase
     {
         $campaigns = $this->makeCampaigns([
             new Response(200, [], (string) json_encode([
-                'links' => [['id' => '1', 'url' => 'https://example.com']],
+                'links' => [['id' => '1', 'campaignid' => '5', 'messageid' => '3', 'link' => 'https://example.com', 'name' => 'Example', 'tracked' => '1']],
             ])),
         ]);
 
         $result = $campaigns->getLinks(1);
 
-        $this->assertSame('GET', $this->history[0]['request']->getMethod());
-        $this->assertStringContainsString('/api/3/campaigns/1/links', $this->history[0]['request']->getUri()->getPath());
-        $this->assertIsArray($result);
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(CampaignLink::class, $result[0]);
+        $this->assertSame('https://example.com', $result[0]->link);
+        $this->assertSame('Example', $result[0]->name);
+        $this->assertTrue($result[0]->tracked);
     }
 
     /**

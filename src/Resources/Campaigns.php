@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ActiveCampaign\Sdk\Resources;
 
 use ActiveCampaign\Sdk\Models\Campaign;
+use ActiveCampaign\Sdk\Models\CampaignLink;
 use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
 
 /**
@@ -40,10 +41,15 @@ final class Campaigns extends Resource
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<CampaignLink>
      */
     public function getLinks(int $id): array
     {
-        return $this->client->get('campaigns/' . $id . '/links');
+        $response = $this->client->get('campaigns/' . $id . '/links');
+
+        return array_map(
+            fn (array $item) => CampaignLink::fromArray($item),
+            $response['links'] ?? [],
+        );
     }
 }

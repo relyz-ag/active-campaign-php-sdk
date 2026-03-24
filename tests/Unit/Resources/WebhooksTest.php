@@ -30,7 +30,7 @@ final class WebhooksTest extends TestCase
 
         $this->assertSame('GET', $this->history[0]['request']->getMethod());
         $this->assertStringContainsString('/api/3/webhooks/events', $this->history[0]['request']->getUri()->getPath());
-        $this->assertIsArray($result);
+        $this->assertSame(['subscribe', 'unsubscribe', 'deal_add'], $result);
     }
 
     /**

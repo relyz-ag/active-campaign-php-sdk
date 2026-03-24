@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ActiveCampaign\Sdk\Resources;
 
 use ActiveCampaign\Sdk\Models\Account;
+use ActiveCampaign\Sdk\Models\Note;
 use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
 
 /**
@@ -34,20 +35,22 @@ final class Accounts extends Resource
 
     /**
      * @param array<string, mixed> $data
-     * @return array<string, mixed>
      */
-    public function createNote(int $accountId, array $data): array
+    public function createNote(int $accountId, array $data): Note
     {
-        return $this->client->post('accounts/' . $accountId . '/notes', ['note' => $data]);
+        $response = $this->client->post('accounts/' . $accountId . '/notes', ['note' => $data]);
+
+        return Note::fromArray($response['note']);
     }
 
     /**
      * @param array<string, mixed> $data
-     * @return array<string, mixed>
      */
-    public function updateNote(int $accountId, int $noteId, array $data): array
+    public function updateNote(int $accountId, int $noteId, array $data): Note
     {
-        return $this->client->put('accounts/' . $accountId . '/notes/' . $noteId, ['note' => $data]);
+        $response = $this->client->put('accounts/' . $accountId . '/notes/' . $noteId, ['note' => $data]);
+
+        return Note::fromArray($response['note']);
     }
 
     /**

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ActiveCampaign\Sdk\Tests\Unit\Resources;
 
 use ActiveCampaign\Sdk\Http\Client;
+use ActiveCampaign\Sdk\Models\Note;
 use ActiveCampaign\Sdk\Resources\Accounts;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
@@ -22,30 +23,32 @@ final class AccountsTest extends TestCase
     {
         $accounts = $this->makeAccounts([
             new Response(201, [], (string) json_encode([
-                'note' => ['id' => '1', 'note' => 'Account note'],
+                'note' => ['id' => '1', 'note' => 'Account note', 'relid' => '1', 'reltype' => 'CustomerAccount', 'userid' => '1', 'cdate' => '2024-01-01', 'mdate' => '2024-01-01'],
             ])),
         ]);
 
         $result = $accounts->createNote(accountId: 1, data: ['note' => 'Account note']);
 
+        $this->assertInstanceOf(Note::class, $result);
+        $this->assertSame('Account note', $result->content);
         $this->assertSame('POST', $this->history[0]['request']->getMethod());
         $this->assertStringContainsString('/api/3/accounts/1/notes', $this->history[0]['request']->getUri()->getPath());
-        $this->assertIsArray($result);
     }
 
     public function testUpdateNote(): void
     {
         $accounts = $this->makeAccounts([
             new Response(200, [], (string) json_encode([
-                'note' => ['id' => '1', 'note' => 'Updated'],
+                'note' => ['id' => '1', 'note' => 'Updated', 'relid' => '1', 'reltype' => 'CustomerAccount', 'userid' => '1', 'cdate' => '2024-01-01', 'mdate' => '2024-01-01'],
             ])),
         ]);
 
         $result = $accounts->updateNote(accountId: 1, noteId: 2, data: ['note' => 'Updated']);
 
+        $this->assertInstanceOf(Note::class, $result);
+        $this->assertSame('Updated', $result->content);
         $this->assertSame('PUT', $this->history[0]['request']->getMethod());
         $this->assertStringContainsString('/api/3/accounts/1/notes/2', $this->history[0]['request']->getUri()->getPath());
-        $this->assertIsArray($result);
     }
 
     public function testBulkDelete(): void

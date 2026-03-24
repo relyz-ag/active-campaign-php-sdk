@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Sdk\Resources;
 
+use ActiveCampaign\Sdk\Models\BulkUpdateResult;
 use ActiveCampaign\Sdk\Models\Deal;
+use ActiveCampaign\Sdk\Models\Note;
 use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
 
 /**
@@ -34,28 +36,31 @@ final class Deals extends Resource
 
     /**
      * @param array<string, mixed> $data
-     * @return array<string, mixed>
      */
-    public function createNote(int $dealId, array $data): array
+    public function createNote(int $dealId, array $data): Note
     {
-        return $this->client->post('deals/' . $dealId . '/notes', ['note' => $data]);
+        $response = $this->client->post('deals/' . $dealId . '/notes', ['note' => $data]);
+
+        return Note::fromArray($response['note']);
     }
 
     /**
      * @param array<string, mixed> $data
-     * @return array<string, mixed>
      */
-    public function updateNote(int $dealId, int $noteId, array $data): array
+    public function updateNote(int $dealId, int $noteId, array $data): Note
     {
-        return $this->client->put('deals/' . $dealId . '/notes/' . $noteId, ['note' => $data]);
+        $response = $this->client->put('deals/' . $dealId . '/notes/' . $noteId, ['note' => $data]);
+
+        return Note::fromArray($response['note']);
     }
 
     /**
      * @param list<array<string, mixed>> $deals
-     * @return array<string, mixed>
      */
-    public function bulkUpdateOwners(array $deals): array
+    public function bulkUpdateOwners(array $deals): BulkUpdateResult
     {
-        return $this->client->put('deals/bulkUpdate', ['deals' => $deals]);
+        $response = $this->client->put('deals/bulkUpdate', ['deals' => $deals]);
+
+        return BulkUpdateResult::fromArray($response);
     }
 }
