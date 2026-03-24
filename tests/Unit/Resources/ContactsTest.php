@@ -77,6 +77,71 @@ final class ContactsTest extends TestCase
         $this->assertStringContainsString('contactTags/10', $this->history[0]['request']->getUri()->getPath());
     }
 
+    public function testSyncContact(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'contact' => ['id' => '1', 'email' => 'a@b.com', 'firstName' => null, 'lastName' => null, 'phone' => null, 'cdate' => '2024-01-01T00:00:00-05:00', 'udate' => '2024-01-01T00:00:00-05:00'],
+            ])),
+        ]);
+
+        $contact = $contacts->sync(['email' => 'a@b.com', 'firstName' => 'Jane']);
+
+        $this->assertInstanceOf(Contact::class, $contact);
+        $this->assertSame('POST', $this->history[0]['request']->getMethod());
+        $this->assertStringContainsString('/api/3/contact/sync', $this->history[0]['request']->getUri()->getPath());
+    }
+
+    public function testBulkImport(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'message' => 'Import queued',
+                'batchId' => 'abc-123',
+            ])),
+        ]);
+
+        $result = $contacts->bulkImport([
+            'contacts' => [['email' => 'a@b.com']],
+        ]);
+
+        $this->assertSame('POST', $this->history[0]['request']->getMethod());
+        $this->assertStringContainsString('/api/3/import/bulk_import', $this->history[0]['request']->getUri()->getPath());
+        $this->assertIsArray($result);
+    }
+
+    public function testBulkImportStatus(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'status' => 'completed',
+            ])),
+        ]);
+
+        $result = $contacts->bulkImportStatus();
+
+        $this->assertSame('GET', $this->history[0]['request']->getMethod());
+        $this->assertStringContainsString('/api/3/import/info', $this->history[0]['request']->getUri()->getPath());
+    }
+
+    public function testUpdateListStatus(): void
+    {
+        $contacts = $this->makeContacts([
+            new Response(200, [], (string) json_encode([
+                'contacts' => [],
+            ])),
+        ]);
+
+        $result = $contacts->updateListStatus([
+            'list' => 1,
+            'contact' => 1,
+            'status' => 1,
+        ]);
+
+        $this->assertSame('POST', $this->history[0]['request']->getMethod());
+        $this->assertStringContainsString('/api/3/contactLists', $this->history[0]['request']->getUri()->getPath());
+    }
+
     /**
      * @param list<Response> $responses
      */
