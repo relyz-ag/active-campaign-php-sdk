@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Models;
+namespace ActiveCampaign\Tests\Unit\Models;
 
-use ActiveCampaign\Sdk\Models\ContactList;
+use ActiveCampaign\Models\ContactList;
 use PHPUnit\Framework\TestCase;
 
 final class ContactListTest extends TestCase

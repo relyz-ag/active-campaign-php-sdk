@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Resources;
+namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Sdk\Http\Client;
-use ActiveCampaign\Sdk\Models\FieldOption;
-use ActiveCampaign\Sdk\Resources\FieldOptions;
+use ActiveCampaign\Http\Client;
+use ActiveCampaign\Models\FieldOption;
+use ActiveCampaign\Resources\FieldOptions;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

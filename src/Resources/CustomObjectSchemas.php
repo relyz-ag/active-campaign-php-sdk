@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Resources;
+namespace ActiveCampaign\Resources;
 
-use ActiveCampaign\Sdk\Models\CustomObjectSchema;
+use ActiveCampaign\Models\CustomObjectSchema;
 
 /**
  * @extends Resource<mixed>

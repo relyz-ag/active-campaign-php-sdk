@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Resources;
+namespace ActiveCampaign\Resources;
 
-use ActiveCampaign\Sdk\Http\Client;
-use ActiveCampaign\Sdk\Models\CustomObjectRecord;
+use ActiveCampaign\Http\Client;
+use ActiveCampaign\Models\CustomObjectRecord;
 
 /**
  * @extends Resource<mixed>

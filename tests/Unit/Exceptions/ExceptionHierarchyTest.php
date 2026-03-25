@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Exceptions;
+namespace ActiveCampaign\Tests\Unit\Exceptions;
 
-use ActiveCampaign\Sdk\Exceptions\ActiveCampaignException;
-use ActiveCampaign\Sdk\Exceptions\AuthenticationException;
-use ActiveCampaign\Sdk\Exceptions\NotFoundException;
-use ActiveCampaign\Sdk\Exceptions\RateLimitException;
-use ActiveCampaign\Sdk\Exceptions\ValidationException;
+use ActiveCampaign\Exceptions\ActiveCampaignException;
+use ActiveCampaign\Exceptions\AuthenticationException;
+use ActiveCampaign\Exceptions\NotFoundException;
+use ActiveCampaign\Exceptions\RateLimitException;
+use ActiveCampaign\Exceptions\ValidationException;
 use PHPUnit\Framework\TestCase;
 
 final class ExceptionHierarchyTest extends TestCase

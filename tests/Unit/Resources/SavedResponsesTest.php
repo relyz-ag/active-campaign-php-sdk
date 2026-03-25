@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Resources;
+namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Sdk\Http\Client;
-use ActiveCampaign\Sdk\Models\SavedResponse;
-use ActiveCampaign\Sdk\Resources\SavedResponses;
+use ActiveCampaign\Http\Client;
+use ActiveCampaign\Models\SavedResponse;
+use ActiveCampaign\Resources\SavedResponses;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

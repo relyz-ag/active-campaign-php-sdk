@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Models;
+namespace ActiveCampaign\Tests\Unit\Models;
 
-use ActiveCampaign\Sdk\Models\ContactTag;
+use ActiveCampaign\Models\ContactTag;
 use PHPUnit\Framework\TestCase;
 
 final class ContactTagTest extends TestCase

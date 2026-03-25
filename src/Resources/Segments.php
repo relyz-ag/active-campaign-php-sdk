@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Resources;
+namespace ActiveCampaign\Resources;
 
-use ActiveCampaign\Sdk\Models\Segment;
-use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
+use ActiveCampaign\Models\Segment;
+use ActiveCampaign\Resources\Concerns\HasCrud;
 
 /**
  * @extends Resource<Segment>

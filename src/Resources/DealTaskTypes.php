@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Resources;
+namespace ActiveCampaign\Resources;
 
-use ActiveCampaign\Sdk\Models\DealTaskType;
-use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
+use ActiveCampaign\Models\DealTaskType;
+use ActiveCampaign\Resources\Concerns\HasCrud;
 
 /**
  * @extends Resource<DealTaskType>

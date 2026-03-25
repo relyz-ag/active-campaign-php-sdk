@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Resources;
+namespace ActiveCampaign\Resources;
 
-use ActiveCampaign\Sdk\Models\Account;
-use ActiveCampaign\Sdk\Models\Note;
-use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
+use ActiveCampaign\Models\Account;
+use ActiveCampaign\Models\Note;
+use ActiveCampaign\Resources\Concerns\HasCrud;
 
 /**
  * @extends Resource<Account>

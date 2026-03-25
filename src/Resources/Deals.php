@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Resources;
+namespace ActiveCampaign\Resources;
 
-use ActiveCampaign\Sdk\Models\BulkUpdateResult;
-use ActiveCampaign\Sdk\Models\Deal;
-use ActiveCampaign\Sdk\Models\Note;
-use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
+use ActiveCampaign\Models\BulkUpdateResult;
+use ActiveCampaign\Models\Deal;
+use ActiveCampaign\Models\Note;
+use ActiveCampaign\Resources\Concerns\HasCrud;
 
 /**
  * @extends Resource<Deal>

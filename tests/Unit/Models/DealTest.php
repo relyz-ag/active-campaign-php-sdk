@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Models;
+namespace ActiveCampaign\Tests\Unit\Models;
 
-use ActiveCampaign\Sdk\Models\Deal;
+use ActiveCampaign\Models\Deal;
 use PHPUnit\Framework\TestCase;
 
 final class DealTest extends TestCase

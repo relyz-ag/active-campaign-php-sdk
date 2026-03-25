@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Resources;
+namespace ActiveCampaign\Resources;
 
-use ActiveCampaign\Sdk\Models\Group;
-use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
+use ActiveCampaign\Models\Group;
+use ActiveCampaign\Resources\Concerns\HasCrud;
 
 /**
  * @extends Resource<Group>

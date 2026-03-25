@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Resources;
+namespace ActiveCampaign\Resources;
 
-use ActiveCampaign\Sdk\Models\EcomOrderProduct;
-use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
+use ActiveCampaign\Models\EcomOrderProduct;
+use ActiveCampaign\Resources\Concerns\HasCrud;
 
 /**
  * @extends Resource<EcomOrderProduct>

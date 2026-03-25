@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Models;
+namespace ActiveCampaign\Tests\Unit\Models;
 
-use ActiveCampaign\Sdk\Models\ListResponse;
-use ActiveCampaign\Sdk\Models\Meta;
+use ActiveCampaign\Models\ListResponse;
+use ActiveCampaign\Models\Meta;
 use PHPUnit\Framework\TestCase;
 
 final class ListResponseTest extends TestCase

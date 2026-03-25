@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Resources;
+namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Sdk\Models\Contact;
-use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
-use ActiveCampaign\Sdk\Resources\Resource;
+use ActiveCampaign\Models\Contact;
+use ActiveCampaign\Resources\Concerns\HasCrud;
+use ActiveCampaign\Resources\Resource;
 
 /**
  * @extends Resource<Contact>

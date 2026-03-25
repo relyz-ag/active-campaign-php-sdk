@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Resources;
+namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Sdk\Http\Client;
-use ActiveCampaign\Sdk\Models\DealRole;
-use ActiveCampaign\Sdk\Resources\DealRoles;
+use ActiveCampaign\Http\Client;
+use ActiveCampaign\Models\DealRole;
+use ActiveCampaign\Resources\DealRoles;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

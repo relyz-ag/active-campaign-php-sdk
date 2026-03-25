@@ -36,12 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ActiveCampaign\\Sdk\\": "src/"
+            "ActiveCampaign\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ActiveCampaign\\Sdk\\Tests\\": "tests/"
+            "ActiveCampaign\\Tests\\": "tests/"
         }
     },
     "config": {

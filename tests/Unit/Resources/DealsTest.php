@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Resources;
+namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Sdk\Http\Client;
-use ActiveCampaign\Sdk\Models\BulkUpdateResult;
-use ActiveCampaign\Sdk\Models\Note;
-use ActiveCampaign\Sdk\Resources\Deals;
+use ActiveCampaign\Http\Client;
+use ActiveCampaign\Models\BulkUpdateResult;
+use ActiveCampaign\Models\Note;
+use ActiveCampaign\Resources\Deals;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

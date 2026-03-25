@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Resources;
+namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Sdk\Http\Client;
-use ActiveCampaign\Sdk\Models\BounceLog;
-use ActiveCampaign\Sdk\Models\BulkImportResult;
-use ActiveCampaign\Sdk\Models\BulkImportStatus;
-use ActiveCampaign\Sdk\Models\Contact;
-use ActiveCampaign\Sdk\Models\ContactAutomation;
-use ActiveCampaign\Sdk\Models\ContactDeal;
-use ActiveCampaign\Sdk\Models\ContactList;
-use ActiveCampaign\Sdk\Models\ContactTag;
-use ActiveCampaign\Sdk\Models\GeoIp;
-use ActiveCampaign\Sdk\Models\ScoreValue;
-use ActiveCampaign\Sdk\Resources\Contacts;
+use ActiveCampaign\Http\Client;
+use ActiveCampaign\Models\BounceLog;
+use ActiveCampaign\Models\BulkImportResult;
+use ActiveCampaign\Models\BulkImportStatus;
+use ActiveCampaign\Models\Contact;
+use ActiveCampaign\Models\ContactAutomation;
+use ActiveCampaign\Models\ContactDeal;
+use ActiveCampaign\Models\ContactList;
+use ActiveCampaign\Models\ContactTag;
+use ActiveCampaign\Models\GeoIp;
+use ActiveCampaign\Models\ScoreValue;
+use ActiveCampaign\Resources\Contacts;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

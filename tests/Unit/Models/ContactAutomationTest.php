@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Models;
+namespace ActiveCampaign\Tests\Unit\Models;
 
-use ActiveCampaign\Sdk\Models\ContactAutomation;
+use ActiveCampaign\Models\ContactAutomation;
 use PHPUnit\Framework\TestCase;
 
 final class ContactAutomationTest extends TestCase

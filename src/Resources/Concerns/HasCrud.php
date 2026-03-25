@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Resources\Concerns;
+namespace ActiveCampaign\Resources\Concerns;
 
-use ActiveCampaign\Sdk\Http\Paginator;
-use ActiveCampaign\Sdk\Models\ListResponse;
-use ActiveCampaign\Sdk\Models\Meta;
+use ActiveCampaign\Http\Paginator;
+use ActiveCampaign\Models\ListResponse;
+use ActiveCampaign\Models\Meta;
 
 /**
  * @template T

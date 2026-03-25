@@ -2,56 +2,56 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk;
+namespace ActiveCampaign;
 
-use ActiveCampaign\Sdk\Http\Client;
-use ActiveCampaign\Sdk\Resources\AccountContacts;
-use ActiveCampaign\Sdk\Resources\AccountCustomFields;
-use ActiveCampaign\Sdk\Resources\AccountCustomFieldValues;
-use ActiveCampaign\Sdk\Resources\Accounts;
-use ActiveCampaign\Sdk\Resources\Addresses;
-use ActiveCampaign\Sdk\Resources\Automations;
-use ActiveCampaign\Sdk\Resources\Brandings;
-use ActiveCampaign\Sdk\Resources\CalendarFeeds;
-use ActiveCampaign\Sdk\Resources\Campaigns;
-use ActiveCampaign\Sdk\Resources\Connections;
-use ActiveCampaign\Sdk\Resources\Contacts;
-use ActiveCampaign\Sdk\Resources\CustomFields;
-use ActiveCampaign\Sdk\Resources\CustomObjectRecords;
-use ActiveCampaign\Sdk\Resources\CustomObjectSchemas;
-use ActiveCampaign\Sdk\Resources\DealCustomFields;
-use ActiveCampaign\Sdk\Resources\DealCustomFieldValues;
-use ActiveCampaign\Sdk\Resources\DealRoles;
-use ActiveCampaign\Sdk\Resources\Deals;
-use ActiveCampaign\Sdk\Resources\DealStages;
-use ActiveCampaign\Sdk\Resources\DealTaskOutcomes;
-use ActiveCampaign\Sdk\Resources\DealTasks;
-use ActiveCampaign\Sdk\Resources\DealTaskTypes;
-use ActiveCampaign\Sdk\Resources\EcomCustomers;
-use ActiveCampaign\Sdk\Resources\EcomOrderProducts;
-use ActiveCampaign\Sdk\Resources\EcomOrders;
-use ActiveCampaign\Sdk\Resources\EventTracking;
-use ActiveCampaign\Sdk\Resources\FieldOptions;
-use ActiveCampaign\Sdk\Resources\FieldValues;
-use ActiveCampaign\Sdk\Resources\Forms;
-use ActiveCampaign\Sdk\Resources\Groups;
-use ActiveCampaign\Sdk\Resources\Lists;
-use ActiveCampaign\Sdk\Resources\Messages;
-use ActiveCampaign\Sdk\Resources\Notes;
-use ActiveCampaign\Sdk\Resources\Pipelines;
-use ActiveCampaign\Sdk\Resources\SavedResponses;
-use ActiveCampaign\Sdk\Resources\Scores;
-use ActiveCampaign\Sdk\Resources\Segments;
-use ActiveCampaign\Sdk\Resources\Settings;
-use ActiveCampaign\Sdk\Resources\SiteTracking;
-use ActiveCampaign\Sdk\Resources\Tags;
-use ActiveCampaign\Sdk\Resources\Templates;
-use ActiveCampaign\Sdk\Resources\Users;
-use ActiveCampaign\Sdk\Resources\Webhooks;
+use ActiveCampaign\Http\Client as HttpClient;
+use ActiveCampaign\Resources\AccountContacts;
+use ActiveCampaign\Resources\AccountCustomFields;
+use ActiveCampaign\Resources\AccountCustomFieldValues;
+use ActiveCampaign\Resources\Accounts;
+use ActiveCampaign\Resources\Addresses;
+use ActiveCampaign\Resources\Automations;
+use ActiveCampaign\Resources\Brandings;
+use ActiveCampaign\Resources\CalendarFeeds;
+use ActiveCampaign\Resources\Campaigns;
+use ActiveCampaign\Resources\Connections;
+use ActiveCampaign\Resources\Contacts;
+use ActiveCampaign\Resources\CustomFields;
+use ActiveCampaign\Resources\CustomObjectRecords;
+use ActiveCampaign\Resources\CustomObjectSchemas;
+use ActiveCampaign\Resources\DealCustomFields;
+use ActiveCampaign\Resources\DealCustomFieldValues;
+use ActiveCampaign\Resources\DealRoles;
+use ActiveCampaign\Resources\Deals;
+use ActiveCampaign\Resources\DealStages;
+use ActiveCampaign\Resources\DealTaskOutcomes;
+use ActiveCampaign\Resources\DealTasks;
+use ActiveCampaign\Resources\DealTaskTypes;
+use ActiveCampaign\Resources\EcomCustomers;
+use ActiveCampaign\Resources\EcomOrderProducts;
+use ActiveCampaign\Resources\EcomOrders;
+use ActiveCampaign\Resources\EventTracking;
+use ActiveCampaign\Resources\FieldOptions;
+use ActiveCampaign\Resources\FieldValues;
+use ActiveCampaign\Resources\Forms;
+use ActiveCampaign\Resources\Groups;
+use ActiveCampaign\Resources\Lists;
+use ActiveCampaign\Resources\Messages;
+use ActiveCampaign\Resources\Notes;
+use ActiveCampaign\Resources\Pipelines;
+use ActiveCampaign\Resources\SavedResponses;
+use ActiveCampaign\Resources\Scores;
+use ActiveCampaign\Resources\Segments;
+use ActiveCampaign\Resources\Settings;
+use ActiveCampaign\Resources\SiteTracking;
+use ActiveCampaign\Resources\Tags;
+use ActiveCampaign\Resources\Templates;
+use ActiveCampaign\Resources\Users;
+use ActiveCampaign\Resources\Webhooks;
 
-final class ActiveCampaign
+final class Client
 {
-    private Client $client;
+    private HttpClient $client;
 
     // Existing resources
     private ?Contacts $contacts = null;
@@ -133,7 +133,7 @@ final class ActiveCampaign
             );
         }
 
-        $this->client = new Client(
+        $this->client = new HttpClient(
             url: $url,
             apiKey: $apiKey,
             maxRetries: $maxRetries,

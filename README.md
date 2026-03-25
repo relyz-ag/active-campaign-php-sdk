@@ -18,7 +18,7 @@ composer require active-campaign/php-sdk
 ## Usage
 
 ```php
-$ac = new ActiveCampaign\Sdk\ActiveCampaign(
+$ac = new ActiveCampaign\Client(
     url: 'https://youraccountname.api-us1.com',
     apiKey: 'your-api-key',
 );
@@ -27,7 +27,7 @@ $ac = new ActiveCampaign\Sdk\ActiveCampaign(
 Or set the `ACTIVE_CAMPAIGN_API_URL` and `ACTIVE_CAMPAIGN_API_KEY` environment variables (via `.env`, Docker, `export`, etc.) and omit the arguments:
 
 ```php
-$ac = new ActiveCampaign\Sdk\ActiveCampaign();
+$ac = new ActiveCampaign\Client();
 ```
 
 ### Create a contact

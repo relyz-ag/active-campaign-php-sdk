@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Http;
+namespace ActiveCampaign\Http;
 
-use ActiveCampaign\Sdk\Exceptions\ActiveCampaignException;
-use ActiveCampaign\Sdk\Exceptions\AuthenticationException;
-use ActiveCampaign\Sdk\Exceptions\NotFoundException;
-use ActiveCampaign\Sdk\Exceptions\RateLimitException;
-use ActiveCampaign\Sdk\Exceptions\ValidationException;
+use ActiveCampaign\Exceptions\ActiveCampaignException;
+use ActiveCampaign\Exceptions\AuthenticationException;
+use ActiveCampaign\Exceptions\NotFoundException;
+use ActiveCampaign\Exceptions\RateLimitException;
+use ActiveCampaign\Exceptions\ValidationException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;

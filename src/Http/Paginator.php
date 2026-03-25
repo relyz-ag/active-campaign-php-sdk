@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Http;
+namespace ActiveCampaign\Http;
 
 /**
  * @template T

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace ActiveCampaign\Sdk\Tests\Unit\Http;
+namespace ActiveCampaign\Tests\Unit\Http;
 
-use ActiveCampaign\Sdk\Http\Client;
-use ActiveCampaign\Sdk\Http\Paginator;
-use ActiveCampaign\Sdk\Models\Contact;
+use ActiveCampaign\Http\Client;
+use ActiveCampaign\Http\Paginator;
+use ActiveCampaign\Models\Contact;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
