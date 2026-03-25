@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ActiveCampaign\Sdk\Resources;
+
+use ActiveCampaign\Sdk\Models\AccountCustomField;
+use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
+
+/**
+ * @extends Resource<AccountCustomField>
+ */
+final class AccountCustomFields extends Resource
+{
+    /** @use HasCrud<AccountCustomField> */
+    use HasCrud;
+
+    protected function endpoint(): string
+    {
+        return 'accountCustomFieldMeta';
+    }
+
+    protected function singularKey(): string
+    {
+        return 'accountCustomFieldMetum';
+    }
+
+    protected function pluralKey(): string
+    {
+        return 'accountCustomFieldMeta';
+    }
+
+    protected function modelClass(): string
+    {
+        return AccountCustomField::class;
+    }
+
+    public function create(string $fieldLabel, string $fieldType, ?string $fieldDefault = null, ?bool $isFormVisible = null, ?int $displayOrder = null): AccountCustomField
+    {
+        return $this->create_raw(array_filter([
+            'fieldLabel' => $fieldLabel,
+            'fieldType' => $fieldType,
+            'fieldDefault' => $fieldDefault,
+            'isFormVisible' => $isFormVisible,
+            'displayOrder' => $displayOrder,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function update(int $id, ?string $fieldLabel = null, ?string $fieldType = null, ?string $fieldDefault = null, ?bool $isFormVisible = null, ?int $displayOrder = null): AccountCustomField
+    {
+        return $this->update_raw($id, array_filter([
+            'fieldLabel' => $fieldLabel,
+            'fieldType' => $fieldType,
+            'fieldDefault' => $fieldDefault,
+            'isFormVisible' => $isFormVisible,
+            'displayOrder' => $displayOrder,
+        ], fn ($v) => $v !== null));
+    }
+}

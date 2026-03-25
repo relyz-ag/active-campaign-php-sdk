@@ -1,0 +1,69 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ActiveCampaign\Sdk\Resources;
+
+use ActiveCampaign\Sdk\Models\AccountCustomFieldValue;
+use ActiveCampaign\Sdk\Resources\Concerns\HasCrud;
+
+/**
+ * @extends Resource<AccountCustomFieldValue>
+ */
+final class AccountCustomFieldValues extends Resource
+{
+    /** @use HasCrud<AccountCustomFieldValue> */
+    use HasCrud;
+
+    protected function endpoint(): string
+    {
+        return 'accountCustomFieldData';
+    }
+
+    protected function singularKey(): string
+    {
+        return 'accountCustomFieldDatum';
+    }
+
+    protected function pluralKey(): string
+    {
+        return 'accountCustomFieldData';
+    }
+
+    protected function modelClass(): string
+    {
+        return AccountCustomFieldValue::class;
+    }
+
+    public function create(int $accountId, int $customFieldId, string $fieldValue): AccountCustomFieldValue
+    {
+        return $this->create_raw(array_filter([
+            'accountId' => $accountId,
+            'accountCustomFieldMetumId' => $customFieldId,
+            'fieldValue' => $fieldValue,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function update(int $id, ?string $fieldValue = null): AccountCustomFieldValue
+    {
+        return $this->update_raw($id, array_filter([
+            'fieldValue' => $fieldValue,
+        ], fn ($v) => $v !== null));
+    }
+
+    /**
+     * @param list<array<string, mixed>> $data
+     * @return list<AccountCustomFieldValue>
+     */
+    public function bulkCreate(array $data): array
+    {
+        /** @var array<string, mixed> $payload */
+        $payload = $data;
+        $response = $this->client->post('accountCustomFieldData/bulkCreate', $payload);
+
+        return array_map(
+            fn (array $item) => AccountCustomFieldValue::fromArray($item),
+            $response[$this->pluralKey()] ?? [],
+        );
+    }
+}
