@@ -43,5 +43,10 @@
         "psr-4": {
             "ActiveCampaign\\Sdk\\Tests\\": "tests/"
         }
+    },
+    "config": {
+        "platform": {
+            "php": "8.1"
+        }
     }
 }
