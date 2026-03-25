@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Tests\Unit\Models;
 
+use ActiveCampaign\Enums\DealStatus;
 use ActiveCampaign\Models\Deal;
 use PHPUnit\Framework\TestCase;
 
@@ -31,7 +32,7 @@ final class DealTest extends TestCase
         $this->assertSame(2, $deal->stage);
         $this->assertSame(1, $deal->pipeline);
         $this->assertSame(1, $deal->owner);
-        $this->assertSame(0, $deal->status);
+        $this->assertSame(DealStatus::Open, $deal->status);
         $this->assertSame('2024-01-01T00:00:00-05:00', $deal->createdAt);
         $this->assertSame('2024-06-01T00:00:00-05:00', $deal->updatedAt);
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Tests\Unit\Resources;
 
+use ActiveCampaign\Enums\Sentiment;
 use ActiveCampaign\Models\DealTaskOutcome;
 use ActiveCampaign\Resources\DealTaskOutcomes;
 use GuzzleHttp\Psr7\Response;
@@ -29,7 +30,7 @@ final class DealTaskOutcomesTest extends ResourceTestCase
         $this->assertInstanceOf(DealTaskOutcome::class, $result);
         $this->assertSame(1, $result->id);
         $this->assertSame('Completed', $result->title);
-        $this->assertSame('POSITIVE', $result->sentiment);
+        $this->assertSame(Sentiment::Positive, $result->sentiment);
         $this->assertSame('POST', $this->history[0]['request']->getMethod());
         $this->assertStringContainsString('/api/3/taskOutcomes', $this->history[0]['request']->getUri()->getPath());
     }
@@ -52,7 +53,7 @@ final class DealTaskOutcomesTest extends ResourceTestCase
 
         $this->assertInstanceOf(DealTaskOutcome::class, $result);
         $this->assertSame('Updated Outcome', $result->title);
-        $this->assertSame('NEGATIVE', $result->sentiment);
+        $this->assertSame(Sentiment::Negative, $result->sentiment);
         $this->assertSame('PUT', $this->history[0]['request']->getMethod());
         $this->assertStringContainsString('/api/3/taskOutcomes/1', $this->history[0]['request']->getUri()->getPath());
     }

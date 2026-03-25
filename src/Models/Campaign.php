@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Models;
 
+use ActiveCampaign\Enums\CampaignStatus;
+
 final class Campaign
 {
     public function __construct(
         public readonly int $id,
         public readonly string $name,
         public readonly string $type,
-        public readonly string $status,
+        public readonly ?CampaignStatus $status,
         public readonly string $createdAt,
         public readonly string $updatedAt,
     ) {
@@ -25,7 +27,7 @@ final class Campaign
             id: (int) $data['id'],
             name: $data['name'],
             type: $data['type'],
-            status: (string) $data['status'],
+            status: CampaignStatus::tryFrom((int) $data['status']),
             createdAt: $data['cdate'],
             updatedAt: $data['mdate'],
         );

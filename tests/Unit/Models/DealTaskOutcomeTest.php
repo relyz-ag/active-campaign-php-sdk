@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Tests\Unit\Models;
 
+use ActiveCampaign\Enums\Sentiment;
 use ActiveCampaign\Models\DealTaskOutcome;
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +22,7 @@ final class DealTaskOutcomeTest extends TestCase
 
         $this->assertSame(1, $outcome->id);
         $this->assertSame('Completed', $outcome->title);
-        $this->assertSame('POSITIVE', $outcome->sentiment);
+        $this->assertSame(Sentiment::Positive, $outcome->sentiment);
         $this->assertSame('0', $outcome->disabled);
         $this->assertSame(1, $outcome->createdBy);
     }

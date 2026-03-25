@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Models;
 
+use ActiveCampaign\Enums\DealStatus;
+
 final class Deal
 {
     public function __construct(
@@ -14,7 +16,7 @@ final class Deal
         public readonly int $stage,
         public readonly int $pipeline,
         public readonly ?int $owner,
-        public readonly int $status,
+        public readonly ?DealStatus $status,
         public readonly string $createdAt,
         public readonly string $updatedAt,
     ) {
@@ -33,7 +35,7 @@ final class Deal
             stage: (int) $data['stage'],
             pipeline: (int) $data['pipeline'],
             owner: isset($data['owner']) ? (int) $data['owner'] : null,
-            status: (int) $data['status'],
+            status: DealStatus::tryFrom((int) $data['status']),
             createdAt: $data['cdate'],
             updatedAt: $data['mdate'],
         );
