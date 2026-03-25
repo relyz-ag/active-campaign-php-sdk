@@ -34,7 +34,7 @@ final class Notes extends Resource
 
     public function create(string $content, int $relatedId, string $relatedType, ?int $userId = null): Note
     {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'note' => $content,
             'relid' => $relatedId,
             'reltype' => $relatedType,
@@ -44,7 +44,7 @@ final class Notes extends Resource
 
     public function update(int $id, ?string $content = null, ?int $relatedId = null, ?string $relatedType = null, ?int $userId = null): Note
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'note' => $content,
             'relid' => $relatedId,
             'reltype' => $relatedType,

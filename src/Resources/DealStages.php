@@ -39,7 +39,7 @@ final class DealStages extends Resource
         ?string $color = null,
         ?int $width = null,
     ): DealStage {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'title' => $title,
             'group' => $pipeline,
             'order' => $order,
@@ -56,7 +56,7 @@ final class DealStages extends Resource
         ?string $color = null,
         ?int $width = null,
     ): DealStage {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'title' => $title,
             'group' => $pipeline,
             'order' => $order,

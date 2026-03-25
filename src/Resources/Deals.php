@@ -43,7 +43,7 @@ final class Deals extends Resource
         ?int $owner = null,
         ?int $status = null,
     ): Deal {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'title' => $title,
             'value' => $value,
             'currency' => $currency,
@@ -64,7 +64,7 @@ final class Deals extends Resource
         ?int $owner = null,
         ?int $status = null,
     ): Deal {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'title' => $title,
             'value' => $value,
             'currency' => $currency,
@@ -77,13 +77,13 @@ final class Deals extends Resource
 
     public function createNote(int $dealId, string $content): Note
     {
-        return $this->createNote_raw($dealId, ['note' => $content]);
+        return $this->createNoteRaw($dealId, ['note' => $content]);
     }
 
     /**
      * @param array<string, mixed> $data
      */
-    public function createNote_raw(int $dealId, array $data): Note
+    public function createNoteRaw(int $dealId, array $data): Note
     {
         $response = $this->client->post('deals/' . $dealId . '/notes', ['note' => $data]);
 
@@ -92,13 +92,13 @@ final class Deals extends Resource
 
     public function updateNote(int $dealId, int $noteId, string $content): Note
     {
-        return $this->updateNote_raw($dealId, $noteId, ['note' => $content]);
+        return $this->updateNoteRaw($dealId, $noteId, ['note' => $content]);
     }
 
     /**
      * @param array<string, mixed> $data
      */
-    public function updateNote_raw(int $dealId, int $noteId, array $data): Note
+    public function updateNoteRaw(int $dealId, int $noteId, array $data): Note
     {
         $response = $this->client->put('deals/' . $dealId . '/notes/' . $noteId, ['note' => $data]);
 

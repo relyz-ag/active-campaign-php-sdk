@@ -37,7 +37,7 @@ final class FieldValues extends Resource
 
     public function create(int $contact, int $field, string $value): FieldValue
     {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'contact' => $contact,
             'field' => $field,
             'value' => $value,
@@ -46,7 +46,7 @@ final class FieldValues extends Resource
 
     public function update(int $id, ?int $contact = null, ?int $field = null, ?string $value = null): FieldValue
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'contact' => $contact,
             'field' => $field,
             'value' => $value,

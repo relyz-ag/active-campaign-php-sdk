@@ -35,7 +35,7 @@ final class Campaigns extends Resource
 
     public function create(string $name, string $type): Campaign
     {
-        return $this->create_raw([
+        return $this->createRaw([
             'name' => $name,
             'type' => $type,
         ]);
@@ -43,7 +43,7 @@ final class Campaigns extends Resource
 
     public function update(int $id, ?string $name = null, ?string $type = null): Campaign
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'name' => $name,
             'type' => $type,
         ], fn ($v) => $v !== null));

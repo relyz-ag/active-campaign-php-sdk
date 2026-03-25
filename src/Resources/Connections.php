@@ -37,7 +37,7 @@ final class Connections extends Resource
 
     public function create(string $service, string $externalId, string $name, ?string $logoUrl = null, ?string $linkUrl = null): Connection
     {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'service' => $service,
             'externalid' => $externalId,
             'name' => $name,
@@ -48,7 +48,7 @@ final class Connections extends Resource
 
     public function update(int $id, ?string $service = null, ?string $externalId = null, ?string $name = null, ?string $logoUrl = null, ?string $linkUrl = null): Connection
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'service' => $service,
             'externalid' => $externalId,
             'name' => $name,

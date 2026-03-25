@@ -40,7 +40,7 @@ final class DealTasks extends Resource
         ?int $ownerId = null,
         ?string $taskType = null,
     ): DealTask {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'title' => $title,
             'dealTasktype' => $taskType,
             'relid' => $dealId,
@@ -59,7 +59,7 @@ final class DealTasks extends Resource
         ?int $ownerId = null,
         ?string $taskType = null,
     ): DealTask {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'title' => $title,
             'dealTasktype' => $taskType,
             'relid' => $dealId,

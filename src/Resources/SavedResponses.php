@@ -37,7 +37,7 @@ final class SavedResponses extends Resource
 
     public function create(string $title, string $subject, string $body): SavedResponse
     {
-        return $this->create_raw([
+        return $this->createRaw([
             'title' => $title,
             'subject' => $subject,
             'body' => $body,
@@ -46,7 +46,7 @@ final class SavedResponses extends Resource
 
     public function update(int $id, ?string $title = null, ?string $subject = null, ?string $body = null): SavedResponse
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'title' => $title,
             'subject' => $subject,
             'body' => $body,

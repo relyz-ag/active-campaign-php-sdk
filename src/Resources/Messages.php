@@ -37,7 +37,7 @@ final class Messages extends Resource
 
     public function create(string $subject, string $fromName, string $fromEmail, ?string $reply2 = null, ?string $preheaderText = null, ?string $html = null, ?string $text = null): Message
     {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'subject' => $subject,
             'fromname' => $fromName,
             'fromemail' => $fromEmail,
@@ -50,7 +50,7 @@ final class Messages extends Resource
 
     public function update(int $id, ?string $subject = null, ?string $fromName = null, ?string $fromEmail = null, ?string $reply2 = null, ?string $preheaderText = null, ?string $html = null, ?string $text = null): Message
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'subject' => $subject,
             'fromname' => $fromName,
             'fromemail' => $fromEmail,

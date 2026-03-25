@@ -40,7 +40,7 @@ final class CustomFields extends Resource
         ?bool $isRequired = null,
         ?int $displayOrder = null,
     ): CustomField {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'title' => $label,
             'type' => $type,
             'defval' => $default,
@@ -59,7 +59,7 @@ final class CustomFields extends Resource
         ?bool $isRequired = null,
         ?int $displayOrder = null,
     ): CustomField {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'title' => $label,
             'type' => $type,
             'defval' => $default,

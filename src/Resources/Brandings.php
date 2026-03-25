@@ -37,7 +37,7 @@ final class Brandings extends Resource
 
     public function update(int $id, ?string $siteName = null, ?string $siteLogo = null, ?string $siteLogoSmall = null, ?string $headerTextValue = null, ?string $footerTextValue = null): Branding
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'siteName' => $siteName,
             'siteLogo' => $siteLogo,
             'siteLogoSmall' => $siteLogoSmall,

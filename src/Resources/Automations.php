@@ -34,12 +34,12 @@ final class Automations extends Resource
 
     public function create(string $name): Automation
     {
-        return $this->create_raw(['name' => $name]);
+        return $this->createRaw(['name' => $name]);
     }
 
     public function update(int $id, ?string $name = null): Automation
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'name' => $name,
         ], fn ($v) => $v !== null));
     }

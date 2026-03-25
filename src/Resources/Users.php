@@ -34,7 +34,7 @@ final class Users extends Resource
 
     public function create(string $username, string $email, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): User
     {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'username' => $username,
             'email' => $email,
             'firstName' => $firstName,
@@ -45,7 +45,7 @@ final class Users extends Resource
 
     public function update(int $id, ?string $username = null, ?string $email = null, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): User
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'username' => $username,
             'email' => $email,
             'firstName' => $firstName,

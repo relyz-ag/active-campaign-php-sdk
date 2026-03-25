@@ -35,7 +35,7 @@ final class DealRoles extends Resource
     public function create(
         string $title,
     ): DealRole {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'title' => $title,
         ], fn ($v) => $v !== null));
     }

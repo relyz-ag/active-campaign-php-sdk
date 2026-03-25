@@ -47,7 +47,7 @@ final class EcomOrders extends Resource
         ?string $shippingMethod = null,
         ?int $state = null,
     ): EcomOrder {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'connectionid' => $connectionId,
             'customerid' => $customerId,
             'externalid' => $externalId,
@@ -71,7 +71,7 @@ final class EcomOrders extends Resource
         ?string $shippingMethod = null,
         ?int $state = null,
     ): EcomOrder {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'externalid' => $externalId,
             'email' => $email,
             'totalPrice' => $totalPrice,

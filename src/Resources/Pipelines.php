@@ -37,7 +37,7 @@ final class Pipelines extends Resource
         string $currency,
         ?bool $autoassign = null,
     ): Pipeline {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'title' => $title,
             'currency' => $currency,
             'autoassign' => $autoassign,
@@ -50,7 +50,7 @@ final class Pipelines extends Resource
         ?string $currency = null,
         ?bool $autoassign = null,
     ): Pipeline {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'title' => $title,
             'currency' => $currency,
             'autoassign' => $autoassign,

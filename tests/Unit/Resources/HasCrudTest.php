@@ -57,7 +57,7 @@ final class HasCrudTest extends TestCase
             ]) ?: '{}'),
         ]);
 
-        $result = $resource->create_raw(['email' => 'new@test.com']);
+        $result = $resource->createRaw(['email' => 'new@test.com']);
 
         $this->assertInstanceOf(Contact::class, $result);
         $this->assertSame(3, $result->id);
@@ -71,7 +71,7 @@ final class HasCrudTest extends TestCase
             ]) ?: '{}'),
         ]);
 
-        $result = $resource->update_raw(1, ['email' => 'updated@test.com']);
+        $result = $resource->updateRaw(1, ['email' => 'updated@test.com']);
 
         $this->assertInstanceOf(Contact::class, $result);
         $this->assertSame('updated@test.com', $result->email);

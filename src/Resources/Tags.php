@@ -34,7 +34,7 @@ final class Tags extends Resource
 
     public function create(string $name, string $type): Tag
     {
-        return $this->create_raw([
+        return $this->createRaw([
             'tag' => $name,
             'tagType' => $type,
         ]);
@@ -42,7 +42,7 @@ final class Tags extends Resource
 
     public function update(int $id, ?string $name = null, ?string $type = null): Tag
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'tag' => $name,
             'tagType' => $type,
         ], fn ($v) => $v !== null));

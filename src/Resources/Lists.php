@@ -34,7 +34,7 @@ final class Lists extends Resource
 
     public function create(string $name, string $stringid, ?string $senderUrl = null, ?string $senderReminder = null): MailingList
     {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'name' => $name,
             'stringid' => $stringid,
             'sender_url' => $senderUrl,
@@ -44,7 +44,7 @@ final class Lists extends Resource
 
     public function update(int $id, ?string $name = null, ?string $stringid = null, ?string $senderUrl = null, ?string $senderReminder = null): MailingList
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'name' => $name,
             'stringid' => $stringid,
             'sender_url' => $senderUrl,

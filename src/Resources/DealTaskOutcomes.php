@@ -36,7 +36,7 @@ final class DealTaskOutcomes extends Resource
         string $title,
         string $sentiment,
     ): DealTaskOutcome {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'title' => $title,
             'sentiment' => $sentiment,
         ], fn ($v) => $v !== null));
@@ -47,7 +47,7 @@ final class DealTaskOutcomes extends Resource
         ?string $title = null,
         ?string $sentiment = null,
     ): DealTaskOutcome {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'title' => $title,
             'sentiment' => $sentiment,
         ], fn ($v) => $v !== null));

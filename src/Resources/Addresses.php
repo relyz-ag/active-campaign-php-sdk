@@ -43,7 +43,7 @@ final class Addresses extends Resource
         ?string $phone = null,
         ?bool $isDefault = null,
     ): Address {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'companyName' => $companyName,
             'address1' => $address1,
             'address2' => $address2,
@@ -68,7 +68,7 @@ final class Addresses extends Resource
         ?string $phone = null,
         ?bool $isDefault = null,
     ): Address {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'companyName' => $companyName,
             'address1' => $address1,
             'address2' => $address2,

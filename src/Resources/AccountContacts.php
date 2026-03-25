@@ -37,7 +37,7 @@ final class AccountContacts extends Resource
 
     public function create(int $account, int $contact, ?string $jobTitle = null): AccountContact
     {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'account' => $account,
             'contact' => $contact,
             'jobTitle' => $jobTitle,
@@ -46,7 +46,7 @@ final class AccountContacts extends Resource
 
     public function update(int $id, ?string $jobTitle = null): AccountContact
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'jobTitle' => $jobTitle,
         ], fn ($v) => $v !== null));
     }

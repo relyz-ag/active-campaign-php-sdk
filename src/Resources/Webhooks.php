@@ -34,7 +34,7 @@ final class Webhooks extends Resource
 
     public function create(string $name, string $url, string $listid): Webhook
     {
-        return $this->create_raw([
+        return $this->createRaw([
             'name' => $name,
             'url' => $url,
             'listid' => $listid,
@@ -43,7 +43,7 @@ final class Webhooks extends Resource
 
     public function update(int $id, ?string $name = null, ?string $url = null, ?string $listid = null): Webhook
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'name' => $name,
             'url' => $url,
             'listid' => $listid,

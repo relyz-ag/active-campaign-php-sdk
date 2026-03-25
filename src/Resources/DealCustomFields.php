@@ -40,7 +40,7 @@ final class DealCustomFields extends Resource
         ?bool $isRequired = null,
         ?int $displayOrder = null,
     ): DealCustomField {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'fieldLabel' => $fieldLabel,
             'fieldType' => $fieldType,
             'fieldDefault' => $fieldDefault,
@@ -59,7 +59,7 @@ final class DealCustomFields extends Resource
         ?bool $isRequired = null,
         ?int $displayOrder = null,
     ): DealCustomField {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'fieldLabel' => $fieldLabel,
             'fieldType' => $fieldType,
             'fieldDefault' => $fieldDefault,

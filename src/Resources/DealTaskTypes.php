@@ -35,7 +35,7 @@ final class DealTaskTypes extends Resource
     public function create(
         string $title,
     ): DealTaskType {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'title' => $title,
         ], fn ($v) => $v !== null));
     }
@@ -45,7 +45,7 @@ final class DealTaskTypes extends Resource
         ?string $title = null,
         ?int $status = null,
     ): DealTaskType {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'title' => $title,
             'status' => $status,
         ], fn ($v) => $v !== null));

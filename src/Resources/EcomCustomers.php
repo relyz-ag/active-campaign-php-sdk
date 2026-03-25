@@ -37,7 +37,7 @@ final class EcomCustomers extends Resource
 
     public function create(int $connectionId, string $externalId, string $email, ?bool $acceptsMarketing = null): EcomCustomer
     {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'connectionid' => $connectionId,
             'externalid' => $externalId,
             'email' => $email,
@@ -47,7 +47,7 @@ final class EcomCustomers extends Resource
 
     public function update(int $id, ?string $externalId = null, ?string $email = null, ?bool $acceptsMarketing = null): EcomCustomer
     {
-        return $this->update_raw($id, array_filter([
+        return $this->updateRaw($id, array_filter([
             'externalid' => $externalId,
             'email' => $email,
             'acceptsMarketing' => $acceptsMarketing,

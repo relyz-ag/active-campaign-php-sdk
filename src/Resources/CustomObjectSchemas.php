@@ -35,7 +35,7 @@ final class CustomObjectSchemas extends Resource
     /**
      * @param array<string, mixed> $data
      */
-    public function create_raw(array $data): CustomObjectSchema
+    public function createRaw(array $data): CustomObjectSchema
     {
         $response = $this->client->post('customObjects/schemas', [
             'schema' => $data,
@@ -50,7 +50,7 @@ final class CustomObjectSchemas extends Resource
         string $pluralLabel,
         ?string $description = null,
     ): CustomObjectSchema {
-        return $this->create_raw(array_filter([
+        return $this->createRaw(array_filter([
             'slug' => $slug,
             'labels' => [
                 'singular' => $singularLabel,
@@ -63,7 +63,7 @@ final class CustomObjectSchemas extends Resource
     /**
      * @param array<string, mixed> $data
      */
-    public function update_raw(string $id, array $data): CustomObjectSchema
+    public function updateRaw(string $id, array $data): CustomObjectSchema
     {
         $response = $this->client->put('customObjects/schemas/' . $id, [
             'schema' => $data,
@@ -86,7 +86,7 @@ final class CustomObjectSchemas extends Resource
             'description' => $description,
         ], fn ($v) => $v !== null);
 
-        return $this->update_raw($id, $data);
+        return $this->updateRaw($id, $data);
     }
 
     public function delete(string $id): void
