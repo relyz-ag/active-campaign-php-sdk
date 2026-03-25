@@ -12,6 +12,7 @@ use ActiveCampaign\Exceptions\ValidationException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
+use Psr\Http\Message\ResponseInterface;
 
 final class Client
 {
@@ -85,7 +86,8 @@ final class Client
                 return json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR);
             } catch (ServerException $e) {
                 $status = $e->getResponse()->getStatusCode();
-                throw new ActiveCampaignException($e->getMessage(), $status, $e);
+                $body = $this->parseResponseBody($e->getResponse());
+                throw new ActiveCampaignException($e->getMessage(), $status, $e, $body);
             } catch (ClientException $e) {
                 $status = $e->getResponse()->getStatusCode();
 
@@ -98,14 +100,29 @@ final class Client
                     continue;
                 }
 
+                $body = $this->parseResponseBody($e->getResponse());
+
                 match ($status) {
-                    401, 403 => throw new AuthenticationException($e->getMessage(), $status, $e),
-                    404 => throw new NotFoundException($e->getMessage(), $status, $e),
-                    422 => throw new ValidationException($e->getMessage(), $status, $e),
-                    429 => throw new RateLimitException($e->getMessage(), $status, $e),
-                    default => throw new ActiveCampaignException($e->getMessage(), $status, $e),
+                    401, 403 => throw new AuthenticationException($e->getMessage(), $status, $e, $body),
+                    404 => throw new NotFoundException($e->getMessage(), $status, $e, $body),
+                    422 => throw new ValidationException($e->getMessage(), $status, $e, $body),
+                    429 => throw new RateLimitException($e->getMessage(), $status, $e, $body),
+                    default => throw new ActiveCampaignException($e->getMessage(), $status, $e, $body),
                 };
             }
+        }
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function parseResponseBody(ResponseInterface $response): array
+    {
+        try {
+            /** @var array<string, mixed> */
+            return json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException) {
+            return [];
         }
     }
 }

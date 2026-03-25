@@ -189,6 +189,37 @@ final class ClientTest extends TestCase
         $this->assertStringContainsString('offset=0', $query);
     }
 
+    public function testValidationExceptionPreservesApiErrors(): void
+    {
+        $client = $this->makeClient([
+            new Response(422, [], '{"errors":[{"title":"Email is required"}]}'),
+        ]);
+
+        try {
+            $client->post('contacts', ['contact' => []]);
+            $this->fail('Expected ValidationException');
+        } catch (ValidationException $e) {
+            $this->assertSame(422, $e->getCode());
+            $this->assertNotEmpty($e->getResponseBody());
+            $this->assertArrayHasKey('errors', $e->getResponseBody());
+        }
+    }
+
+    public function testServerExceptionPreservesResponseBody(): void
+    {
+        $client = $this->makeClient([
+            new Response(500, [], '{"message":"Internal Server Error"}'),
+        ]);
+
+        try {
+            $client->get('contacts');
+            $this->fail('Expected ActiveCampaignException');
+        } catch (ActiveCampaignException $e) {
+            $this->assertSame(500, $e->getCode());
+            $this->assertSame(['message' => 'Internal Server Error'], $e->getResponseBody());
+        }
+    }
+
     /**
      * @param list<Response> $responses
      */
