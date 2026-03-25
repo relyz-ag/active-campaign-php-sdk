@@ -18,14 +18,18 @@ final class Client
 {
     private GuzzleClient $guzzle;
     private int $maxRetries;
+    /** @var (\Closure(int, int): void)|null */
+    private ?\Closure $retryDelay;
 
     public function __construct(
         string $url,
         private readonly string $apiKey,
         int $maxRetries = 3,
         ?GuzzleClient $guzzle = null,
+        ?\Closure $retryDelay = null,
     ) {
         $this->maxRetries = $maxRetries;
+        $this->retryDelay = $retryDelay;
         $this->guzzle = $guzzle ?? new GuzzleClient([
             'base_uri' => rtrim($url, '/'),
         ]);
@@ -93,10 +97,12 @@ final class Client
 
                 if ($status === 429 && $attempt < $this->maxRetries) {
                     $retryAfter = (int) $e->getResponse()->getHeaderLine('Retry-After');
-                    if ($retryAfter > 0) {
+                    $attempt++;
+                    if ($this->retryDelay !== null) {
+                        ($this->retryDelay)($retryAfter, $attempt);
+                    } elseif ($retryAfter > 0) {
                         sleep($retryAfter);
                     }
-                    $attempt++;
                     continue;
                 }
 

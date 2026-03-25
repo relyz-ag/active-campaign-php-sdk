@@ -220,10 +220,32 @@ final class ClientTest extends TestCase
         }
     }
 
+    public function testCustomRetryDelayCallback(): void
+    {
+        $delays = [];
+        $client = $this->makeClient(
+            responses: [
+                new Response(429, ['Retry-After' => '2'], ''),
+                new Response(200, [], '{"contacts":[]}'),
+            ],
+            maxRetries: 3,
+            retryDelay: function (int $retryAfter, int $attempt) use (&$delays): void {
+                $delays[] = ['retryAfter' => $retryAfter, 'attempt' => $attempt];
+            },
+        );
+
+        $result = $client->get('contacts');
+
+        $this->assertSame(['contacts' => []], $result);
+        $this->assertCount(1, $delays);
+        $this->assertSame(2, $delays[0]['retryAfter']);
+        $this->assertSame(1, $delays[0]['attempt']);
+    }
+
     /**
      * @param list<Response> $responses
      */
-    private function makeClient(array $responses, int $maxRetries = 3): Client
+    private function makeClient(array $responses, int $maxRetries = 3, ?\Closure $retryDelay = null): Client
     {
         $this->history = [];
         $mock = new MockHandler($responses);
@@ -240,6 +262,7 @@ final class ClientTest extends TestCase
             apiKey: 'test-api-key',
             maxRetries: $maxRetries,
             guzzle: $guzzle,
+            retryDelay: $retryDelay,
         );
     }
 }
