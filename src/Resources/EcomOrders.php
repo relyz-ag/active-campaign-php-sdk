@@ -35,6 +35,13 @@ final class EcomOrders extends Resource
         return EcomOrder::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(
         int $connectionId,
         int $customerId,
@@ -60,6 +67,13 @@ final class EcomOrders extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(
         int $id,
         ?string $externalId = null,

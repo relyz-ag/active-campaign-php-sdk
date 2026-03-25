@@ -32,6 +32,13 @@ final class Notes extends Resource
         return Note::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(string $content, int $relatedId, string $relatedType, ?int $userId = null): Note
     {
         return $this->createRaw($this->filterNulls([
@@ -42,6 +49,13 @@ final class Notes extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $content = null, ?int $relatedId = null, ?string $relatedType = null, ?int $userId = null): Note
     {
         return $this->updateRaw($id, $this->filterNulls([

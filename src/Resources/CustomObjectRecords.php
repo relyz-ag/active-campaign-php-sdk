@@ -22,6 +22,12 @@ final class CustomObjectRecords extends Resource
     /**
      * @param array<string, mixed> $params
      * @return list<CustomObjectRecord>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function list(array $params = []): array
     {
@@ -33,6 +39,13 @@ final class CustomObjectRecords extends Resource
         );
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function get(string $id): CustomObjectRecord
     {
         $response = $this->client->get('customObjects/records/' . $this->schemaId . '/' . $id);
@@ -43,6 +56,12 @@ final class CustomObjectRecords extends Resource
     /**
      * @param array<string, mixed> $fields
      * @param array<string, mixed>|null $relationships
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function create(array $fields, ?string $externalId = null, ?array $relationships = null): CustomObjectRecord
     {
@@ -59,11 +78,25 @@ final class CustomObjectRecords extends Resource
         return CustomObjectRecord::fromArray($response['record']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function delete(string $id): void
     {
         $this->client->delete('customObjects/records/' . $this->schemaId . '/' . $id);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function getByExternalId(string $externalId): CustomObjectRecord
     {
         $response = $this->client->get('customObjects/records/' . $this->schemaId . '/external/' . $externalId);

@@ -34,6 +34,13 @@ final class Deals extends Resource
         return Deal::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(
         string $title,
         int $value,
@@ -54,6 +61,13 @@ final class Deals extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(
         int $id,
         ?string $title = null,
@@ -75,6 +89,13 @@ final class Deals extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function createNote(int $dealId, string $content): Note
     {
         return $this->createNoteRaw($dealId, ['note' => $content]);
@@ -82,6 +103,12 @@ final class Deals extends Resource
 
     /**
      * @param array<string, mixed> $data
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function createNoteRaw(int $dealId, array $data): Note
     {
@@ -90,6 +117,13 @@ final class Deals extends Resource
         return Note::fromArray($response['note']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function updateNote(int $dealId, int $noteId, string $content): Note
     {
         return $this->updateNoteRaw($dealId, $noteId, ['note' => $content]);
@@ -97,6 +131,12 @@ final class Deals extends Resource
 
     /**
      * @param array<string, mixed> $data
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function updateNoteRaw(int $dealId, int $noteId, array $data): Note
     {
@@ -107,6 +147,12 @@ final class Deals extends Resource
 
     /**
      * @param list<array<string, mixed>> $deals
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function bulkUpdateOwners(array $deals): BulkUpdateResult
     {

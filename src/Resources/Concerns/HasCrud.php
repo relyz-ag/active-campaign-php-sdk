@@ -25,6 +25,12 @@ trait HasCrud
     /**
      * @param array<string, mixed> $params
      * @return ListResponse<T>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function list(array $params = []): ListResponse
     {
@@ -44,6 +50,12 @@ trait HasCrud
 
     /**
      * @return T
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function get(int $id): mixed
     {
@@ -56,6 +68,12 @@ trait HasCrud
     /**
      * @param array<string, mixed> $data
      * @return T
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function createRaw(array $data): mixed
     {
@@ -70,6 +88,12 @@ trait HasCrud
     /**
      * @param array<string, mixed> $data
      * @return T
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function updateRaw(int $id, array $data): mixed
     {
@@ -81,6 +105,13 @@ trait HasCrud
         return $modelClass::fromArray($response[$this->singularKey()]);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function delete(int $id): void
     {
         $this->client->delete($this->endpoint() . '/' . $id);
@@ -89,6 +120,12 @@ trait HasCrud
     /**
      * @param array<string, mixed> $params
      * @return Paginator<T>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function paginate(int $limit = 20, array $params = []): Paginator
     {

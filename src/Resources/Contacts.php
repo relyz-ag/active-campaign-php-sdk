@@ -46,6 +46,13 @@ final class Contacts extends Resource
         return Contact::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function tag(int $contactId, int $tagId): ContactTag
     {
         $response = $this->client->post('contactTags', [
@@ -58,11 +65,25 @@ final class Contacts extends Resource
         return ContactTag::fromArray($response['contactTag']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function untag(int $contactTagId): void
     {
         $this->client->delete('contactTags/' . $contactTagId);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function addToAutomation(int $contactId, int $automationId): ContactAutomation
     {
         $response = $this->client->post('contactAutomations', [
@@ -75,6 +96,13 @@ final class Contacts extends Resource
         return ContactAutomation::fromArray($response['contactAutomation']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function removeFromAutomation(int $contactAutomationId): void
     {
         $this->client->delete('contactAutomations/' . $contactAutomationId);
@@ -82,6 +110,12 @@ final class Contacts extends Resource
 
     /**
      * @return list<ContactAutomation>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function listAutomations(int $contactId): array
     {
@@ -95,6 +129,12 @@ final class Contacts extends Resource
 
     /**
      * @return list<ContactDeal>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function listDeals(int $contactId): array
     {
@@ -108,6 +148,12 @@ final class Contacts extends Resource
 
     /**
      * @return list<ContactList>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function listLists(int $contactId): array
     {
@@ -121,6 +167,12 @@ final class Contacts extends Resource
 
     /**
      * @return list<ScoreValue>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function listScoreValues(int $contactId): array
     {
@@ -134,6 +186,12 @@ final class Contacts extends Resource
 
     /**
      * @return list<GeoIp>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function listGeoIps(int $contactId): array
     {
@@ -147,6 +205,12 @@ final class Contacts extends Resource
 
     /**
      * @return list<BounceLog>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function listBounceLogs(int $contactId): array
     {
@@ -160,6 +224,12 @@ final class Contacts extends Resource
 
     /**
      * @return list<TrackingLog>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function listTrackingLogs(int $contactId): array
     {
@@ -173,6 +243,12 @@ final class Contacts extends Resource
 
     /**
      * @return list<EmailActivity>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function listEmailActivities(int $contactId): array
     {
@@ -184,6 +260,13 @@ final class Contacts extends Resource
         );
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(string $email, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): Contact
     {
         return $this->createRaw($this->filterNulls([
@@ -194,6 +277,13 @@ final class Contacts extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $email = null, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): Contact
     {
         return $this->updateRaw($id, $this->filterNulls([
@@ -204,6 +294,13 @@ final class Contacts extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function sync(string $email, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): Contact
     {
         return $this->syncRaw($this->filterNulls([
@@ -216,6 +313,12 @@ final class Contacts extends Resource
 
     /**
      * @param array<string, mixed> $data
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function syncRaw(array $data): Contact
     {
@@ -228,6 +331,12 @@ final class Contacts extends Resource
 
     /**
      * @param list<array<string, mixed>> $contacts
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function bulkImport(array $contacts, ?string $callback = null): BulkImportResult
     {
@@ -239,6 +348,12 @@ final class Contacts extends Resource
 
     /**
      * @param array<string, mixed> $data
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function bulkImportRaw(array $data): BulkImportResult
     {
@@ -247,6 +362,13 @@ final class Contacts extends Resource
         return BulkImportResult::fromArray($response);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function bulkImportStatus(): BulkImportStatus
     {
         $response = $this->client->get('import/info');
@@ -254,6 +376,13 @@ final class Contacts extends Resource
         return BulkImportStatus::fromArray($response);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function updateListStatus(int $contactId, int $listId, int $status): ContactList
     {
         return $this->updateListStatusRaw([
@@ -265,6 +394,12 @@ final class Contacts extends Resource
 
     /**
      * @param array<string, mixed> $data
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function updateListStatusRaw(array $data): ContactList
     {

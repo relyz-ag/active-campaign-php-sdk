@@ -35,6 +35,13 @@ final class Connections extends Resource
         return Connection::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(string $service, string $externalId, string $name, ?string $logoUrl = null, ?string $linkUrl = null): Connection
     {
         return $this->createRaw($this->filterNulls([
@@ -46,6 +53,13 @@ final class Connections extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $service = null, ?string $externalId = null, ?string $name = null, ?string $logoUrl = null, ?string $linkUrl = null): Connection
     {
         return $this->updateRaw($id, $this->filterNulls([

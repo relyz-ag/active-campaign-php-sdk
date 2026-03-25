@@ -32,6 +32,13 @@ final class Users extends Resource
         return User::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(string $username, string $email, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): User
     {
         return $this->createRaw($this->filterNulls([
@@ -43,6 +50,13 @@ final class Users extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $username = null, ?string $email = null, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): User
     {
         return $this->updateRaw($id, $this->filterNulls([
@@ -54,6 +68,13 @@ final class Users extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function getByEmail(string $email): User
     {
         $response = $this->client->get('users/email/' . urlencode($email));
@@ -61,6 +82,13 @@ final class Users extends Resource
         return User::fromArray($response['user']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function getByUsername(string $username): User
     {
         $response = $this->client->get('users/username/' . urlencode($username));
@@ -68,6 +96,13 @@ final class Users extends Resource
         return User::fromArray($response['user']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function me(): User
     {
         $response = $this->client->get('users/me');

@@ -35,6 +35,13 @@ final class Messages extends Resource
         return Message::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(string $subject, string $fromName, string $fromEmail, ?string $reply2 = null, ?string $preheaderText = null, ?string $html = null, ?string $text = null): Message
     {
         return $this->createRaw($this->filterNulls([
@@ -48,6 +55,13 @@ final class Messages extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $subject = null, ?string $fromName = null, ?string $fromEmail = null, ?string $reply2 = null, ?string $preheaderText = null, ?string $html = null, ?string $text = null): Message
     {
         return $this->updateRaw($id, $this->filterNulls([

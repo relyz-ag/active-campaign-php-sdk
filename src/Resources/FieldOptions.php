@@ -35,6 +35,13 @@ final class FieldOptions extends Resource
         return FieldOption::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(int $field, string $value, string $label, ?bool $isDefault = null, ?int $orderid = null): FieldOption
     {
         return $this->createRaw($this->filterNulls([

@@ -35,6 +35,13 @@ final class FieldValues extends Resource
         return FieldValue::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(int $contact, int $field, string $value): FieldValue
     {
         return $this->createRaw($this->filterNulls([
@@ -44,6 +51,13 @@ final class FieldValues extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?int $contact = null, ?int $field = null, ?string $value = null): FieldValue
     {
         return $this->updateRaw($id, $this->filterNulls([

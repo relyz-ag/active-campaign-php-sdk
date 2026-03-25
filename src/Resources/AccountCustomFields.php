@@ -35,6 +35,13 @@ final class AccountCustomFields extends Resource
         return AccountCustomField::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(string $fieldLabel, string $fieldType, ?string $fieldDefault = null, ?bool $isFormVisible = null, ?int $displayOrder = null): AccountCustomField
     {
         return $this->createRaw($this->filterNulls([
@@ -46,6 +53,13 @@ final class AccountCustomFields extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $fieldLabel = null, ?string $fieldType = null, ?string $fieldDefault = null, ?bool $isFormVisible = null, ?int $displayOrder = null): AccountCustomField
     {
         return $this->updateRaw($id, $this->filterNulls([

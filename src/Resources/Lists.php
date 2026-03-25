@@ -32,6 +32,13 @@ final class Lists extends Resource
         return MailingList::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(string $name, string $stringid, ?string $senderUrl = null, ?string $senderReminder = null): MailingList
     {
         return $this->createRaw($this->filterNulls([
@@ -42,6 +49,13 @@ final class Lists extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $name = null, ?string $stringid = null, ?string $senderUrl = null, ?string $senderReminder = null): MailingList
     {
         return $this->updateRaw($id, $this->filterNulls([

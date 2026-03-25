@@ -35,6 +35,13 @@ final class AccountCustomFieldValues extends Resource
         return AccountCustomFieldValue::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(int $accountId, int $customFieldId, string $fieldValue): AccountCustomFieldValue
     {
         return $this->createRaw($this->filterNulls([
@@ -44,6 +51,13 @@ final class AccountCustomFieldValues extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $fieldValue = null): AccountCustomFieldValue
     {
         return $this->updateRaw($id, $this->filterNulls([
@@ -54,6 +68,12 @@ final class AccountCustomFieldValues extends Resource
     /**
      * @param list<array<string, mixed>> $data
      * @return list<AccountCustomFieldValue>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function bulkCreate(array $data): array
     {

@@ -35,6 +35,13 @@ final class Brandings extends Resource
         return Branding::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $siteName = null, ?string $siteLogo = null, ?string $siteLogoSmall = null, ?string $headerTextValue = null, ?string $footerTextValue = null): Branding
     {
         return $this->updateRaw($id, $this->filterNulls([

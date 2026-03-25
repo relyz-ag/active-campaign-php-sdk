@@ -35,6 +35,13 @@ final class CalendarFeeds extends Resource
         return CalendarFeed::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(string $title, string $type, ?bool $notification = null): CalendarFeed
     {
         return $this->createRaw($this->filterNulls([
@@ -44,6 +51,13 @@ final class CalendarFeeds extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $title = null, ?string $type = null, ?bool $notification = null): CalendarFeed
     {
         return $this->updateRaw($id, $this->filterNulls([

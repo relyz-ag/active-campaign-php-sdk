@@ -12,6 +12,13 @@ use ActiveCampaign\Models\TrackingStatus;
  */
 final class SiteTracking extends Resource
 {
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function getStatus(): TrackingStatus
     {
         $response = $this->client->get('siteTracking');
@@ -19,6 +26,13 @@ final class SiteTracking extends Resource
         return TrackingStatus::fromArray($response['siteTracking']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function enable(): TrackingStatus
     {
         $response = $this->client->put('siteTracking', [
@@ -30,6 +44,13 @@ final class SiteTracking extends Resource
         return TrackingStatus::fromArray($response['siteTracking']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function disable(): TrackingStatus
     {
         $response = $this->client->put('siteTracking', [
@@ -41,6 +62,13 @@ final class SiteTracking extends Resource
         return TrackingStatus::fromArray($response['siteTracking']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function addWhitelistDomain(string $name): SiteTrackingDomain
     {
         $response = $this->client->post('siteTrackingDomains', [
@@ -52,6 +80,13 @@ final class SiteTracking extends Resource
         return SiteTrackingDomain::fromArray($response['siteTrackingDomain']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function removeWhitelistDomain(string $name): void
     {
         $this->client->delete('siteTrackingDomains/' . $name);
@@ -59,6 +94,12 @@ final class SiteTracking extends Resource
 
     /**
      * @return list<SiteTrackingDomain>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function listWhitelistDomains(): array
     {

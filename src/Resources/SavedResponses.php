@@ -35,6 +35,13 @@ final class SavedResponses extends Resource
         return SavedResponse::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(string $title, string $subject, string $body): SavedResponse
     {
         return $this->createRaw([
@@ -44,6 +51,13 @@ final class SavedResponses extends Resource
         ]);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $title = null, ?string $subject = null, ?string $body = null): SavedResponse
     {
         return $this->updateRaw($id, $this->filterNulls([

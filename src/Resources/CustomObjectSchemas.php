@@ -14,6 +14,12 @@ final class CustomObjectSchemas extends Resource
     /**
      * @param array<string, mixed> $params
      * @return list<CustomObjectSchema>
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function list(array $params = []): array
     {
@@ -25,6 +31,13 @@ final class CustomObjectSchemas extends Resource
         );
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function get(string $id): CustomObjectSchema
     {
         $response = $this->client->get('customObjects/schemas/' . $id);
@@ -34,6 +47,12 @@ final class CustomObjectSchemas extends Resource
 
     /**
      * @param array<string, mixed> $data
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function createRaw(array $data): CustomObjectSchema
     {
@@ -44,6 +63,13 @@ final class CustomObjectSchemas extends Resource
         return CustomObjectSchema::fromArray($response['schema']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(
         string $slug,
         string $singularLabel,
@@ -62,6 +88,12 @@ final class CustomObjectSchemas extends Resource
 
     /**
      * @param array<string, mixed> $data
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function updateRaw(string $id, array $data): CustomObjectSchema
     {
@@ -72,6 +104,13 @@ final class CustomObjectSchemas extends Resource
         return CustomObjectSchema::fromArray($response['schema']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(
         string $id,
         ?string $singularLabel = null,
@@ -89,6 +128,13 @@ final class CustomObjectSchemas extends Resource
         return $this->updateRaw($id, $data);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function delete(string $id): void
     {
         $this->client->delete('customObjects/schemas/' . $id);

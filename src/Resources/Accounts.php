@@ -33,6 +33,13 @@ final class Accounts extends Resource
         return Account::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(string $name, ?string $accountUrl = null): Account
     {
         return $this->createRaw($this->filterNulls([
@@ -41,6 +48,13 @@ final class Accounts extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $name = null, ?string $accountUrl = null): Account
     {
         return $this->updateRaw($id, $this->filterNulls([
@@ -49,6 +63,13 @@ final class Accounts extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function createNote(int $accountId, string $content): Note
     {
         return $this->createNoteRaw($accountId, ['note' => $content]);
@@ -56,6 +77,12 @@ final class Accounts extends Resource
 
     /**
      * @param array<string, mixed> $data
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function createNoteRaw(int $accountId, array $data): Note
     {
@@ -64,6 +91,13 @@ final class Accounts extends Resource
         return Note::fromArray($response['note']);
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function updateNote(int $accountId, int $noteId, string $content): Note
     {
         return $this->updateNoteRaw($accountId, $noteId, ['note' => $content]);
@@ -71,6 +105,12 @@ final class Accounts extends Resource
 
     /**
      * @param array<string, mixed> $data
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function updateNoteRaw(int $accountId, int $noteId, array $data): Note
     {
@@ -81,6 +121,12 @@ final class Accounts extends Resource
 
     /**
      * @param list<int> $ids
+     *
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
      */
     public function bulkDelete(array $ids): void
     {

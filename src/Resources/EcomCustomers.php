@@ -35,6 +35,13 @@ final class EcomCustomers extends Resource
         return EcomCustomer::class;
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function create(int $connectionId, string $externalId, string $email, ?bool $acceptsMarketing = null): EcomCustomer
     {
         return $this->createRaw($this->filterNulls([
@@ -45,6 +52,13 @@ final class EcomCustomers extends Resource
         ]));
     }
 
+    /**
+     * @throws \ActiveCampaign\Exceptions\AuthenticationException
+     * @throws \ActiveCampaign\Exceptions\NotFoundException
+     * @throws \ActiveCampaign\Exceptions\ValidationException
+     * @throws \ActiveCampaign\Exceptions\RateLimitException
+     * @throws \ActiveCampaign\Exceptions\ActiveCampaignException
+     */
     public function update(int $id, ?string $externalId = null, ?string $email = null, ?bool $acceptsMarketing = null): EcomCustomer
     {
         return $this->updateRaw($id, $this->filterNulls([
