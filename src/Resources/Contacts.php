@@ -174,32 +174,32 @@ final class Contacts extends Resource
 
     public function create(string $email, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): Contact
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'email' => $email,
             'firstName' => $firstName,
             'lastName' => $lastName,
             'phone' => $phone,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(int $id, ?string $email = null, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): Contact
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'email' => $email,
             'firstName' => $firstName,
             'lastName' => $lastName,
             'phone' => $phone,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function sync(string $email, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): Contact
     {
-        return $this->syncRaw(array_filter([
+        return $this->syncRaw($this->filterNulls([
             'email' => $email,
             'firstName' => $firstName,
             'lastName' => $lastName,
             'phone' => $phone,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     /**
@@ -219,10 +219,10 @@ final class Contacts extends Resource
      */
     public function bulkImport(array $contacts, ?string $callback = null): BulkImportResult
     {
-        return $this->bulkImportRaw(array_filter([
+        return $this->bulkImportRaw($this->filterNulls([
             'contacts' => $contacts,
             'callback' => $callback,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     /**

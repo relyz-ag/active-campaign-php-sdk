@@ -47,7 +47,7 @@ final class EcomOrders extends Resource
         ?string $shippingMethod = null,
         ?int $state = null,
     ): EcomOrder {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'connectionid' => $connectionId,
             'customerid' => $customerId,
             'externalid' => $externalId,
@@ -57,7 +57,7 @@ final class EcomOrders extends Resource
             'orderDate' => $orderDate,
             'orderNumber' => $orderNumber,
             'shippingMethod' => $shippingMethod,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(
@@ -71,7 +71,7 @@ final class EcomOrders extends Resource
         ?string $shippingMethod = null,
         ?int $state = null,
     ): EcomOrder {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'externalid' => $externalId,
             'email' => $email,
             'totalPrice' => $totalPrice,
@@ -80,6 +80,6 @@ final class EcomOrders extends Resource
             'orderNumber' => $orderNumber,
             'shippingMethod' => $shippingMethod,
             'state' => $state,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

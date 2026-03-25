@@ -39,8 +39,8 @@ final class Automations extends Resource
 
     public function update(int $id, ?string $name = null): Automation
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'name' => $name,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

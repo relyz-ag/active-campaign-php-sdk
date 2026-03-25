@@ -37,18 +37,18 @@ final class AccountCustomFieldValues extends Resource
 
     public function create(int $accountId, int $customFieldId, string $fieldValue): AccountCustomFieldValue
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'accountId' => $accountId,
             'accountCustomFieldMetumId' => $customFieldId,
             'fieldValue' => $fieldValue,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(int $id, ?string $fieldValue = null): AccountCustomFieldValue
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'fieldValue' => $fieldValue,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     /**

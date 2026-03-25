@@ -37,20 +37,20 @@ final class EcomCustomers extends Resource
 
     public function create(int $connectionId, string $externalId, string $email, ?bool $acceptsMarketing = null): EcomCustomer
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'connectionid' => $connectionId,
             'externalid' => $externalId,
             'email' => $email,
             'acceptsMarketing' => $acceptsMarketing,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(int $id, ?string $externalId = null, ?string $email = null, ?bool $acceptsMarketing = null): EcomCustomer
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'externalid' => $externalId,
             'email' => $email,
             'acceptsMarketing' => $acceptsMarketing,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

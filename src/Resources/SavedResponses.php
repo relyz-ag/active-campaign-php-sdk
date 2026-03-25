@@ -46,10 +46,10 @@ final class SavedResponses extends Resource
 
     public function update(int $id, ?string $title = null, ?string $subject = null, ?string $body = null): SavedResponse
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'title' => $title,
             'subject' => $subject,
             'body' => $body,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

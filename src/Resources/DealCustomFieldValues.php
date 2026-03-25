@@ -38,12 +38,12 @@ final class DealCustomFieldValues extends Resource
         string $fieldValue,
         ?string $fieldCurrency = null,
     ): DealCustomFieldValue {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'dealId' => $dealId,
             'customFieldId' => $customFieldId,
             'fieldValue' => $fieldValue,
             'fieldCurrency' => $fieldCurrency,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(
@@ -51,10 +51,10 @@ final class DealCustomFieldValues extends Resource
         ?string $fieldValue = null,
         ?string $fieldCurrency = null,
     ): DealCustomFieldValue {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'fieldValue' => $fieldValue,
             'fieldCurrency' => $fieldCurrency,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     /**

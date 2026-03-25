@@ -43,7 +43,7 @@ final class Addresses extends Resource
         ?string $phone = null,
         ?bool $isDefault = null,
     ): Address {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'companyName' => $companyName,
             'address1' => $address1,
             'address2' => $address2,
@@ -53,7 +53,7 @@ final class Addresses extends Resource
             'country' => $country,
             'phone' => $phone,
             'isDefault' => $isDefault,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(
@@ -68,7 +68,7 @@ final class Addresses extends Resource
         ?string $phone = null,
         ?bool $isDefault = null,
     ): Address {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'companyName' => $companyName,
             'address1' => $address1,
             'address2' => $address2,
@@ -78,7 +78,7 @@ final class Addresses extends Resource
             'country' => $country,
             'phone' => $phone,
             'isDefault' => $isDefault,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function deleteByGroup(int $groupId): void

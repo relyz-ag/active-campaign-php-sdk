@@ -39,13 +39,13 @@ final class DealStages extends Resource
         ?string $color = null,
         ?int $width = null,
     ): DealStage {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'title' => $title,
             'group' => $pipeline,
             'order' => $order,
             'color' => $color,
             'width' => $width,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(
@@ -56,12 +56,12 @@ final class DealStages extends Resource
         ?string $color = null,
         ?int $width = null,
     ): DealStage {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'title' => $title,
             'group' => $pipeline,
             'order' => $order,
             'color' => $color,
             'width' => $width,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

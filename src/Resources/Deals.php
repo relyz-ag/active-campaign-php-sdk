@@ -43,7 +43,7 @@ final class Deals extends Resource
         ?int $owner = null,
         ?int $status = null,
     ): Deal {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'title' => $title,
             'value' => $value,
             'currency' => $currency,
@@ -51,7 +51,7 @@ final class Deals extends Resource
             'group' => $pipeline,
             'owner' => $owner,
             'status' => $status,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(
@@ -64,7 +64,7 @@ final class Deals extends Resource
         ?int $owner = null,
         ?int $status = null,
     ): Deal {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'title' => $title,
             'value' => $value,
             'currency' => $currency,
@@ -72,7 +72,7 @@ final class Deals extends Resource
             'group' => $pipeline,
             'owner' => $owner,
             'status' => $status,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function createNote(int $dealId, string $content): Note

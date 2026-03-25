@@ -37,23 +37,23 @@ final class AccountCustomFields extends Resource
 
     public function create(string $fieldLabel, string $fieldType, ?string $fieldDefault = null, ?bool $isFormVisible = null, ?int $displayOrder = null): AccountCustomField
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'fieldLabel' => $fieldLabel,
             'fieldType' => $fieldType,
             'fieldDefault' => $fieldDefault,
             'isFormVisible' => $isFormVisible,
             'displayOrder' => $displayOrder,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(int $id, ?string $fieldLabel = null, ?string $fieldType = null, ?string $fieldDefault = null, ?bool $isFormVisible = null, ?int $displayOrder = null): AccountCustomField
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'fieldLabel' => $fieldLabel,
             'fieldType' => $fieldType,
             'fieldDefault' => $fieldDefault,
             'isFormVisible' => $isFormVisible,
             'displayOrder' => $displayOrder,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

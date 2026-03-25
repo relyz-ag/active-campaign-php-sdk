@@ -37,7 +37,7 @@ final class Messages extends Resource
 
     public function create(string $subject, string $fromName, string $fromEmail, ?string $reply2 = null, ?string $preheaderText = null, ?string $html = null, ?string $text = null): Message
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'subject' => $subject,
             'fromname' => $fromName,
             'fromemail' => $fromEmail,
@@ -45,12 +45,12 @@ final class Messages extends Resource
             'preheader_text' => $preheaderText,
             'html' => $html,
             'text' => $text,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(int $id, ?string $subject = null, ?string $fromName = null, ?string $fromEmail = null, ?string $reply2 = null, ?string $preheaderText = null, ?string $html = null, ?string $text = null): Message
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'subject' => $subject,
             'fromname' => $fromName,
             'fromemail' => $fromEmail,
@@ -58,6 +58,6 @@ final class Messages extends Resource
             'preheader_text' => $preheaderText,
             'html' => $html,
             'text' => $text,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

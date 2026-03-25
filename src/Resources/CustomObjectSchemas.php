@@ -50,14 +50,14 @@ final class CustomObjectSchemas extends Resource
         string $pluralLabel,
         ?string $description = null,
     ): CustomObjectSchema {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'slug' => $slug,
             'labels' => [
                 'singular' => $singularLabel,
                 'plural' => $pluralLabel,
             ],
             'description' => $description,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     /**
@@ -78,13 +78,13 @@ final class CustomObjectSchemas extends Resource
         ?string $pluralLabel = null,
         ?string $description = null,
     ): CustomObjectSchema {
-        $data = array_filter([
-            'labels' => array_filter([
+        $data = $this->filterNulls([
+            'labels' => $this->filterNulls([
                 'singular' => $singularLabel,
                 'plural' => $pluralLabel,
-            ], fn ($v) => $v !== null) ?: null,
+            ]) ?: null,
             'description' => $description,
-        ], fn ($v) => $v !== null);
+        ]);
 
         return $this->updateRaw($id, $data);
     }

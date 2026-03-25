@@ -42,9 +42,9 @@ final class Tags extends Resource
 
     public function update(int $id, ?string $name = null, ?string $type = null): Tag
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'tag' => $name,
             'tagType' => $type,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

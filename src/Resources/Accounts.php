@@ -35,18 +35,18 @@ final class Accounts extends Resource
 
     public function create(string $name, ?string $accountUrl = null): Account
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'name' => $name,
             'accountUrl' => $accountUrl,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(int $id, ?string $name = null, ?string $accountUrl = null): Account
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'name' => $name,
             'accountUrl' => $accountUrl,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function createNote(int $accountId, string $content): Note

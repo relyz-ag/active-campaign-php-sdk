@@ -43,10 +43,10 @@ final class Campaigns extends Resource
 
     public function update(int $id, ?string $name = null, ?string $type = null): Campaign
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'name' => $name,
             'type' => $type,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function duplicate(int $id): Campaign

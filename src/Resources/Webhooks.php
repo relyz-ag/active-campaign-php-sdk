@@ -43,11 +43,11 @@ final class Webhooks extends Resource
 
     public function update(int $id, ?string $name = null, ?string $url = null, ?string $listid = null): Webhook
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'name' => $name,
             'url' => $url,
             'listid' => $listid,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     /**

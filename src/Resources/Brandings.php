@@ -37,12 +37,12 @@ final class Brandings extends Resource
 
     public function update(int $id, ?string $siteName = null, ?string $siteLogo = null, ?string $siteLogoSmall = null, ?string $headerTextValue = null, ?string $footerTextValue = null): Branding
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'siteName' => $siteName,
             'siteLogo' => $siteLogo,
             'siteLogoSmall' => $siteLogoSmall,
             'headerTextValue' => $headerTextValue,
             'footerTextValue' => $footerTextValue,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

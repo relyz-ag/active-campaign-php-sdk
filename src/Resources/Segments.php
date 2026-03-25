@@ -34,17 +34,17 @@ final class Segments extends Resource
 
     public function create(string $name, ?int $seriesId = null): Segment
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'name' => $name,
             'seriesid' => $seriesId,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(int $id, ?string $name = null, ?int $seriesId = null): Segment
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'name' => $name,
             'seriesid' => $seriesId,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

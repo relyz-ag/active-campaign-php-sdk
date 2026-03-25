@@ -37,11 +37,11 @@ final class Pipelines extends Resource
         string $currency,
         ?bool $autoassign = null,
     ): Pipeline {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'title' => $title,
             'currency' => $currency,
             'autoassign' => $autoassign,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(
@@ -50,10 +50,10 @@ final class Pipelines extends Resource
         ?string $currency = null,
         ?bool $autoassign = null,
     ): Pipeline {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'title' => $title,
             'currency' => $currency,
             'autoassign' => $autoassign,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

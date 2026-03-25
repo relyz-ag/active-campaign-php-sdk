@@ -34,17 +34,17 @@ final class Forms extends Resource
 
     public function create(string $name, ?string $type = null): Form
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'name' => $name,
             'type' => $type,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(int $id, ?string $name = null, ?string $type = null): Form
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'name' => $name,
             'type' => $type,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

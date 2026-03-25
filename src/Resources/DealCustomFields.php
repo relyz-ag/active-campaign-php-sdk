@@ -40,14 +40,14 @@ final class DealCustomFields extends Resource
         ?bool $isRequired = null,
         ?int $displayOrder = null,
     ): DealCustomField {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'fieldLabel' => $fieldLabel,
             'fieldType' => $fieldType,
             'fieldDefault' => $fieldDefault,
             'isFormVisible' => $isFormVisible,
             'isRequired' => $isRequired,
             'displayOrder' => $displayOrder,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(
@@ -59,13 +59,13 @@ final class DealCustomFields extends Resource
         ?bool $isRequired = null,
         ?int $displayOrder = null,
     ): DealCustomField {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'fieldLabel' => $fieldLabel,
             'fieldType' => $fieldType,
             'fieldDefault' => $fieldDefault,
             'isFormVisible' => $isFormVisible,
             'isRequired' => $isRequired,
             'displayOrder' => $displayOrder,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

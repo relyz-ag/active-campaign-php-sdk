@@ -37,19 +37,19 @@ final class FieldValues extends Resource
 
     public function create(int $contact, int $field, string $value): FieldValue
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'contact' => $contact,
             'field' => $field,
             'value' => $value,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(int $id, ?int $contact = null, ?int $field = null, ?string $value = null): FieldValue
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'contact' => $contact,
             'field' => $field,
             'value' => $value,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

@@ -40,14 +40,14 @@ final class CustomFields extends Resource
         ?bool $isRequired = null,
         ?int $displayOrder = null,
     ): CustomField {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'title' => $label,
             'type' => $type,
             'defval' => $default,
             'show_in_list' => $isFormVisible,
             'isrequired' => $isRequired,
             'ordernum' => $displayOrder,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(
@@ -59,13 +59,13 @@ final class CustomFields extends Resource
         ?bool $isRequired = null,
         ?int $displayOrder = null,
     ): CustomField {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'title' => $label,
             'type' => $type,
             'defval' => $default,
             'show_in_list' => $isFormVisible,
             'isrequired' => $isRequired,
             'ordernum' => $displayOrder,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

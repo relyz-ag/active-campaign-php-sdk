@@ -46,12 +46,12 @@ final class CustomObjectRecords extends Resource
      */
     public function create(array $fields, ?string $externalId = null, ?array $relationships = null): CustomObjectRecord
     {
-        $data = array_filter([
-            'record' => array_filter([
+        $data = $this->filterNulls([
+            'record' => $this->filterNulls([
                 'fields' => $fields,
                 'externalId' => $externalId,
                 'relationships' => $relationships,
-            ], fn ($v) => $v !== null),
+            ]),
         ]);
 
         $response = $this->client->post('customObjects/records/' . $this->schemaId, $data);

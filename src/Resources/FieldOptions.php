@@ -37,12 +37,12 @@ final class FieldOptions extends Resource
 
     public function create(int $field, string $value, string $label, ?bool $isDefault = null, ?int $orderid = null): FieldOption
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'field' => $field,
             'value' => $value,
             'label' => $label,
             'isdefault' => $isDefault,
             'orderid' => $orderid,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }

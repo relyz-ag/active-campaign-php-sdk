@@ -37,17 +37,17 @@ final class AccountContacts extends Resource
 
     public function create(int $account, int $contact, ?string $jobTitle = null): AccountContact
     {
-        return $this->createRaw(array_filter([
+        return $this->createRaw($this->filterNulls([
             'account' => $account,
             'contact' => $contact,
             'jobTitle' => $jobTitle,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 
     public function update(int $id, ?string $jobTitle = null): AccountContact
     {
-        return $this->updateRaw($id, array_filter([
+        return $this->updateRaw($id, $this->filterNulls([
             'jobTitle' => $jobTitle,
-        ], fn ($v) => $v !== null));
+        ]));
     }
 }
