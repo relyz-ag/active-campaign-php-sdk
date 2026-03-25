@@ -3,3 +3,7 @@
 /.php-cs-fixer.cache
 /docs/plans
 /claude/*local*
+.DS_Store
+/.idea/
+/.vscode/
+/build/

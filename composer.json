@@ -4,6 +4,27 @@
     "type": "library",
     "license": "MIT",
     "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "relyz AG",
+            "homepage": "https://relyz.ch"
+        }
+    ],
+    "homepage": "https://github.com/relyz-ag/active-campaign-php-sdk",
+    "keywords": [
+        "activecampaign",
+        "active-campaign",
+        "api",
+        "sdk",
+        "crm",
+        "email-marketing",
+        "marketing-automation",
+        "php"
+    ],
+    "support": {
+        "issues": "https://github.com/relyz-ag/active-campaign-php-sdk/issues",
+        "source": "https://github.com/relyz-ag/active-campaign-php-sdk"
+    },
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.0"
