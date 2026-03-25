@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Http\Client;
 use ActiveCampaign\Models\Contact;
 use ActiveCampaign\Models\ListResponse;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 
-final class HasCrudTest extends TestCase
+final class HasCrudTest extends ResourceTestCase
 {
     public function testListReturnsListResponse(): void
     {
@@ -92,11 +87,6 @@ final class HasCrudTest extends TestCase
      */
     private function makeResource(array $responses): StubResource
     {
-        $mock = new MockHandler($responses);
-        $stack = HandlerStack::create($mock);
-        $guzzle = new GuzzleClient(['handler' => $stack, 'base_uri' => 'https://test.api-us1.com']);
-        $client = new Client(url: 'https://test.api-us1.com', apiKey: 'key', guzzle: $guzzle);
-
-        return new StubResource($client);
+        return new StubResource($this->makeClient($responses));
     }
 }

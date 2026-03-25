@@ -4,21 +4,12 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Http\Client;
 use ActiveCampaign\Models\Score;
 use ActiveCampaign\Resources\Scores;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 
-final class ScoresTest extends TestCase
+final class ScoresTest extends ResourceTestCase
 {
-    /** @var list<array{request: \GuzzleHttp\Psr7\Request}> */
-    private array $history = [];
-
     public function testGet(): void
     {
         $resource = $this->makeResource([
@@ -87,13 +78,6 @@ final class ScoresTest extends TestCase
      */
     private function makeResource(array $responses): Scores
     {
-        $this->history = [];
-        $mock = new MockHandler($responses);
-        $stack = HandlerStack::create($mock);
-        $stack->push(Middleware::history($this->history));
-        $guzzle = new GuzzleClient(['handler' => $stack, 'base_uri' => 'https://test.api-us1.com']);
-        $client = new Client(url: 'https://test.api-us1.com', apiKey: 'key', guzzle: $guzzle);
-
-        return new Scores($client);
+        return new Scores($this->makeClient($responses));
     }
 }

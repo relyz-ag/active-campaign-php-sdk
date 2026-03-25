@@ -4,21 +4,12 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Http\Client;
 use ActiveCampaign\Models\DealCustomFieldValue;
 use ActiveCampaign\Resources\DealCustomFieldValues;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 
-final class DealCustomFieldValuesTest extends TestCase
+final class DealCustomFieldValuesTest extends ResourceTestCase
 {
-    /** @var list<array{request: \GuzzleHttp\Psr7\Request}> */
-    private array $history = [];
-
     public function testCreateReturnsDealCustomFieldValueModel(): void
     {
         $values = $this->makeDealCustomFieldValues([
@@ -93,13 +84,6 @@ final class DealCustomFieldValuesTest extends TestCase
      */
     private function makeDealCustomFieldValues(array $responses): DealCustomFieldValues
     {
-        $this->history = [];
-        $mock = new MockHandler($responses);
-        $stack = HandlerStack::create($mock);
-        $stack->push(Middleware::history($this->history));
-        $guzzle = new GuzzleClient(['handler' => $stack, 'base_uri' => 'https://test.api-us1.com']);
-        $client = new Client(url: 'https://test.api-us1.com', apiKey: 'key', guzzle: $guzzle);
-
-        return new DealCustomFieldValues($client);
+        return new DealCustomFieldValues($this->makeClient($responses));
     }
 }

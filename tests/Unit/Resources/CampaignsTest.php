@@ -4,22 +4,13 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Http\Client;
 use ActiveCampaign\Models\Campaign;
 use ActiveCampaign\Models\CampaignLink;
 use ActiveCampaign\Resources\Campaigns;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 
-final class CampaignsTest extends TestCase
+final class CampaignsTest extends ResourceTestCase
 {
-    /** @var list<array{request: \GuzzleHttp\Psr7\Request}> */
-    private array $history = [];
-
     public function testDuplicate(): void
     {
         $campaigns = $this->makeCampaigns([
@@ -57,13 +48,6 @@ final class CampaignsTest extends TestCase
      */
     private function makeCampaigns(array $responses): Campaigns
     {
-        $this->history = [];
-        $mock = new MockHandler($responses);
-        $stack = HandlerStack::create($mock);
-        $stack->push(Middleware::history($this->history));
-        $guzzle = new GuzzleClient(['handler' => $stack, 'base_uri' => 'https://test.api-us1.com']);
-        $client = new Client(url: 'https://test.api-us1.com', apiKey: 'key', guzzle: $guzzle);
-
-        return new Campaigns($client);
+        return new Campaigns($this->makeClient($responses));
     }
 }

@@ -4,21 +4,12 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Http\Client;
 use ActiveCampaign\Models\AccountContact;
 use ActiveCampaign\Resources\AccountContacts;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 
-final class AccountContactsTest extends TestCase
+final class AccountContactsTest extends ResourceTestCase
 {
-    /** @var list<array{request: \GuzzleHttp\Psr7\Request}> */
-    private array $history = [];
-
     public function testCreate(): void
     {
         $resource = $this->make([
@@ -59,13 +50,6 @@ final class AccountContactsTest extends TestCase
      */
     private function make(array $responses): AccountContacts
     {
-        $this->history = [];
-        $mock = new MockHandler($responses);
-        $stack = HandlerStack::create($mock);
-        $stack->push(Middleware::history($this->history));
-        $guzzle = new GuzzleClient(['handler' => $stack, 'base_uri' => 'https://test.api-us1.com']);
-        $client = new Client(url: 'https://test.api-us1.com', apiKey: 'key', guzzle: $guzzle);
-
-        return new AccountContacts($client);
+        return new AccountContacts($this->makeClient($responses));
     }
 }

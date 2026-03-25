@@ -4,21 +4,12 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Tests\Unit\Resources;
 
-use ActiveCampaign\Http\Client;
 use ActiveCampaign\Models\FieldValue;
 use ActiveCampaign\Resources\FieldValues;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 
-final class FieldValuesTest extends TestCase
+final class FieldValuesTest extends ResourceTestCase
 {
-    /** @var list<array{request: \GuzzleHttp\Psr7\Request}> */
-    private array $history = [];
-
     public function testCreate(): void
     {
         $resource = $this->make([
@@ -59,13 +50,6 @@ final class FieldValuesTest extends TestCase
      */
     private function make(array $responses): FieldValues
     {
-        $this->history = [];
-        $mock = new MockHandler($responses);
-        $stack = HandlerStack::create($mock);
-        $stack->push(Middleware::history($this->history));
-        $guzzle = new GuzzleClient(['handler' => $stack, 'base_uri' => 'https://test.api-us1.com']);
-        $client = new Client(url: 'https://test.api-us1.com', apiKey: 'key', guzzle: $guzzle);
-
-        return new FieldValues($client);
+        return new FieldValues($this->makeClient($responses));
     }
 }
