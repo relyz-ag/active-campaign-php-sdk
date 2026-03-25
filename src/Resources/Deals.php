@@ -34,20 +34,71 @@ final class Deals extends Resource
         return Deal::class;
     }
 
+    public function create(
+        string $title,
+        int $value,
+        string $currency,
+        int $stage,
+        int $pipeline,
+        ?int $owner = null,
+        ?int $status = null,
+    ): Deal {
+        return $this->create_raw(array_filter([
+            'title' => $title,
+            'value' => $value,
+            'currency' => $currency,
+            'stage' => $stage,
+            'group' => $pipeline,
+            'owner' => $owner,
+            'status' => $status,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function update(
+        int $id,
+        ?string $title = null,
+        ?int $value = null,
+        ?string $currency = null,
+        ?int $stage = null,
+        ?int $pipeline = null,
+        ?int $owner = null,
+        ?int $status = null,
+    ): Deal {
+        return $this->update_raw($id, array_filter([
+            'title' => $title,
+            'value' => $value,
+            'currency' => $currency,
+            'stage' => $stage,
+            'group' => $pipeline,
+            'owner' => $owner,
+            'status' => $status,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function createNote(int $dealId, string $content): Note
+    {
+        return $this->createNote_raw($dealId, ['note' => $content]);
+    }
+
     /**
      * @param array<string, mixed> $data
      */
-    public function createNote(int $dealId, array $data): Note
+    public function createNote_raw(int $dealId, array $data): Note
     {
         $response = $this->client->post('deals/' . $dealId . '/notes', ['note' => $data]);
 
         return Note::fromArray($response['note']);
     }
 
+    public function updateNote(int $dealId, int $noteId, string $content): Note
+    {
+        return $this->updateNote_raw($dealId, $noteId, ['note' => $content]);
+    }
+
     /**
      * @param array<string, mixed> $data
      */
-    public function updateNote(int $dealId, int $noteId, array $data): Note
+    public function updateNote_raw(int $dealId, int $noteId, array $data): Note
     {
         $response = $this->client->put('deals/' . $dealId . '/notes/' . $noteId, ['note' => $data]);
 

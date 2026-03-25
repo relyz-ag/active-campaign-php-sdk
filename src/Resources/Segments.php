@@ -31,4 +31,20 @@ final class Segments extends Resource
     {
         return Segment::class;
     }
+
+    public function create(string $name, ?int $seriesId = null): Segment
+    {
+        return $this->create_raw(array_filter([
+            'name' => $name,
+            'seriesid' => $seriesId,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function update(int $id, ?string $name = null, ?int $seriesId = null): Segment
+    {
+        return $this->update_raw($id, array_filter([
+            'name' => $name,
+            'seriesid' => $seriesId,
+        ], fn ($v) => $v !== null));
+    }
 }

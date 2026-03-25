@@ -57,9 +57,11 @@ trait HasCrud
      * @param array<string, mixed> $data
      * @return T
      */
-    public function create(array $data): mixed
+    public function create_raw(array $data): mixed
     {
-        $response = $this->client->post($this->endpoint(), $data);
+        $response = $this->client->post($this->endpoint(), [
+            $this->singularKey() => $data,
+        ]);
         $modelClass = $this->modelClass();
 
         return $modelClass::fromArray($response[$this->singularKey()]);
@@ -69,9 +71,11 @@ trait HasCrud
      * @param array<string, mixed> $data
      * @return T
      */
-    public function update(int $id, array $data): mixed
+    public function update_raw(int $id, array $data): mixed
     {
-        $response = $this->client->put($this->endpoint() . '/' . $id, $data);
+        $response = $this->client->put($this->endpoint() . '/' . $id, [
+            $this->singularKey() => $data,
+        ]);
         $modelClass = $this->modelClass();
 
         return $modelClass::fromArray($response[$this->singularKey()]);

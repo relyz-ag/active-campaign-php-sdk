@@ -33,6 +33,22 @@ final class Campaigns extends Resource
         return Campaign::class;
     }
 
+    public function create(string $name, string $type): Campaign
+    {
+        return $this->create_raw([
+            'name' => $name,
+            'type' => $type,
+        ]);
+    }
+
+    public function update(int $id, ?string $name = null, ?string $type = null): Campaign
+    {
+        return $this->update_raw($id, array_filter([
+            'name' => $name,
+            'type' => $type,
+        ], fn ($v) => $v !== null));
+    }
+
     public function duplicate(int $id): Campaign
     {
         $response = $this->client->post('campaigns/' . $id . '/duplicate');

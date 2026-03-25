@@ -172,10 +172,40 @@ final class Contacts extends Resource
         return $this->client->get('contacts/' . $contactId . '/emailActivities');
     }
 
+    public function create(string $email, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): Contact
+    {
+        return $this->create_raw(array_filter([
+            'email' => $email,
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'phone' => $phone,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function update(int $id, ?string $email = null, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): Contact
+    {
+        return $this->update_raw($id, array_filter([
+            'email' => $email,
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'phone' => $phone,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function sync(string $email, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): Contact
+    {
+        return $this->sync_raw(array_filter([
+            'email' => $email,
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'phone' => $phone,
+        ], fn ($v) => $v !== null));
+    }
+
     /**
      * @param array<string, mixed> $data
      */
-    public function sync(array $data): Contact
+    public function sync_raw(array $data): Contact
     {
         $response = $this->client->post('contact/sync', [
             'contact' => $data,
@@ -185,9 +215,20 @@ final class Contacts extends Resource
     }
 
     /**
+     * @param list<array<string, mixed>> $contacts
+     */
+    public function bulkImport(array $contacts, ?string $callback = null): BulkImportResult
+    {
+        return $this->bulkImport_raw(array_filter([
+            'contacts' => $contacts,
+            'callback' => $callback,
+        ], fn ($v) => $v !== null));
+    }
+
+    /**
      * @param array<string, mixed> $data
      */
-    public function bulkImport(array $data): BulkImportResult
+    public function bulkImport_raw(array $data): BulkImportResult
     {
         $response = $this->client->post('import/bulk_import', $data);
 
@@ -201,10 +242,19 @@ final class Contacts extends Resource
         return BulkImportStatus::fromArray($response);
     }
 
+    public function updateListStatus(int $contactId, int $listId, int $status): ContactList
+    {
+        return $this->updateListStatus_raw([
+            'list' => $listId,
+            'contact' => $contactId,
+            'status' => $status,
+        ]);
+    }
+
     /**
      * @param array<string, mixed> $data
      */
-    public function updateListStatus(array $data): ContactList
+    public function updateListStatus_raw(array $data): ContactList
     {
         $response = $this->client->post('contactLists', [
             'contactList' => $data,

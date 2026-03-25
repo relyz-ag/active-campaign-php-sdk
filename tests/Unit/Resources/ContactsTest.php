@@ -240,7 +240,7 @@ final class ContactsTest extends TestCase
             ])),
         ]);
 
-        $contact = $contacts->sync(['email' => 'a@b.com', 'firstName' => 'Jane']);
+        $contact = $contacts->sync(email: 'a@b.com', firstName: 'Jane');
 
         $this->assertInstanceOf(Contact::class, $contact);
         $this->assertSame('POST', $this->history[0]['request']->getMethod());
@@ -258,9 +258,7 @@ final class ContactsTest extends TestCase
             ])),
         ]);
 
-        $result = $contacts->bulkImport([
-            'contacts' => [['email' => 'a@b.com']],
-        ]);
+        $result = $contacts->bulkImport(contacts: [['email' => 'a@b.com']]);
 
         $this->assertInstanceOf(BulkImportResult::class, $result);
         $this->assertTrue($result->success);
@@ -295,11 +293,7 @@ final class ContactsTest extends TestCase
             ])),
         ]);
 
-        $result = $contacts->updateListStatus([
-            'list' => 1,
-            'contact' => 1,
-            'status' => 1,
-        ]);
+        $result = $contacts->updateListStatus(contactId: 1, listId: 1, status: 1);
 
         $this->assertInstanceOf(ContactList::class, $result);
         $this->assertSame('POST', $this->history[0]['request']->getMethod());

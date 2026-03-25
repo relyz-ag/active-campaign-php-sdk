@@ -28,7 +28,7 @@ final class DealsTest extends TestCase
             ])),
         ]);
 
-        $result = $deals->createNote(dealId: 1, data: ['note' => 'Test note']);
+        $result = $deals->createNote(dealId: 1, content: 'Test note');
 
         $this->assertInstanceOf(Note::class, $result);
         $this->assertSame('Test note', $result->content);
@@ -44,7 +44,7 @@ final class DealsTest extends TestCase
             ])),
         ]);
 
-        $result = $deals->updateNote(dealId: 1, noteId: 2, data: ['note' => 'Updated note']);
+        $result = $deals->updateNote(dealId: 1, noteId: 2, content: 'Updated note');
 
         $this->assertInstanceOf(Note::class, $result);
         $this->assertSame('Updated note', $result->content);

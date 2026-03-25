@@ -31,4 +31,24 @@ final class Notes extends Resource
     {
         return Note::class;
     }
+
+    public function create(string $content, int $relatedId, string $relatedType, ?int $userId = null): Note
+    {
+        return $this->create_raw(array_filter([
+            'note' => $content,
+            'relid' => $relatedId,
+            'reltype' => $relatedType,
+            'userid' => $userId,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function update(int $id, ?string $content = null, ?int $relatedId = null, ?string $relatedType = null, ?int $userId = null): Note
+    {
+        return $this->update_raw($id, array_filter([
+            'note' => $content,
+            'relid' => $relatedId,
+            'reltype' => $relatedType,
+            'userid' => $userId,
+        ], fn ($v) => $v !== null));
+    }
 }

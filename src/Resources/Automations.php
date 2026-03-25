@@ -31,4 +31,16 @@ final class Automations extends Resource
     {
         return Automation::class;
     }
+
+    public function create(string $name): Automation
+    {
+        return $this->create_raw(['name' => $name]);
+    }
+
+    public function update(int $id, ?string $name = null): Automation
+    {
+        return $this->update_raw($id, array_filter([
+            'name' => $name,
+        ], fn ($v) => $v !== null));
+    }
 }

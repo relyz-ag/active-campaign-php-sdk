@@ -31,4 +31,20 @@ final class Forms extends Resource
     {
         return Form::class;
     }
+
+    public function create(string $name, ?string $type = null): Form
+    {
+        return $this->create_raw(array_filter([
+            'name' => $name,
+            'type' => $type,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function update(int $id, ?string $name = null, ?string $type = null): Form
+    {
+        return $this->update_raw($id, array_filter([
+            'name' => $name,
+            'type' => $type,
+        ], fn ($v) => $v !== null));
+    }
 }

@@ -27,7 +27,7 @@ final class AccountsTest extends TestCase
             ])),
         ]);
 
-        $result = $accounts->createNote(accountId: 1, data: ['note' => 'Account note']);
+        $result = $accounts->createNote(accountId: 1, content: 'Account note');
 
         $this->assertInstanceOf(Note::class, $result);
         $this->assertSame('Account note', $result->content);
@@ -43,7 +43,7 @@ final class AccountsTest extends TestCase
             ])),
         ]);
 
-        $result = $accounts->updateNote(accountId: 1, noteId: 2, data: ['note' => 'Updated']);
+        $result = $accounts->updateNote(accountId: 1, noteId: 2, content: 'Updated');
 
         $this->assertInstanceOf(Note::class, $result);
         $this->assertSame('Updated', $result->content);

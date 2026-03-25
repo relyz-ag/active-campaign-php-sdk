@@ -32,6 +32,55 @@ final class Addresses extends Resource
         return Address::class;
     }
 
+    public function create(
+        ?string $companyName = null,
+        ?string $address1 = null,
+        ?string $address2 = null,
+        ?string $city = null,
+        ?string $state = null,
+        ?string $zip = null,
+        ?string $country = null,
+        ?string $phone = null,
+        ?bool $isDefault = null,
+    ): Address {
+        return $this->create_raw(array_filter([
+            'companyName' => $companyName,
+            'address1' => $address1,
+            'address2' => $address2,
+            'city' => $city,
+            'state' => $state,
+            'zip' => $zip,
+            'country' => $country,
+            'phone' => $phone,
+            'isDefault' => $isDefault,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function update(
+        int $id,
+        ?string $companyName = null,
+        ?string $address1 = null,
+        ?string $address2 = null,
+        ?string $city = null,
+        ?string $state = null,
+        ?string $zip = null,
+        ?string $country = null,
+        ?string $phone = null,
+        ?bool $isDefault = null,
+    ): Address {
+        return $this->update_raw($id, array_filter([
+            'companyName' => $companyName,
+            'address1' => $address1,
+            'address2' => $address2,
+            'city' => $city,
+            'state' => $state,
+            'zip' => $zip,
+            'country' => $country,
+            'phone' => $phone,
+            'isDefault' => $isDefault,
+        ], fn ($v) => $v !== null));
+    }
+
     public function deleteByGroup(int $groupId): void
     {
         $this->client->delete('addresses/group/' . $groupId);

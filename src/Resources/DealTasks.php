@@ -31,4 +31,41 @@ final class DealTasks extends Resource
     {
         return DealTask::class;
     }
+
+    public function create(
+        string $title,
+        int $dealId,
+        ?int $status = null,
+        ?string $dueDate = null,
+        ?int $ownerId = null,
+        ?string $taskType = null,
+    ): DealTask {
+        return $this->create_raw(array_filter([
+            'title' => $title,
+            'dealTasktype' => $taskType,
+            'relid' => $dealId,
+            'status' => $status,
+            'duedate' => $dueDate,
+            'owner' => $ownerId,
+        ], fn ($v) => $v !== null));
+    }
+
+    public function update(
+        int $id,
+        ?string $title = null,
+        ?int $dealId = null,
+        ?int $status = null,
+        ?string $dueDate = null,
+        ?int $ownerId = null,
+        ?string $taskType = null,
+    ): DealTask {
+        return $this->update_raw($id, array_filter([
+            'title' => $title,
+            'dealTasktype' => $taskType,
+            'relid' => $dealId,
+            'status' => $status,
+            'duedate' => $dueDate,
+            'owner' => $ownerId,
+        ], fn ($v) => $v !== null));
+    }
 }

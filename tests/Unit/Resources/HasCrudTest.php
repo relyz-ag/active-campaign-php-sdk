@@ -49,7 +49,7 @@ final class HasCrudTest extends TestCase
         $this->assertSame('Jane', $result->firstName);
     }
 
-    public function testCreateReturnsSingleModel(): void
+    public function testCreateRawReturnsSingleModel(): void
     {
         $resource = $this->makeResource([
             new Response(201, [], json_encode([
@@ -57,13 +57,13 @@ final class HasCrudTest extends TestCase
             ]) ?: '{}'),
         ]);
 
-        $result = $resource->create(['contact' => ['email' => 'new@test.com']]);
+        $result = $resource->create_raw(['email' => 'new@test.com']);
 
         $this->assertInstanceOf(Contact::class, $result);
         $this->assertSame(3, $result->id);
     }
 
-    public function testUpdateReturnsSingleModel(): void
+    public function testUpdateRawReturnsSingleModel(): void
     {
         $resource = $this->makeResource([
             new Response(200, [], json_encode([
@@ -71,7 +71,7 @@ final class HasCrudTest extends TestCase
             ]) ?: '{}'),
         ]);
 
-        $result = $resource->update(1, ['contact' => ['email' => 'updated@test.com']]);
+        $result = $resource->update_raw(1, ['email' => 'updated@test.com']);
 
         $this->assertInstanceOf(Contact::class, $result);
         $this->assertSame('updated@test.com', $result->email);

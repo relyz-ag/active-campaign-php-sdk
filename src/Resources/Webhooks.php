@@ -32,6 +32,24 @@ final class Webhooks extends Resource
         return Webhook::class;
     }
 
+    public function create(string $name, string $url, string $listid): Webhook
+    {
+        return $this->create_raw([
+            'name' => $name,
+            'url' => $url,
+            'listid' => $listid,
+        ]);
+    }
+
+    public function update(int $id, ?string $name = null, ?string $url = null, ?string $listid = null): Webhook
+    {
+        return $this->update_raw($id, array_filter([
+            'name' => $name,
+            'url' => $url,
+            'listid' => $listid,
+        ], fn ($v) => $v !== null));
+    }
+
     /**
      * @return list<string>
      */

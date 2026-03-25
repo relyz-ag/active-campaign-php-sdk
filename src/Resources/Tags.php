@@ -31,4 +31,20 @@ final class Tags extends Resource
     {
         return Tag::class;
     }
+
+    public function create(string $name, string $type): Tag
+    {
+        return $this->create_raw([
+            'tag' => $name,
+            'tagType' => $type,
+        ]);
+    }
+
+    public function update(int $id, ?string $name = null, ?string $type = null): Tag
+    {
+        return $this->update_raw($id, array_filter([
+            'tag' => $name,
+            'tagType' => $type,
+        ], fn ($v) => $v !== null));
+    }
 }
