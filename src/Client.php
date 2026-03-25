@@ -48,6 +48,7 @@ use ActiveCampaign\Resources\Tags;
 use ActiveCampaign\Resources\Templates;
 use ActiveCampaign\Resources\Users;
 use ActiveCampaign\Resources\Webhooks;
+use Psr\Http\Client\ClientInterface;
 
 final class Client
 {
@@ -117,6 +118,7 @@ final class Client
         ?string $url = null,
         ?string $apiKey = null,
         int $maxRetries = 3,
+        ?ClientInterface $httpClient = null,
     ) {
         $url ??= getenv('ACTIVE_CAMPAIGN_API_URL') ?: null;
         $apiKey ??= getenv('ACTIVE_CAMPAIGN_API_KEY') ?: null;
@@ -137,6 +139,7 @@ final class Client
             url: $url,
             apiKey: $apiKey,
             maxRetries: $maxRetries,
+            httpClient: $httpClient,
         );
     }
 

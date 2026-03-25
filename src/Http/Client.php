@@ -10,13 +10,14 @@ use ActiveCampaign\Exceptions\NotFoundException;
 use ActiveCampaign\Exceptions\RateLimitException;
 use ActiveCampaign\Exceptions\ValidationException;
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Psr7\Request;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
 final class Client
 {
-    private GuzzleClient $guzzle;
+    private ClientInterface $httpClient;
+    private string $baseUri;
     private int $maxRetries;
     /** @var (\Closure(int, int): void)|null */
     private ?\Closure $retryDelay;
@@ -27,11 +28,13 @@ final class Client
         int $maxRetries = 3,
         ?GuzzleClient $guzzle = null,
         ?\Closure $retryDelay = null,
+        ?ClientInterface $httpClient = null,
     ) {
         $this->maxRetries = $maxRetries;
         $this->retryDelay = $retryDelay;
-        $this->guzzle = $guzzle ?? new GuzzleClient([
-            'base_uri' => rtrim($url, '/'),
+        $this->baseUri = rtrim($url, '/');
+        $this->httpClient = $httpClient ?? $guzzle ?? new GuzzleClient([
+            'base_uri' => $this->baseUri,
         ]);
     }
 
@@ -77,45 +80,51 @@ final class Client
      */
     private function request(string $method, string $path, array $options = []): array
     {
-        $options['headers']['Api-Token'] = $this->apiKey;
-        $uri = '/api/3/' . ltrim($path, '/');
+        $uri = $this->baseUri . '/api/3/' . ltrim($path, '/');
+        $headers = ['Api-Token' => $this->apiKey];
+        $body = null;
+
+        if (isset($options['json'])) {
+            $headers['Content-Type'] = 'application/json';
+            $body = json_encode($options['json'], JSON_THROW_ON_ERROR);
+        }
+
+        if (isset($options['query']) && $options['query'] !== []) {
+            $uri .= '?' . http_build_query($options['query']);
+        }
 
         $attempt = 0;
 
         while (true) {
-            try {
-                $response = $this->guzzle->request($method, $uri, $options);
+            $request = new Request($method, $uri, $headers, $body);
+            $response = $this->httpClient->sendRequest($request);
+            $status = $response->getStatusCode();
 
+            if ($status >= 200 && $status < 300) {
                 /** @var array<string, mixed> */
                 return json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-            } catch (ServerException $e) {
-                $status = $e->getResponse()->getStatusCode();
-                $body = $this->parseResponseBody($e->getResponse());
-                throw new ActiveCampaignException($e->getMessage(), $status, $e, $body);
-            } catch (ClientException $e) {
-                $status = $e->getResponse()->getStatusCode();
-
-                if ($status === 429 && $attempt < $this->maxRetries) {
-                    $retryAfter = (int) $e->getResponse()->getHeaderLine('Retry-After');
-                    $attempt++;
-                    if ($this->retryDelay !== null) {
-                        ($this->retryDelay)($retryAfter, $attempt);
-                    } elseif ($retryAfter > 0) {
-                        sleep($retryAfter);
-                    }
-                    continue;
-                }
-
-                $body = $this->parseResponseBody($e->getResponse());
-
-                match ($status) {
-                    401, 403 => throw new AuthenticationException($e->getMessage(), $status, $e, $body),
-                    404 => throw new NotFoundException($e->getMessage(), $status, $e, $body),
-                    422 => throw new ValidationException($e->getMessage(), $status, $e, $body),
-                    429 => throw new RateLimitException($e->getMessage(), $status, $e, $body),
-                    default => throw new ActiveCampaignException($e->getMessage(), $status, $e, $body),
-                };
             }
+
+            if ($status === 429 && $attempt < $this->maxRetries) {
+                $retryAfter = (int) $response->getHeaderLine('Retry-After');
+                $attempt++;
+                if ($this->retryDelay !== null) {
+                    ($this->retryDelay)($retryAfter, $attempt);
+                } elseif ($retryAfter > 0) {
+                    sleep($retryAfter);
+                }
+                continue;
+            }
+
+            $responseBody = $this->parseResponseBody($response);
+
+            match ($status) {
+                401, 403 => throw new AuthenticationException('Authentication failed', $status, null, $responseBody),
+                404 => throw new NotFoundException('Resource not found', $status, null, $responseBody),
+                422 => throw new ValidationException('Validation failed', $status, null, $responseBody),
+                429 => throw new RateLimitException('Rate limit exceeded', $status, null, $responseBody),
+                default => throw new ActiveCampaignException('Request failed with status ' . $status, $status, null, $responseBody),
+            };
         }
     }
 

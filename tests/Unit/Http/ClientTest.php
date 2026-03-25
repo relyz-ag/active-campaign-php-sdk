@@ -16,6 +16,9 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 final class ClientTest extends TestCase
 {
@@ -242,6 +245,31 @@ final class ClientTest extends TestCase
         $this->assertSame(1, $delays[0]['attempt']);
     }
 
+    public function testAcceptsPsr18Client(): void
+    {
+        $mockResponse = new Response(200, [], '{"contacts":[]}');
+        $psr18Client = new class ($mockResponse) implements ClientInterface {
+            public function __construct(private ResponseInterface $response)
+            {
+            }
+
+            public function sendRequest(RequestInterface $request): ResponseInterface
+            {
+                return $this->response;
+            }
+        };
+
+        $client = new Client(
+            url: 'https://test.api-us1.com',
+            apiKey: 'test-api-key',
+            httpClient: $psr18Client,
+        );
+
+        $result = $client->get('contacts');
+
+        $this->assertSame(['contacts' => []], $result);
+    }
+
     /**
      * @param list<Response> $responses
      */
@@ -254,14 +282,13 @@ final class ClientTest extends TestCase
 
         $guzzle = new GuzzleClient([
             'handler' => $stack,
-            'base_uri' => 'https://test.api-us1.com',
         ]);
 
         return new Client(
             url: 'https://test.api-us1.com',
             apiKey: 'test-api-key',
             maxRetries: $maxRetries,
-            guzzle: $guzzle,
+            httpClient: $guzzle,
             retryDelay: $retryDelay,
         );
     }
