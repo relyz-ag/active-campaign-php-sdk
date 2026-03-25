@@ -40,11 +40,11 @@ final class CalendarFeedTest extends TestCase
 
         $this->assertSame(1, $feed->id);
         $this->assertSame(0, $feed->userId);
-        $this->assertSame('', $feed->title);
-        $this->assertSame('', $feed->type);
-        $this->assertSame('', $feed->token);
+        $this->assertNull($feed->title);
+        $this->assertNull($feed->type);
+        $this->assertNull($feed->token);
         $this->assertFalse($feed->notification);
-        $this->assertSame('', $feed->createdAt);
-        $this->assertSame('', $feed->updatedAt);
+        $this->assertNull($feed->createdAt);
+        $this->assertNull($feed->updatedAt);
     }
 }

@@ -43,14 +43,14 @@ final class ConnectionTest extends TestCase
         ]);
 
         $this->assertSame(5, $connection->id);
-        $this->assertSame('', $connection->service);
-        $this->assertSame('', $connection->externalId);
-        $this->assertSame('', $connection->name);
+        $this->assertNull($connection->service);
+        $this->assertNull($connection->externalId);
+        $this->assertNull($connection->name);
         $this->assertSame(0, $connection->status);
-        $this->assertSame('', $connection->logoUrl);
-        $this->assertSame('', $connection->linkUrl);
+        $this->assertNull($connection->logoUrl);
+        $this->assertNull($connection->linkUrl);
         $this->assertFalse($connection->isInternal);
-        $this->assertSame('', $connection->createdAt);
-        $this->assertSame('', $connection->updatedAt);
+        $this->assertNull($connection->createdAt);
+        $this->assertNull($connection->updatedAt);
     }
 }

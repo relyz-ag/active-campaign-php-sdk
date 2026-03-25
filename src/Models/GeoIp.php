@@ -11,8 +11,8 @@ final class GeoIp
         public readonly int $contact,
         public readonly int $campaignId,
         public readonly int $messageId,
-        public readonly string $ip4,
-        public readonly string $timestamp,
+        public readonly ?string $ip4,
+        public readonly ?string $timestamp,
     ) {
     }
 
@@ -26,8 +26,8 @@ final class GeoIp
             contact: (int) $data['contact'],
             campaignId: (int) ($data['campaignid'] ?? 0),
             messageId: (int) ($data['messageid'] ?? 0),
-            ip4: $data['ip4'] ?? '',
-            timestamp: $data['tstamp'] ?? '',
+            ip4: $data['ip4'] ?? null,
+            timestamp: $data['tstamp'] ?? null,
         );
     }
 }

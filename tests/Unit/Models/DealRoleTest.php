@@ -31,7 +31,7 @@ final class DealRoleTest extends TestCase
             'title' => 'Influencer',
         ]);
 
-        $this->assertSame('', $role->createdAt);
-        $this->assertSame('', $role->updatedAt);
+        $this->assertNull($role->createdAt);
+        $this->assertNull($role->updatedAt);
     }
 }

@@ -11,7 +11,7 @@ final class ContactDeal
         public readonly int $deal,
         public readonly int $contact,
         public readonly int $role,
-        public readonly string $createdAt,
+        public readonly ?string $createdAt,
     ) {
     }
 
@@ -25,7 +25,7 @@ final class ContactDeal
             deal: (int) $data['deal'],
             contact: (int) $data['contact'],
             role: (int) ($data['role'] ?? 0),
-            createdAt: $data['cdate'] ?? '',
+            createdAt: $data['cdate'] ?? null,
         );
     }
 }

@@ -27,6 +27,7 @@ final class Webhook
             url: $data['url'],
             listid: $data['listid'],
             createdAt: $data['cdate'],
+            // Falls back to cdate when udate is not present in the API response
             updatedAt: $data['udate'] ?? $data['cdate'],
         );
     }

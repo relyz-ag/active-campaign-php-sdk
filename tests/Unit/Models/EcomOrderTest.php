@@ -64,15 +64,15 @@ final class EcomOrderTest extends TestCase
         $this->assertSame(5, $order->id);
         $this->assertSame(0, $order->connectionId);
         $this->assertSame(0, $order->customerId);
-        $this->assertSame('', $order->externalId);
-        $this->assertSame('', $order->email);
+        $this->assertNull($order->externalId);
+        $this->assertNull($order->email);
         $this->assertSame(0, $order->totalPrice);
-        $this->assertSame('', $order->currency);
+        $this->assertNull($order->currency);
         $this->assertNull($order->orderNumber);
-        $this->assertSame('', $order->orderDate);
+        $this->assertNull($order->orderDate);
         $this->assertNull($order->shippingMethod);
         $this->assertSame(0, $order->state);
-        $this->assertSame('', $order->createdAt);
-        $this->assertSame('', $order->updatedAt);
+        $this->assertNull($order->createdAt);
+        $this->assertNull($order->updatedAt);
     }
 }

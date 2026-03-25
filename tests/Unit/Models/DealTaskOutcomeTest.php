@@ -33,8 +33,8 @@ final class DealTaskOutcomeTest extends TestCase
             'title' => 'No Answer',
         ]);
 
-        $this->assertSame('', $outcome->sentiment);
-        $this->assertSame('', $outcome->disabled);
+        $this->assertNull($outcome->sentiment);
+        $this->assertNull($outcome->disabled);
         $this->assertNull($outcome->createdBy);
     }
 }

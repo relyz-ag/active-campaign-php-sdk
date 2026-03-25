@@ -35,10 +35,10 @@ final class SavedResponseTest extends TestCase
         ]);
 
         $this->assertSame(1, $savedResponse->id);
-        $this->assertSame('', $savedResponse->title);
-        $this->assertSame('', $savedResponse->subject);
-        $this->assertSame('', $savedResponse->body);
-        $this->assertSame('', $savedResponse->createdAt);
-        $this->assertSame('', $savedResponse->updatedAt);
+        $this->assertNull($savedResponse->title);
+        $this->assertNull($savedResponse->subject);
+        $this->assertNull($savedResponse->body);
+        $this->assertNull($savedResponse->createdAt);
+        $this->assertNull($savedResponse->updatedAt);
     }
 }

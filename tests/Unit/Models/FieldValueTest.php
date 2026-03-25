@@ -37,8 +37,8 @@ final class FieldValueTest extends TestCase
         ]);
 
         $this->assertSame(2, $m->id);
-        $this->assertSame('', $m->value);
-        $this->assertSame('', $m->createdAt);
-        $this->assertSame('', $m->updatedAt);
+        $this->assertNull($m->value);
+        $this->assertNull($m->createdAt);
+        $this->assertNull($m->updatedAt);
     }
 }

@@ -35,10 +35,10 @@ final class GroupTest extends TestCase
         ]);
 
         $this->assertSame(1, $group->id);
-        $this->assertSame('', $group->title);
-        $this->assertSame('', $group->description);
+        $this->assertNull($group->title);
+        $this->assertNull($group->description);
         $this->assertFalse($group->isAdmin);
-        $this->assertSame('', $group->createdAt);
-        $this->assertSame('', $group->updatedAt);
+        $this->assertNull($group->createdAt);
+        $this->assertNull($group->updatedAt);
     }
 }

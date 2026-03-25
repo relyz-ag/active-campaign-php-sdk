@@ -10,10 +10,10 @@ final class DealCustomFieldValue
         public readonly int $id,
         public readonly int $dealId,
         public readonly int $customFieldId,
-        public readonly string $fieldValue,
+        public readonly ?string $fieldValue,
         public readonly ?string $fieldCurrency,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -26,10 +26,10 @@ final class DealCustomFieldValue
             id: (int) $data['id'],
             dealId: (int) $data['dealId'],
             customFieldId: (int) $data['customFieldId'],
-            fieldValue: $data['fieldValue'] ?? '',
+            fieldValue: $data['fieldValue'] ?? null,
             fieldCurrency: $data['fieldCurrency'] ?? null,
-            createdAt: $data['createdTimestamp'] ?? '',
-            updatedAt: $data['updatedTimestamp'] ?? '',
+            createdAt: $data['createdTimestamp'] ?? null,
+            updatedAt: $data['updatedTimestamp'] ?? null,
         );
     }
 }

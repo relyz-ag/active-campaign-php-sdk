@@ -13,7 +13,7 @@ final class ContactAutomation
         public readonly int $status,
         public readonly int $completed,
         public readonly int $completeValue,
-        public readonly string $addDate,
+        public readonly ?string $addDate,
         public readonly ?string $removeDate,
     ) {
     }
@@ -30,7 +30,7 @@ final class ContactAutomation
             status: (int) ($data['status'] ?? 0),
             completed: (int) ($data['completed'] ?? 0),
             completeValue: (int) ($data['completeValue'] ?? 0),
-            addDate: $data['adddate'] ?? '',
+            addDate: $data['adddate'] ?? null,
             removeDate: $data['remdate'] ?? null,
         );
     }

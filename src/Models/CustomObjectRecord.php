@@ -11,9 +11,9 @@ final class CustomObjectRecord
      * @param array<string, mixed> $relationships
      */
     public function __construct(
-        public readonly string $id,
+        public readonly ?string $id,
         public readonly ?string $externalId,
-        public readonly string $schemaId,
+        public readonly ?string $schemaId,
         public readonly array $fields,
         public readonly array $relationships,
     ) {
@@ -25,9 +25,9 @@ final class CustomObjectRecord
     public static function fromArray(array $data): self
     {
         return new self(
-            id: $data['id'] ?? '',
+            id: $data['id'] ?? null,
             externalId: $data['externalId'] ?? null,
-            schemaId: $data['schemaId'] ?? '',
+            schemaId: $data['schemaId'] ?? null,
             fields: $data['fields'] ?? [],
             relationships: $data['relationships'] ?? [],
         );

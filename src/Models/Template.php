@@ -8,11 +8,11 @@ final class Template
 {
     public function __construct(
         public readonly int $id,
-        public readonly string $name,
+        public readonly ?string $name,
         public readonly ?string $subject,
         public readonly ?int $categoryId,
         public readonly bool $hidden,
-        public readonly string $updatedAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -23,11 +23,11 @@ final class Template
     {
         return new self(
             id: (int) $data['id'],
-            name: $data['name'] ?? '',
+            name: $data['name'] ?? null,
             subject: $data['subject'] ?? null,
             categoryId: isset($data['categoryid']) ? (int) $data['categoryid'] : null,
             hidden: (bool) ($data['hidden'] ?? false),
-            updatedAt: $data['mdate'] ?? '',
+            updatedAt: $data['mdate'] ?? null,
         );
     }
 }

@@ -38,10 +38,10 @@ final class BrandingTest extends TestCase
 
         $this->assertSame(1, $branding->id);
         $this->assertSame(0, $branding->groupId);
-        $this->assertSame('', $branding->siteName);
-        $this->assertSame('', $branding->siteLogo);
-        $this->assertSame('', $branding->siteLogoSmall);
-        $this->assertSame('', $branding->headerTextValue);
-        $this->assertSame('', $branding->footerTextValue);
+        $this->assertNull($branding->siteName);
+        $this->assertNull($branding->siteLogo);
+        $this->assertNull($branding->siteLogoSmall);
+        $this->assertNull($branding->headerTextValue);
+        $this->assertNull($branding->footerTextValue);
     }
 }

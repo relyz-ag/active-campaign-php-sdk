@@ -8,11 +8,11 @@ final class Group
 {
     public function __construct(
         public readonly int $id,
-        public readonly string $title,
-        public readonly string $description,
+        public readonly ?string $title,
+        public readonly ?string $description,
         public readonly bool $isAdmin,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -23,11 +23,11 @@ final class Group
     {
         return new self(
             id: (int) $data['id'],
-            title: $data['title'] ?? '',
-            description: $data['descript'] ?? '',
+            title: $data['title'] ?? null,
+            description: $data['descript'] ?? null,
             isAdmin: (bool) ($data['p_admin'] ?? false),
-            createdAt: $data['cdate'] ?? '',
-            updatedAt: $data['udate'] ?? '',
+            createdAt: $data['cdate'] ?? null,
+            updatedAt: $data['udate'] ?? null,
         );
     }
 }

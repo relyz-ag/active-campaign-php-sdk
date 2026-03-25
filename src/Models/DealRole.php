@@ -9,8 +9,8 @@ final class DealRole
     public function __construct(
         public readonly int $id,
         public readonly string $title,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -22,8 +22,8 @@ final class DealRole
         return new self(
             id: (int) $data['id'],
             title: $data['title'],
-            createdAt: $data['created_timestamp'] ?? '',
-            updatedAt: $data['updated_timestamp'] ?? '',
+            createdAt: $data['created_timestamp'] ?? null,
+            updatedAt: $data['updated_timestamp'] ?? null,
         );
     }
 }

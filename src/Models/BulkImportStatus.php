@@ -11,7 +11,7 @@ final class BulkImportStatus
      * @param list<string> $failedEmails
      */
     public function __construct(
-        public readonly string $status,
+        public readonly ?string $status,
         public readonly array $successIds,
         public readonly array $failedEmails,
     ) {
@@ -23,7 +23,7 @@ final class BulkImportStatus
     public static function fromArray(array $data): self
     {
         return new self(
-            status: $data['status'] ?? '',
+            status: $data['status'] ?? null,
             successIds: $data['success'] ?? [],
             failedEmails: $data['failure'] ?? [],
         );

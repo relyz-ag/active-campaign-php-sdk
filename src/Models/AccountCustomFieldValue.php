@@ -10,9 +10,9 @@ final class AccountCustomFieldValue
         public readonly int $id,
         public readonly int $accountId,
         public readonly int $customFieldId,
-        public readonly string $fieldValue,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $fieldValue,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -25,9 +25,9 @@ final class AccountCustomFieldValue
             id: (int) $data['id'],
             accountId: (int) ($data['accountId'] ?? 0),
             customFieldId: (int) ($data['customFieldId'] ?? $data['accountCustomFieldMetumId'] ?? 0),
-            fieldValue: $data['fieldValue'] ?? '',
-            createdAt: $data['createdTimestamp'] ?? '',
-            updatedAt: $data['updatedTimestamp'] ?? '',
+            fieldValue: $data['fieldValue'] ?? null,
+            createdAt: $data['createdTimestamp'] ?? null,
+            updatedAt: $data['updatedTimestamp'] ?? null,
         );
     }
 }

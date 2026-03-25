@@ -10,7 +10,7 @@ final class ContactTag
         public readonly int $id,
         public readonly int $contact,
         public readonly int $tag,
-        public readonly string $createdAt,
+        public readonly ?string $createdAt,
     ) {
     }
 
@@ -23,7 +23,7 @@ final class ContactTag
             id: (int) $data['id'],
             contact: (int) $data['contact'],
             tag: (int) $data['tag'],
-            createdAt: $data['cdate'] ?? '',
+            createdAt: $data['cdate'] ?? null,
         );
     }
 }

@@ -10,8 +10,8 @@ final class CampaignLink
         public readonly int $id,
         public readonly int $campaignId,
         public readonly int $messageId,
-        public readonly string $link,
-        public readonly string $name,
+        public readonly ?string $link,
+        public readonly ?string $name,
         public readonly bool $tracked,
     ) {
     }
@@ -25,8 +25,8 @@ final class CampaignLink
             id: (int) $data['id'],
             campaignId: (int) ($data['campaignid'] ?? $data['campaign'] ?? 0),
             messageId: (int) ($data['messageid'] ?? $data['message'] ?? 0),
-            link: $data['link'] ?? '',
-            name: $data['name'] ?? '',
+            link: $data['link'] ?? null,
+            name: $data['name'] ?? null,
             tracked: (bool) ($data['tracked'] ?? false),
         );
     }

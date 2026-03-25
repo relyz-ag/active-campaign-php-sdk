@@ -42,12 +42,12 @@ final class EcomCustomerTest extends TestCase
 
         $this->assertSame(5, $customer->id);
         $this->assertSame(0, $customer->connectionId);
-        $this->assertSame('', $customer->externalId);
-        $this->assertSame('', $customer->email);
+        $this->assertNull($customer->externalId);
+        $this->assertNull($customer->email);
         $this->assertSame(0, $customer->totalRevenue);
         $this->assertSame(0, $customer->totalOrders);
         $this->assertSame(0, $customer->totalProducts);
         $this->assertFalse($customer->acceptsMarketing);
-        $this->assertSame('', $customer->createdAt);
+        $this->assertNull($customer->createdAt);
     }
 }

@@ -37,11 +37,11 @@ final class ScoreTest extends TestCase
         ]);
 
         $this->assertSame(1, $score->id);
-        $this->assertSame('', $score->name);
-        $this->assertSame('', $score->relType);
-        $this->assertSame('', $score->description);
+        $this->assertNull($score->name);
+        $this->assertNull($score->relType);
+        $this->assertNull($score->description);
         $this->assertSame(0, $score->status);
-        $this->assertSame('', $score->createdAt);
-        $this->assertSame('', $score->updatedAt);
+        $this->assertNull($score->createdAt);
+        $this->assertNull($score->updatedAt);
     }
 }

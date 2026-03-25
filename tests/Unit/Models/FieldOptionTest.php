@@ -41,11 +41,11 @@ final class FieldOptionTest extends TestCase
 
         $this->assertSame(1, $fieldOption->id);
         $this->assertSame(2, $fieldOption->field);
-        $this->assertSame('', $fieldOption->value);
-        $this->assertSame('', $fieldOption->label);
+        $this->assertNull($fieldOption->value);
+        $this->assertNull($fieldOption->label);
         $this->assertFalse($fieldOption->isDefault);
         $this->assertSame(0, $fieldOption->orderid);
-        $this->assertSame('', $fieldOption->createdAt);
-        $this->assertSame('', $fieldOption->updatedAt);
+        $this->assertNull($fieldOption->createdAt);
+        $this->assertNull($fieldOption->updatedAt);
     }
 }

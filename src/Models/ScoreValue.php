@@ -12,8 +12,8 @@ final class ScoreValue
         public readonly int $contact,
         public readonly ?int $deal,
         public readonly int $scoreValue,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -28,8 +28,8 @@ final class ScoreValue
             contact: (int) $data['contact'],
             deal: isset($data['deal']) ? (int) $data['deal'] : null,
             scoreValue: (int) ($data['scoreValue'] ?? 0),
-            createdAt: $data['cdate'] ?? '',
-            updatedAt: $data['mdate'] ?? '',
+            createdAt: $data['cdate'] ?? null,
+            updatedAt: $data['mdate'] ?? null,
         );
     }
 }

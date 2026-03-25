@@ -29,6 +29,7 @@ final class MailingList
             senderUrl: $data['sender_url'] ?? null,
             senderReminder: $data['sender_reminder'] ?? null,
             createdAt: $data['cdate'],
+            // Falls back to cdate when udate is not present in the API response
             updatedAt: $data['udate'] ?? $data['cdate'],
         );
     }

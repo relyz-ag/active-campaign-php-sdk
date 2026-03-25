@@ -41,12 +41,12 @@ final class CustomObjectSchemaTest extends TestCase
         ]);
 
         $this->assertSame('abc-123', $schema->id);
-        $this->assertSame('', $schema->slug);
-        $this->assertSame('', $schema->description);
-        $this->assertSame('', $schema->singularLabel);
-        $this->assertSame('', $schema->pluralLabel);
+        $this->assertNull($schema->slug);
+        $this->assertNull($schema->description);
+        $this->assertNull($schema->singularLabel);
+        $this->assertNull($schema->pluralLabel);
         $this->assertSame('private', $schema->visibility);
-        $this->assertSame('', $schema->createdAt);
-        $this->assertSame('', $schema->updatedAt);
+        $this->assertNull($schema->createdAt);
+        $this->assertNull($schema->updatedAt);
     }
 }

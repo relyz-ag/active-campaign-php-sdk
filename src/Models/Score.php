@@ -8,12 +8,12 @@ final class Score
 {
     public function __construct(
         public readonly int $id,
-        public readonly string $name,
-        public readonly string $relType,
-        public readonly string $description,
+        public readonly ?string $name,
+        public readonly ?string $relType,
+        public readonly ?string $description,
         public readonly int $status,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -24,12 +24,12 @@ final class Score
     {
         return new self(
             id: (int) $data['id'],
-            name: $data['name'] ?? '',
-            relType: $data['reltype'] ?? '',
-            description: $data['descript'] ?? '',
+            name: $data['name'] ?? null,
+            relType: $data['reltype'] ?? null,
+            description: $data['descript'] ?? null,
             status: (int) ($data['status'] ?? 0),
-            createdAt: $data['cdate'] ?? '',
-            updatedAt: $data['mdate'] ?? '',
+            createdAt: $data['cdate'] ?? null,
+            updatedAt: $data['mdate'] ?? null,
         );
     }
 }

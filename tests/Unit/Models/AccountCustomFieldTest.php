@@ -44,7 +44,7 @@ final class AccountCustomFieldTest extends TestCase
         $this->assertNull($m->fieldDefault);
         $this->assertFalse($m->isFormVisible);
         $this->assertSame(0, $m->displayOrder);
-        $this->assertSame('', $m->createdAt);
-        $this->assertSame('', $m->updatedAt);
+        $this->assertNull($m->createdAt);
+        $this->assertNull($m->updatedAt);
     }
 }

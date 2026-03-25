@@ -43,14 +43,14 @@ final class MessageTest extends TestCase
         ]);
 
         $this->assertSame(1, $message->id);
-        $this->assertSame('', $message->subject);
-        $this->assertSame('', $message->fromName);
-        $this->assertSame('', $message->fromEmail);
-        $this->assertSame('', $message->reply2);
+        $this->assertNull($message->subject);
+        $this->assertNull($message->fromName);
+        $this->assertNull($message->fromEmail);
+        $this->assertNull($message->reply2);
         $this->assertNull($message->preheaderText);
         $this->assertNull($message->html);
         $this->assertNull($message->text);
-        $this->assertSame('', $message->createdAt);
-        $this->assertSame('', $message->updatedAt);
+        $this->assertNull($message->createdAt);
+        $this->assertNull($message->updatedAt);
     }
 }

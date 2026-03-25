@@ -38,9 +38,9 @@ final class DealCustomFieldValueTest extends TestCase
             'customFieldId' => '3',
         ]);
 
-        $this->assertSame('', $value->fieldValue);
+        $this->assertNull($value->fieldValue);
         $this->assertNull($value->fieldCurrency);
-        $this->assertSame('', $value->createdAt);
-        $this->assertSame('', $value->updatedAt);
+        $this->assertNull($value->createdAt);
+        $this->assertNull($value->updatedAt);
     }
 }

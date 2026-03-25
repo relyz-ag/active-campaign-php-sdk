@@ -34,7 +34,7 @@ final class DealTaskTypeTest extends TestCase
         ]);
 
         $this->assertSame(0, $type->status);
-        $this->assertSame('', $type->createdAt);
-        $this->assertSame('', $type->updatedAt);
+        $this->assertNull($type->createdAt);
+        $this->assertNull($type->updatedAt);
     }
 }

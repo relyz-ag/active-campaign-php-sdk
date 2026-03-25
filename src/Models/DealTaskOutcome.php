@@ -9,8 +9,8 @@ final class DealTaskOutcome
     public function __construct(
         public readonly int $id,
         public readonly string $title,
-        public readonly string $sentiment,
-        public readonly string $disabled,
+        public readonly ?string $sentiment,
+        public readonly ?string $disabled,
         public readonly ?int $createdBy,
     ) {
     }
@@ -23,8 +23,8 @@ final class DealTaskOutcome
         return new self(
             id: (int) $data['id'],
             title: $data['title'],
-            sentiment: $data['sentiment'] ?? '',
-            disabled: $data['disabled'] ?? '',
+            sentiment: $data['sentiment'] ?? null,
+            disabled: $data['disabled'] ?? null,
             createdBy: isset($data['created_by']) ? (int) $data['created_by'] : null,
         );
     }

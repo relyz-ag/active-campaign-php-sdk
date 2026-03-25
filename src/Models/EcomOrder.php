@@ -10,16 +10,16 @@ final class EcomOrder
         public readonly int $id,
         public readonly int $connectionId,
         public readonly int $customerId,
-        public readonly string $externalId,
-        public readonly string $email,
+        public readonly ?string $externalId,
+        public readonly ?string $email,
         public readonly int $totalPrice,
-        public readonly string $currency,
+        public readonly ?string $currency,
         public readonly ?string $orderNumber,
-        public readonly string $orderDate,
+        public readonly ?string $orderDate,
         public readonly ?string $shippingMethod,
         public readonly int $state,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -32,16 +32,18 @@ final class EcomOrder
             id: (int) $data['id'],
             connectionId: (int) ($data['connectionid'] ?? 0),
             customerId: (int) ($data['customerid'] ?? 0),
-            externalId: $data['externalid'] ?? '',
-            email: $data['email'] ?? '',
+            externalId: $data['externalid'] ?? null,
+            email: $data['email'] ?? null,
             totalPrice: (int) ($data['totalPrice'] ?? 0),
-            currency: $data['currency'] ?? '',
+            currency: $data['currency'] ?? null,
             orderNumber: $data['orderNumber'] ?? null,
-            orderDate: $data['orderDate'] ?? $data['externalCreatedDate'] ?? '',
+            // Falls back to externalCreatedDate when orderDate is not present
+            orderDate: $data['orderDate'] ?? $data['externalCreatedDate'] ?? null,
             shippingMethod: $data['shippingMethod'] ?? null,
             state: (int) ($data['state'] ?? 0),
-            createdAt: $data['createdDate'] ?? $data['tstamp'] ?? '',
-            updatedAt: $data['updatedDate'] ?? '',
+            // Falls back to tstamp when createdDate is not present
+            createdAt: $data['createdDate'] ?? $data['tstamp'] ?? null,
+            updatedAt: $data['updatedDate'] ?? null,
         );
     }
 }

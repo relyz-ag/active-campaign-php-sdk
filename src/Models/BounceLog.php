@@ -9,10 +9,10 @@ final class BounceLog
     public function __construct(
         public readonly int $id,
         public readonly int $contact,
-        public readonly string $email,
-        public readonly string $error,
-        public readonly string $source,
-        public readonly string $timestamp,
+        public readonly ?string $email,
+        public readonly ?string $error,
+        public readonly ?string $source,
+        public readonly ?string $timestamp,
     ) {
     }
 
@@ -24,10 +24,10 @@ final class BounceLog
         return new self(
             id: (int) $data['id'],
             contact: (int) ($data['contact'] ?? $data['subscriberid'] ?? 0),
-            email: $data['email'] ?? '',
-            error: $data['error'] ?? '',
-            source: $data['source'] ?? '',
-            timestamp: $data['tstamp'] ?? '',
+            email: $data['email'] ?? null,
+            error: $data['error'] ?? null,
+            source: $data['source'] ?? null,
+            timestamp: $data['tstamp'] ?? null,
         );
     }
 }

@@ -10,9 +10,9 @@ final class AccountContact
         public readonly int $id,
         public readonly int $account,
         public readonly int $contact,
-        public readonly string $jobTitle,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $jobTitle,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -25,9 +25,9 @@ final class AccountContact
             id: (int) $data['id'],
             account: (int) $data['account'],
             contact: (int) $data['contact'],
-            jobTitle: $data['jobTitle'] ?? '',
-            createdAt: $data['createdTimestamp'] ?? '',
-            updatedAt: $data['updatedTimestamp'] ?? '',
+            jobTitle: $data['jobTitle'] ?? null,
+            createdAt: $data['createdTimestamp'] ?? null,
+            updatedAt: $data['updatedTimestamp'] ?? null,
         );
     }
 }

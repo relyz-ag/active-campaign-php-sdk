@@ -37,8 +37,8 @@ final class AccountContactTest extends TestCase
         ]);
 
         $this->assertSame(2, $m->id);
-        $this->assertSame('', $m->jobTitle);
-        $this->assertSame('', $m->createdAt);
-        $this->assertSame('', $m->updatedAt);
+        $this->assertNull($m->jobTitle);
+        $this->assertNull($m->createdAt);
+        $this->assertNull($m->updatedAt);
     }
 }

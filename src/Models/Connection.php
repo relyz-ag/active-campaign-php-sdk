@@ -8,15 +8,15 @@ final class Connection
 {
     public function __construct(
         public readonly int $id,
-        public readonly string $service,
-        public readonly string $externalId,
-        public readonly string $name,
+        public readonly ?string $service,
+        public readonly ?string $externalId,
+        public readonly ?string $name,
         public readonly int $status,
-        public readonly string $logoUrl,
-        public readonly string $linkUrl,
+        public readonly ?string $logoUrl,
+        public readonly ?string $linkUrl,
         public readonly bool $isInternal,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -27,15 +27,15 @@ final class Connection
     {
         return new self(
             id: (int) $data['id'],
-            service: $data['service'] ?? '',
-            externalId: $data['externalid'] ?? '',
-            name: $data['name'] ?? '',
+            service: $data['service'] ?? null,
+            externalId: $data['externalid'] ?? null,
+            name: $data['name'] ?? null,
             status: (int) ($data['status'] ?? 0),
-            logoUrl: $data['logoUrl'] ?? '',
-            linkUrl: $data['linkUrl'] ?? '',
+            logoUrl: $data['logoUrl'] ?? null,
+            linkUrl: $data['linkUrl'] ?? null,
             isInternal: (bool) ($data['isInternal'] ?? false),
-            createdAt: $data['cdate'] ?? '',
-            updatedAt: $data['udate'] ?? '',
+            createdAt: $data['cdate'] ?? null,
+            updatedAt: $data['udate'] ?? null,
         );
     }
 }

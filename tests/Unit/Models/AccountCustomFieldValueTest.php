@@ -52,8 +52,8 @@ final class AccountCustomFieldValueTest extends TestCase
         $this->assertSame(3, $m->id);
         $this->assertSame(0, $m->accountId);
         $this->assertSame(0, $m->customFieldId);
-        $this->assertSame('', $m->fieldValue);
-        $this->assertSame('', $m->createdAt);
-        $this->assertSame('', $m->updatedAt);
+        $this->assertNull($m->fieldValue);
+        $this->assertNull($m->createdAt);
+        $this->assertNull($m->updatedAt);
     }
 }

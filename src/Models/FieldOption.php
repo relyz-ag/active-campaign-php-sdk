@@ -9,12 +9,12 @@ final class FieldOption
     public function __construct(
         public readonly int $id,
         public readonly int $field,
-        public readonly string $value,
-        public readonly string $label,
+        public readonly ?string $value,
+        public readonly ?string $label,
         public readonly bool $isDefault,
         public readonly int $orderid,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -26,12 +26,12 @@ final class FieldOption
         return new self(
             id: (int) $data['id'],
             field: (int) $data['field'],
-            value: $data['value'] ?? '',
-            label: $data['label'] ?? '',
+            value: $data['value'] ?? null,
+            label: $data['label'] ?? null,
             isDefault: (bool) ($data['isdefault'] ?? false),
             orderid: (int) ($data['orderid'] ?? 0),
-            createdAt: $data['cdate'] ?? '',
-            updatedAt: $data['udate'] ?? '',
+            createdAt: $data['cdate'] ?? null,
+            updatedAt: $data['udate'] ?? null,
         );
     }
 }

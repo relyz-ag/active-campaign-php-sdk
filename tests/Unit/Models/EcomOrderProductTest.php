@@ -60,8 +60,8 @@ final class EcomOrderProductTest extends TestCase
 
         $this->assertSame(5, $product->id);
         $this->assertSame(0, $product->orderId);
-        $this->assertSame('', $product->externalId);
-        $this->assertSame('', $product->name);
+        $this->assertNull($product->externalId);
+        $this->assertNull($product->name);
         $this->assertSame(0, $product->price);
         $this->assertSame(0, $product->quantity);
         $this->assertNull($product->category);
@@ -69,7 +69,7 @@ final class EcomOrderProductTest extends TestCase
         $this->assertNull($product->description);
         $this->assertNull($product->imageUrl);
         $this->assertNull($product->productUrl);
-        $this->assertSame('', $product->createdAt);
-        $this->assertSame('', $product->updatedAt);
+        $this->assertNull($product->createdAt);
+        $this->assertNull($product->updatedAt);
     }
 }

@@ -10,8 +10,8 @@ final class DealTaskType
         public readonly int $id,
         public readonly string $title,
         public readonly int $status,
-        public readonly string $createdAt,
-        public readonly string $updatedAt,
+        public readonly ?string $createdAt,
+        public readonly ?string $updatedAt,
     ) {
     }
 
@@ -24,8 +24,8 @@ final class DealTaskType
             id: (int) $data['id'],
             title: $data['title'],
             status: (int) ($data['status'] ?? 0),
-            createdAt: $data['cdate'] ?? '',
-            updatedAt: $data['udate'] ?? '',
+            createdAt: $data['cdate'] ?? null,
+            updatedAt: $data['udate'] ?? null,
         );
     }
 }

@@ -30,9 +30,9 @@ final class CustomObjectRecordTest extends TestCase
     {
         $record = CustomObjectRecord::fromArray([]);
 
-        $this->assertSame('', $record->id);
+        $this->assertNull($record->id);
         $this->assertNull($record->externalId);
-        $this->assertSame('', $record->schemaId);
+        $this->assertNull($record->schemaId);
         $this->assertSame([], $record->fields);
         $this->assertSame([], $record->relationships);
     }
