@@ -24,6 +24,12 @@ $ac = new ActiveCampaign\Sdk\ActiveCampaign(
 );
 ```
 
+Or set the `ACTIVE_CAMPAIGN_API_URL` and `ACTIVE_CAMPAIGN_API_KEY` environment variables (via `.env`, Docker, `export`, etc.) and omit the arguments:
+
+```php
+$ac = new ActiveCampaign\Sdk\ActiveCampaign();
+```
+
 ### Create a contact
 
 ```php

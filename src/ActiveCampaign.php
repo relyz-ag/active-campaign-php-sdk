@@ -114,10 +114,25 @@ final class ActiveCampaign
     private ?CustomObjectSchemas $customObjectSchemas = null;
 
     public function __construct(
-        string $url,
-        string $apiKey,
+        ?string $url = null,
+        ?string $apiKey = null,
         int $maxRetries = 3,
     ) {
+        $url ??= getenv('ACTIVE_CAMPAIGN_API_URL') ?: null;
+        $apiKey ??= getenv('ACTIVE_CAMPAIGN_API_KEY') ?: null;
+
+        if ($url === null) {
+            throw new \InvalidArgumentException(
+                'ActiveCampaign API URL is required. Pass it to the constructor or set the ACTIVE_CAMPAIGN_API_URL environment variable.'
+            );
+        }
+
+        if ($apiKey === null) {
+            throw new \InvalidArgumentException(
+                'ActiveCampaign API key is required. Pass it to the constructor or set the ACTIVE_CAMPAIGN_API_KEY environment variable.'
+            );
+        }
+
         $this->client = new Client(
             url: $url,
             apiKey: $apiKey,
