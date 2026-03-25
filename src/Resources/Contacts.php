@@ -12,8 +12,10 @@ use ActiveCampaign\Models\ContactAutomation;
 use ActiveCampaign\Models\ContactDeal;
 use ActiveCampaign\Models\ContactList;
 use ActiveCampaign\Models\ContactTag;
+use ActiveCampaign\Models\EmailActivity;
 use ActiveCampaign\Models\GeoIp;
 use ActiveCampaign\Models\ScoreValue;
+use ActiveCampaign\Models\TrackingLog;
 use ActiveCampaign\Resources\Concerns\HasCrud;
 
 /**
@@ -157,19 +159,29 @@ final class Contacts extends Resource
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<TrackingLog>
      */
     public function listTrackingLogs(int $contactId): array
     {
-        return $this->client->get('contacts/' . $contactId . '/trackingLogs');
+        $response = $this->client->get('contacts/' . $contactId . '/trackingLogs');
+
+        return array_map(
+            fn (array $item) => TrackingLog::fromArray($item),
+            $response['trackingLogs'] ?? [],
+        );
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<EmailActivity>
      */
     public function listEmailActivities(int $contactId): array
     {
-        return $this->client->get('contacts/' . $contactId . '/emailActivities');
+        $response = $this->client->get('contacts/' . $contactId . '/emailActivities');
+
+        return array_map(
+            fn (array $item) => EmailActivity::fromArray($item),
+            $response['emailActivities'] ?? [],
+        );
     }
 
     public function create(string $email, ?string $firstName = null, ?string $lastName = null, ?string $phone = null): Contact

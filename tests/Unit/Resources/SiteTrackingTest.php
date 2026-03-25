@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ActiveCampaign\Tests\Unit\Resources;
 
 use ActiveCampaign\Http\Client;
+use ActiveCampaign\Models\SiteTrackingDomain;
+use ActiveCampaign\Models\TrackingStatus;
 use ActiveCampaign\Resources\SiteTracking;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
@@ -30,7 +32,8 @@ final class SiteTrackingTest extends TestCase
 
         $this->assertSame('GET', $this->history[0]['request']->getMethod());
         $this->assertStringContainsString('/api/3/siteTracking', $this->history[0]['request']->getUri()->getPath());
-        $this->assertTrue($result['siteTracking']['enabled']);
+        $this->assertInstanceOf(TrackingStatus::class, $result);
+        $this->assertTrue($result->enabled);
     }
 
     public function testEnable(): void
@@ -46,7 +49,8 @@ final class SiteTrackingTest extends TestCase
         $this->assertSame('PUT', $this->history[0]['request']->getMethod());
         $body = json_decode((string) $this->history[0]['request']->getBody(), true);
         $this->assertSame(['siteTracking' => ['enabled' => true]], $body);
-        $this->assertTrue($result['siteTracking']['enabled']);
+        $this->assertInstanceOf(TrackingStatus::class, $result);
+        $this->assertTrue($result->enabled);
     }
 
     public function testDisable(): void
@@ -62,7 +66,8 @@ final class SiteTrackingTest extends TestCase
         $this->assertSame('PUT', $this->history[0]['request']->getMethod());
         $body = json_decode((string) $this->history[0]['request']->getBody(), true);
         $this->assertSame(['siteTracking' => ['enabled' => false]], $body);
-        $this->assertFalse($result['siteTracking']['enabled']);
+        $this->assertInstanceOf(TrackingStatus::class, $result);
+        $this->assertFalse($result->enabled);
     }
 
     public function testAddWhitelistDomain(): void
@@ -78,7 +83,8 @@ final class SiteTrackingTest extends TestCase
         $this->assertSame('POST', $this->history[0]['request']->getMethod());
         $body = json_decode((string) $this->history[0]['request']->getBody(), true);
         $this->assertSame(['siteTrackingDomain' => ['name' => 'example.com']], $body);
-        $this->assertSame('example.com', $result['siteTrackingDomain']['name']);
+        $this->assertInstanceOf(SiteTrackingDomain::class, $result);
+        $this->assertSame('example.com', $result->name);
     }
 
     public function testRemoveWhitelistDomain(): void
@@ -108,7 +114,10 @@ final class SiteTrackingTest extends TestCase
 
         $this->assertSame('GET', $this->history[0]['request']->getMethod());
         $this->assertStringContainsString('/api/3/siteTrackingDomains', $this->history[0]['request']->getUri()->getPath());
-        $this->assertCount(2, $result['siteTrackingDomains']);
+        $this->assertCount(2, $result);
+        $this->assertInstanceOf(SiteTrackingDomain::class, $result[0]);
+        $this->assertSame('example.com', $result[0]->name);
+        $this->assertSame('test.com', $result[1]->name);
     }
 
     /**

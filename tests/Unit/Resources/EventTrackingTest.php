@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ActiveCampaign\Tests\Unit\Resources;
 
 use ActiveCampaign\Http\Client;
+use ActiveCampaign\Models\TrackingEvent;
+use ActiveCampaign\Models\TrackingStatus;
 use ActiveCampaign\Resources\EventTracking;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
@@ -30,7 +32,8 @@ final class EventTrackingTest extends TestCase
 
         $this->assertSame('GET', $this->history[0]['request']->getMethod());
         $this->assertStringContainsString('/api/3/eventTracking', $this->history[0]['request']->getUri()->getPath());
-        $this->assertTrue($result['eventTracking']['enabled']);
+        $this->assertInstanceOf(TrackingStatus::class, $result);
+        $this->assertTrue($result->enabled);
     }
 
     public function testEnable(): void
@@ -46,7 +49,8 @@ final class EventTrackingTest extends TestCase
         $this->assertSame('PUT', $this->history[0]['request']->getMethod());
         $body = json_decode((string) $this->history[0]['request']->getBody(), true);
         $this->assertSame(['eventTracking' => ['enabled' => true]], $body);
-        $this->assertTrue($result['eventTracking']['enabled']);
+        $this->assertInstanceOf(TrackingStatus::class, $result);
+        $this->assertTrue($result->enabled);
     }
 
     public function testDisable(): void
@@ -62,7 +66,8 @@ final class EventTrackingTest extends TestCase
         $this->assertSame('PUT', $this->history[0]['request']->getMethod());
         $body = json_decode((string) $this->history[0]['request']->getBody(), true);
         $this->assertSame(['eventTracking' => ['enabled' => false]], $body);
-        $this->assertFalse($result['eventTracking']['enabled']);
+        $this->assertInstanceOf(TrackingStatus::class, $result);
+        $this->assertFalse($result->enabled);
     }
 
     public function testListEvents(): void
@@ -80,7 +85,10 @@ final class EventTrackingTest extends TestCase
 
         $this->assertSame('GET', $this->history[0]['request']->getMethod());
         $this->assertStringContainsString('/api/3/eventTrackingEvents', $this->history[0]['request']->getUri()->getPath());
-        $this->assertCount(2, $result['eventTrackingEvents']);
+        $this->assertCount(2, $result);
+        $this->assertInstanceOf(TrackingEvent::class, $result[0]);
+        $this->assertSame('my_event', $result[0]->name);
+        $this->assertSame('another_event', $result[1]->name);
     }
 
     public function testCreateEvent(): void
@@ -96,7 +104,8 @@ final class EventTrackingTest extends TestCase
         $this->assertSame('POST', $this->history[0]['request']->getMethod());
         $body = json_decode((string) $this->history[0]['request']->getBody(), true);
         $this->assertSame(['eventTrackingEvent' => ['name' => 'my_event']], $body);
-        $this->assertSame('my_event', $result['eventTrackingEvent']['name']);
+        $this->assertInstanceOf(TrackingEvent::class, $result);
+        $this->assertSame('my_event', $result->name);
     }
 
     public function testDeleteEvent(): void

@@ -4,61 +4,65 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Resources;
 
+use ActiveCampaign\Models\TrackingEvent;
+use ActiveCampaign\Models\TrackingStatus;
+
 /**
  * @extends Resource<mixed>
  */
 final class EventTracking extends Resource
 {
-    /**
-     * @return array<string, mixed>
-     */
-    public function getStatus(): array
+    public function getStatus(): TrackingStatus
     {
-        return $this->client->get('eventTracking');
+        $response = $this->client->get('eventTracking');
+
+        return TrackingStatus::fromArray($response['eventTracking']);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function enable(): array
+    public function enable(): TrackingStatus
     {
-        return $this->client->put('eventTracking', [
+        $response = $this->client->put('eventTracking', [
             'eventTracking' => [
                 'enabled' => true,
             ],
         ]);
+
+        return TrackingStatus::fromArray($response['eventTracking']);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function disable(): array
+    public function disable(): TrackingStatus
     {
-        return $this->client->put('eventTracking', [
+        $response = $this->client->put('eventTracking', [
             'eventTracking' => [
                 'enabled' => false,
             ],
         ]);
+
+        return TrackingStatus::fromArray($response['eventTracking']);
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<TrackingEvent>
      */
     public function listEvents(): array
     {
-        return $this->client->get('eventTrackingEvents');
+        $response = $this->client->get('eventTrackingEvents');
+
+        return array_map(
+            fn (array $item) => TrackingEvent::fromArray($item),
+            $response['eventTrackingEvents'] ?? [],
+        );
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function createEvent(string $name): array
+    public function createEvent(string $name): TrackingEvent
     {
-        return $this->client->post('eventTrackingEvents', [
+        $response = $this->client->post('eventTrackingEvents', [
             'eventTrackingEvent' => [
                 'name' => $name,
             ],
         ]);
+
+        return TrackingEvent::fromArray($response['eventTrackingEvent']);
     }
 
     public function deleteEvent(string $name): void

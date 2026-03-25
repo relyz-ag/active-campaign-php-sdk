@@ -4,53 +4,52 @@ declare(strict_types=1);
 
 namespace ActiveCampaign\Resources;
 
+use ActiveCampaign\Models\SiteTrackingDomain;
+use ActiveCampaign\Models\TrackingStatus;
+
 /**
  * @extends Resource<mixed>
  */
 final class SiteTracking extends Resource
 {
-    /**
-     * @return array<string, mixed>
-     */
-    public function getStatus(): array
+    public function getStatus(): TrackingStatus
     {
-        return $this->client->get('siteTracking');
+        $response = $this->client->get('siteTracking');
+
+        return TrackingStatus::fromArray($response['siteTracking']);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function enable(): array
+    public function enable(): TrackingStatus
     {
-        return $this->client->put('siteTracking', [
+        $response = $this->client->put('siteTracking', [
             'siteTracking' => [
                 'enabled' => true,
             ],
         ]);
+
+        return TrackingStatus::fromArray($response['siteTracking']);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function disable(): array
+    public function disable(): TrackingStatus
     {
-        return $this->client->put('siteTracking', [
+        $response = $this->client->put('siteTracking', [
             'siteTracking' => [
                 'enabled' => false,
             ],
         ]);
+
+        return TrackingStatus::fromArray($response['siteTracking']);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function addWhitelistDomain(string $name): array
+    public function addWhitelistDomain(string $name): SiteTrackingDomain
     {
-        return $this->client->post('siteTrackingDomains', [
+        $response = $this->client->post('siteTrackingDomains', [
             'siteTrackingDomain' => [
                 'name' => $name,
             ],
         ]);
+
+        return SiteTrackingDomain::fromArray($response['siteTrackingDomain']);
     }
 
     public function removeWhitelistDomain(string $name): void
@@ -59,10 +58,15 @@ final class SiteTracking extends Resource
     }
 
     /**
-     * @return array<string, mixed>
+     * @return list<SiteTrackingDomain>
      */
     public function listWhitelistDomains(): array
     {
-        return $this->client->get('siteTrackingDomains');
+        $response = $this->client->get('siteTrackingDomains');
+
+        return array_map(
+            fn (array $item) => SiteTrackingDomain::fromArray($item),
+            $response['siteTrackingDomains'] ?? [],
+        );
     }
 }

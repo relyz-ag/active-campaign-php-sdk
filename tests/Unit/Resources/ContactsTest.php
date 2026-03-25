@@ -13,8 +13,10 @@ use ActiveCampaign\Models\ContactAutomation;
 use ActiveCampaign\Models\ContactDeal;
 use ActiveCampaign\Models\ContactList;
 use ActiveCampaign\Models\ContactTag;
+use ActiveCampaign\Models\EmailActivity;
 use ActiveCampaign\Models\GeoIp;
 use ActiveCampaign\Models\ScoreValue;
+use ActiveCampaign\Models\TrackingLog;
 use ActiveCampaign\Resources\Contacts;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
@@ -182,26 +184,34 @@ final class ContactsTest extends TestCase
     {
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
-                'trackingLogs' => [],
+                'trackingLogs' => [['subscriberid' => '42', 'type' => 'page_visit', 'value' => 'https://example.com', 'tstamp' => '2024-01-01']],
             ])),
         ]);
 
         $result = $contacts->listTrackingLogs(1);
 
         $this->assertStringContainsString('/api/3/contacts/1/trackingLogs', $this->history[0]['request']->getUri()->getPath());
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(TrackingLog::class, $result[0]);
+        $this->assertSame(42, $result[0]->subscriberId);
+        $this->assertSame('page_visit', $result[0]->type);
     }
 
     public function testListEmailActivities(): void
     {
         $contacts = $this->makeContacts([
             new Response(200, [], (string) json_encode([
-                'emailActivities' => [],
+                'emailActivities' => [['tstamp' => '2024-01-01', 'type' => 'open', 'subscriberid' => '42', 'campaignid' => '7']],
             ])),
         ]);
 
         $result = $contacts->listEmailActivities(1);
 
         $this->assertStringContainsString('/api/3/contacts/1/emailActivities', $this->history[0]['request']->getUri()->getPath());
+        $this->assertCount(1, $result);
+        $this->assertInstanceOf(EmailActivity::class, $result[0]);
+        $this->assertSame(42, $result[0]->subscriberId);
+        $this->assertSame(7, $result[0]->campaignId);
     }
 
     public function testAddToAutomation(): void
