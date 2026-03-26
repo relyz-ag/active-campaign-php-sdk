@@ -26,7 +26,7 @@ vendor/bin/php-cs-fixer fix
 
 ## Pull Request Guidelines
 
-- **Branch from `main`** and target `main` with your PR.
+- **Branch from `master`** and target `master` with your PR.
 - **Write tests** for every new feature or bug fix.
 - **Run the full suite** before submitting: tests, PHPStan, and PHP-CS-Fixer must all pass.
 - **One logical change per PR.** Split unrelated changes into separate pull requests.

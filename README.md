@@ -108,8 +108,6 @@ To customize retry behavior (e.g., for non-blocking strategies or logging):
 
 ```php
 $ac = new Client(
-    url: 'https://yourinstance.api-us1.com',
-    apiKey: 'your-api-key',
     maxRetries: 5,
 );
 ```
@@ -120,10 +118,7 @@ For advanced control, provide a custom retry callback via the HTTP client:
 use ActiveCampaign\Http\Client as HttpClient;
 
 $httpClient = new HttpClient(
-    url: 'https://yourinstance.api-us1.com',
-    apiKey: 'your-api-key',
     retryDelay: function (int $retryAfter, int $attempt): void {
-        // Custom logic: log, use non-blocking sleep, etc.
         usleep($retryAfter * 1_000_000);
     },
 );
@@ -137,8 +132,6 @@ The SDK accepts any PSR-18 compatible HTTP client:
 use ActiveCampaign\Client;
 
 $ac = new Client(
-    url: 'https://yourinstance.api-us1.com',
-    apiKey: 'your-api-key',
     httpClient: $yourPsr18Client,
 );
 ```
