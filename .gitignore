@@ -2,7 +2,7 @@
 /.phpunit.cache/
 /.php-cs-fixer.cache
 /docs/plans
-/claude/*local*
+/.claude/
 .DS_Store
 /.idea/
 /.vscode/
