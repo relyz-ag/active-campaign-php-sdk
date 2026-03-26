@@ -1,5 +1,5 @@
 {
-    "name": "active-campaign/php-sdk",
+    "name": "relyz/active-campaign-sdk",
     "description": "PHP SDK for the ActiveCampaign API v3",
     "type": "library",
     "license": "MIT",

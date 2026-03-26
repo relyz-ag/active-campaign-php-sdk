@@ -14,7 +14,7 @@ PHP wrapper for the [ActiveCampaign API v3](https://developers.activecampaign.co
 ## Installation
 
 ```bash
-composer require active-campaign/php-sdk
+composer require relyz/active-campaign-sdk
 ```
 
 ## Usage

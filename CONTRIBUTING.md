@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for considering a contribution to the ActiveCampaign PHP SDK.
+Thank you for considering a contribution to the Relyz ActiveCampaign SDK.
 
 ## Development Setup
 
