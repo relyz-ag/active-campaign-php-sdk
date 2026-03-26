@@ -35,14 +35,24 @@ $ac = new ActiveCampaign\Client();
 ### Create a contact
 
 ```php
-$contact = $ac->contacts()->create([
+$contact = $ac->contacts()->create(
+    email: 'jane@example.com',
+    firstName: 'Jane',
+    lastName: 'Doe',
+);
+
+// $contact is a typed Contact model
+echo $contact->id;
+```
+
+For most methods there are simplified versions (like the one above) that should cover most use cases. In case some parameters are missing from the simplified version, there is always a *Raw method available, to which you can just pass an array with all the parameters that the API endpoints accepts.
+
+```php
+$contact = $ac->contacts()->createRaw([
     'email' => 'jane@example.com',
     'firstName' => 'Jane',
     'lastName' => 'Doe',
 ]);
-
-// $contact is a typed Contact model
-echo $contact->id;
 ```
 
 ## Error Handling
