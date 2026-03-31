@@ -341,4 +341,17 @@ final class Client
     {
         return new CustomObjectRecords($this->client, $schemaId);
     }
+
+    // --- Health check ---
+
+    public function isReachable(): bool
+    {
+        try {
+            $this->client->get('users/me');
+
+            return true;
+        } catch (\Throwable) {
+            return false;
+        }
+    }
 }
